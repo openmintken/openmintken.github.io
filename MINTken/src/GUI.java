@@ -11,17 +11,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.GeneralPath;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicSliderUI;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  * Eine grafische Darstellung des MINT-Punktezaehlers
  * @author Joana Bergsiek
- * @version 1.0
+ * @version 1.1
  */
 public class GUI extends javax.swing.JFrame {
     
@@ -31,6 +36,17 @@ public class GUI extends javax.swing.JFrame {
     private final ArrayList<JSlider> alleA3Slider = new ArrayList<>();
     private Zertifikat zer;
     private final int[] reihenindexPuffer = new int[16]; //siehe reiheHervorheben
+    private TableRowSorter<TableModel> rowSorter;
+    //Diese Aktivitaeten sind nicht in der S1 absolvierbar
+    private final ArrayList<String> KEINES1AKTIVITAETEN = new ArrayList(){ {add("Naturwissenschaftliche Profilklasse (Falls noch nicht in Anforderungsfeld I oder II eingebracht)");
+        add("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (s.o)");
+        add("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (s.o.)");
+        add("MINT-AG SII");
+    }}; 
+    //Diese Aktivitaeten sind nicht in der S2 absolvierbar
+    private final ArrayList<String> KEINES2AKTIVITAETEN = new ArrayList(){ {add("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie");
+        add("MINT-AG SI");
+    }}; 
     
     /**
      * Creates new form GUI
@@ -38,7 +54,6 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         
-        zer = new Zertifikat();
         initialisiereMeineElemente();
     }
 
@@ -52,6 +67,11 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -118,6 +138,7 @@ public class GUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         jFrame1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jFrame1.setForeground(java.awt.Color.lightGray);
@@ -135,8 +156,38 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jPopupMenu1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+        jMenuItem1.setText("Aktivität SI hinzufügen");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+        jMenuItem2.setText("Aktivität SII hinzufügen");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
+        jPopupMenu1.add(jSeparator1);
+
+        jMenuItem3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+        jMenuItem3.setText("Alle A3-Aktivitäten löschen");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem3);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MINTken Version 1.0 ");
+        setTitle("MINTken Version 1.1 Joana Bergsiek");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 780));
@@ -163,6 +214,12 @@ public class GUI extends javax.swing.JFrame {
         jTable1.setName("Aktivitaetenliste"); // NOI18N
         jTable1.setRequestFocusEnabled(false);
         jTable1.setSelectionBackground(new java.awt.Color(157, 69, 73));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 1280, 240));
@@ -280,8 +337,8 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
-        jLabel11.setText("Eine Spalte kann an den vertikalen Grenzen der Beschriftungen verkleinert oder vergrößert werden; ggf. durch Drag&Drop auch verschoben");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 460, -1, -1));
+        jLabel11.setText("Die Länge einer Spalte an den Grenzen im Header verändern. Durch Drag&Drop Spalten verschieben. Durch einen Klick auf eine Spalte Tabelle nach dieser alph. sortieren.");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
 
         jComboBox4.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -675,18 +732,20 @@ public class GUI extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 153));
         jButton1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
-        jButton1.setText("Auswertung");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Auswertungsbutton.png"))); // NOI18N
+        jButton1.setToolTipText("Auswertung");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 20, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 20, 56, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 153));
         jButton2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
-        jButton2.setText("Auswertung als Datei");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Speicherbutton.png"))); // NOI18N
+        jButton2.setToolTipText("Auswertung als Datei");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -698,7 +757,7 @@ public class GUI extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, 56, -1));
 
         jLabel25.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(93, 157, 69));
@@ -722,16 +781,18 @@ public class GUI extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, -1));
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 153));
+        jButton4.setBackground(new java.awt.Color(157, 149, 69));
         jButton4.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
-        jButton4.setText("Was ist das MINT-Zertifikat?");
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("?");
+        jButton4.setToolTipText("Was ist das MINT-Zertifikat?");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 450, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 20, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(93, 157, 69));
         jButton5.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
@@ -756,6 +817,21 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+
+        jTextField1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jTextField1.setText(" Tabelle nach Wörtern filtern...");
+        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 69, 73), 2, true));
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, 250, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -945,13 +1021,26 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            zer.erfuellteAktivitaetenTextdatei();
-            JOptionPane.showMessageDialog(jFrame1, "Datei 'MINTkenAuswertung' wurde im Projektordner gespeichert" );
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen." );
-        }
+        if(zer.getAnforderungsfeldEins().zertifikatsstufe == 0
+           && zer.getAnforderungsfeldZwei().zertifikatsstufe == 0
+           && zer.getAnforderungsfeldDrei().getGesamtPunktzahl() == 0) { //Es fand noch keine Auswertung statt
+            JOptionPane.showMessageDialog(jFrame1, "Bitte vorher auswerten!");
+        } else { //Es gab bereits mindestens eine Auswertung
+            //Erzeuge ein Dialogfenster, damit der Nutzer selbststaendig den Dateipfad
+            //und -namen seiner Auswertung bestimmen kann
+            JFileChooser jFileChooser1 = new JFileChooser();
+            jFileChooser1.showSaveDialog(this);
+            String dateiname = jFileChooser1.getToolTipText();
+            jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         
+            try {
+                //Versuche die Datei unter gegebenen Namen zu speichern
+                zer.erfuellteAktivitaetenTextdatei(jFileChooser1.getSelectedFile().getAbsolutePath());
+                JOptionPane.showMessageDialog(jFrame1, "Datei wurde im ausgesuchten Pfad gespeichert." );
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen." );
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -997,7 +1086,8 @@ public class GUI extends javax.swing.JFrame {
         String hilfetext[] = {zer.getAnforderungsfeldDrei().getFokus(), 
                                 "Anforderung für Stufe 1: Ab 40 Punkte, davon maximal 20 aus der SI.",
                                 "Anforderung für Stufe 2: Ab 60 Punkte, davon maximal 30 aus der SI UND mindestens einmal Niveau 2 in der SII.",
-                                "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII ODER einmal Niveau 3 in der SII."};
+                                "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII ODER einmal Niveau 3 in der SII.",
+                                "Eine Aktivität kann entweder durch einer der Boxen oder direkt aus der Tabelle mit einem Rechtsklick hinzugefügt werden."};
         JOptionPane.showMessageDialog(jFrame1, hilfetext );
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -1122,6 +1212,127 @@ public class GUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(jFrame1, hilfetext );
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            //Wechsel den Fokus
+            jTable1.requestFocusInWindow();
+            //Markiere die angeklickte Aktivitaet
+            Point p = evt.getPoint(); //Kriege die Koordinaten vom Mausklick
+            int reihenIndex = jTable1.rowAtPoint(p); //Die Reihe, die die Koordinate enthaelt
+            jTable1.setRowSelectionInterval(reihenIndex, reihenIndex);
+
+            //Setze das Menue auf Startzustand
+            jPopupMenu1.removeAll();
+
+            //Fuege die Auswahlmoeglichkeiten hinzu
+            jPopupMenu1.add(jMenuItem1);
+            jPopupMenu1.add(jMenuItem2);
+            jPopupMenu1.add(jSeparator1);
+            jPopupMenu1.add(jMenuItem3);
+
+            //Zeige das Menue an
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //Welche Aktivitaet wurde markiert?
+        int reihenIndex = jTable1.getSelectedRow();
+        String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
+
+        if (KEINES1AKTIVITAETEN.contains(aktivitaet)) { //ungueltige Aktivitaet; siehe naechste Zeile
+            JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SI absolvieren.");
+        } else { //gueltige Aktivitaet
+            //Gehe die Comboboxen der SI durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
+            //Fuege wenn moeglich die Aktivitaet zu der erstgefundensten unausgewaehlten Box hinzu.
+            //Sonst gebe eine Meldung aus, dass alle Boxen bereits eine Aktivitaet ausgewaehlt haben.
+            for (int i = 0; i < 7; i++) {
+                if (alleA3Boxen.get(i).getSelectedItem().equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Eine Box ohne ausgewaehlte Aktivitaet
+                    alleA3Boxen.get(i).setSelectedItem(aktivitaet);
+                    alleA3Slider.get(i).requestFocusInWindow();
+                    break;
+                }
+                if (i == 6) {
+                    //Es wurde keine leere Box gefunden
+                    JOptionPane.showMessageDialog(jFrame1, "Alle Auswahlboxen der SI haben bereits eine Aktivität!");
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        //Welche Aktivitaet wurde markiert?
+        int reihenIndex = jTable1.getSelectedRow();
+        String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
+
+        if (KEINES2AKTIVITAETEN.contains(aktivitaet)) {
+            JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SII absolvieren.");
+        } else {
+            //Gehe die Comboboxen der SII durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
+            //Fuege wenn moeglich die Aktivitaet zu der erstgefundensten unausgewaehlten Box hinzu.
+            //Sonst gebe eine Meldung aus, dass alle Boxen bereits eine Aktivitaet ausgewaehlt haben.
+            for (int i = 13; i > 6; i--) {
+                if (alleA3Boxen.get(i).getSelectedItem().equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Eine Box ohne ausgewaehlte Aktivitaet
+                    alleA3Boxen.get(i).setSelectedItem(aktivitaet);
+                    alleA3Slider.get(i).requestFocusInWindow();
+                    break;
+                }
+                if (i == 7) {
+                    //Es wurde keine leere Box gefunden
+                    JOptionPane.showMessageDialog(jFrame1, "Alle Auswahlboxen der SII haben bereits eine Aktivität!");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        //Setze alle A3-Boxen und ihre Regler auf Anfangszustand
+        for (int i = 0; i < alleA3Boxen.size(); i++) {
+            alleA3Boxen.get(i).setSelectedItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
+            alleA3Slider.get(i).setValue(1);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        //Code siehe http://stackoverflow.com/a/22067320
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = jTextField1.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = jTextField1.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("");
+            }
+        });
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        //Das Textfield wurde erstmalig ausgewaehlt
+        if(jTextField1.getText().equals(" Tabelle nach Wörtern filtern...")) {
+            jTextField1.setText("");
+        }
+    }//GEN-LAST:event_jTextField1FocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -1154,7 +1365,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     /**
-     * Hebt die Reihe einer ausgewaehlten Aktivitaet hervor
+     * Hebt die Reihe einer ausgewaehlten Aktivitaet hervor, indem sie markiert wird und ggf. an erster Stelle steht 
      */
     private void reiheHervorheben(JComboBox box) {
         String ausgewaehlteAkt = box.getSelectedItem().toString(); 
@@ -1200,6 +1411,7 @@ public class GUI extends javax.swing.JFrame {
      * Fasst die Initialisation der hinzugefuegten Komponenten zusammen.
      */
     private void initialisiereMeineElemente() {
+        zer = new Zertifikat();
         initalisiereJTable();
         initialisiereAlleCombo();
         addAlleA3Boxen();
@@ -1207,6 +1419,8 @@ public class GUI extends javax.swing.JFrame {
         setzeIcon();
         aendereThumbs();
         jTable1.getTableHeader().setDefaultRenderer(new HeaderColor()); 
+        this.rowSorter = new TableRowSorter<>(jTable1.getModel());
+        jTable1.setRowSorter(rowSorter);
     }
     
     /**
@@ -1321,7 +1535,7 @@ public class GUI extends javax.swing.JFrame {
     private void initialisiereA3S1Combo(JComboBox box) {
         box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if ((erfuellbareAktivitaeten.getName().equals("Naturwissenschaftliche Profilklasse (Falls noch nicht in Anforderungsfeld I oder II eingebracht)") == true ) || (erfuellbareAktivitaeten.getName().equals("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (s.o)") == true) || (erfuellbareAktivitaeten.getName().equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (s.o.)") == true) || (erfuellbareAktivitaeten.getName().equals("MINT-AG SII") == true)) {
+            if ((KEINES1AKTIVITAETEN.contains(erfuellbareAktivitaeten.getName()))) {
                 //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S1
             } else {
                 box.addItem(erfuellbareAktivitaeten.getName());
@@ -1337,7 +1551,7 @@ public class GUI extends javax.swing.JFrame {
     private void initialisiereA3S2Combo(JComboBox box) {
         box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if (erfuellbareAktivitaeten.getName().equals("MINT-AG SI") == true || erfuellbareAktivitaeten.getName().equals("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie") == true) {
+            if ((KEINES2AKTIVITAETEN.contains(erfuellbareAktivitaeten.getName()))) {
             //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S2
             } else {
                 box.addItem(erfuellbareAktivitaeten.getName());
@@ -1349,7 +1563,7 @@ public class GUI extends javax.swing.JFrame {
     
     /**
      * Fuegt den JComboBox'en horizontale Rollleisten hinzu.
-     * Siehe https://community.oracle.com/thread/1775495?tstart=0
+     * @see https://community.oracle.com/thread/1775495?tstart=0
      * @param box Die JComboBox, die eine horizontale Rolleiste bekommen soll
      */
     private void adjustScrollBar(JComboBox box) {
@@ -1491,7 +1705,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider10;
     private javax.swing.JSlider jSlider11;
@@ -1509,6 +1728,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JSlider jSlider8;
     private javax.swing.JSlider jSlider9;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Anforderungsfeld III des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.0
+ * @version 1.1
  */
 public class AnforderungsfeldDrei extends Anforderungsfeld {
     
@@ -174,46 +174,72 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
             }
         }
         
-        //Gesamtpunkzahl bestimmen....
+        //Gesamtpunkzahl bestimmen, dabei werden je nach Zertfikatsstufe die Punkte aus der SI angepasst...
         if (punkteS1 >= 40) { 
-            int pufferS1 = 40; //Darf nicht hoeher als 40 sein bei der hoechsten Stufe (3)
-            if((pufferS1 + punkteS2) >= 80) { //Ueber gleich Stufe 3
+            int pufferS1 = 40; //Die Punkte aus der SI duerfen nicht hoeher als 40 sein bei der hoechsten Stufe (3)
+            if(punkteS2 >= 40) { //Ueber gleich Stufe 3
                 gesamtPunktzahl = pufferS1 + punkteS2;
-            } else if ((pufferS1 + punkteS2) < 60) { //Unter Stufe 1 oder zwischen Stufe 1 und 2, max. Punktzahl S1 = 20
-                gesamtPunktzahl = punkteS2 + 20;
-            } else { //Zwischen Stufe 2 und 3
+            } else if (punkteS2 >= 30) { //Ueber gleich Stufe 2
                 gesamtPunktzahl = punkteS2 + 30;
+            } else { //Unter Stufe 2 und somit immer 20
+                gesamtPunktzahl = punkteS2 + 20;
             }
         } else if (punkteS1 < 40 && punkteS1 >= 30 ) {
             int pufferS1 = 30;
             if((punkteS1 + punkteS2) >= 80) { //Ueber gleich Stufe 3
                 gesamtPunktzahl = punkteS1 + punkteS2;
-            } else if ((pufferS1 + punkteS2) < 60) { //Unter Stufe 1 oder zwischen Stufe 1 und 2, max. Punktzahl S1 = 20
+            } else if ((pufferS1 + punkteS2) >= 60) { //Ueber gleich Stufe 2
+                gesamtPunktzahl = punkteS2 + pufferS1;
+            } else { //Unter 2 und somit 20
                 gesamtPunktzahl = punkteS2 + 20;
-            } else { //Zwischen Stufe 2 und 3
-                gesamtPunktzahl = punkteS2 + 30;
             }
         } else if (punkteS1 < 30 && punkteS1 >= 20 ) {
             if((punkteS1 + punkteS2) >= 80) { //Ueber gleich Stufe 3
                 gesamtPunktzahl = punkteS1 + punkteS2;
-            } else if ((punkteS1 + punkteS2) < 60) { //Unter Stufe 1 oder zwischen Stufe 1 und 2, max. Punktzahl S1 = 20
-                gesamtPunktzahl = punkteS2 + 20;
-            } else { //Zwischen Stufe 2 und 3
+            } else if ((punkteS1 + punkteS2) >= 60) { //Ueber gleich Stufe 2
                 gesamtPunktzahl = punkteS2 + punkteS1;
+            } else { //Unter 2 und somit 20
+                gesamtPunktzahl = punkteS2 + 20;
             }
         } else {
             gesamtPunktzahl = punkteS2 + punkteS1;
         }
         
-        
-        
-        //Welche Zertifikatsstufe erreicht wurde
-        if (gesamtPunktzahl >= 40 && gesamtPunktzahl < 60) {
+        //Welche Zertifikatsstufe erreicht wurde, dabei muessen die erreichten Nivaus der Akt. in S2 beruecksichtigt werden
+        ArrayList<Aktivitaet> erhoeht = new ArrayList<>();
+        ArrayList<Aktivitaet> erhoehtNiveau3 = new ArrayList<>();
+                for (Aktivitaet erfuellteAktivitaetenS22 : erfuellteAktivitaetenS2) {
+                    if (erfuellteAktivitaetenS22.getNiveau() >= 2) {
+                        erhoeht.add(erfuellteAktivitaetenS22);
+                    }
+                    if (erfuellteAktivitaetenS22.getNiveau() == 3) {
+                        erhoehtNiveau3.add(erfuellteAktivitaetenS22);
+                    }
+                }
+        if (gesamtPunktzahl >= 40 && gesamtPunktzahl < 60) { //Gesamtpunktzahl zwischen 40 und 60, Niveaus muessen in der 1. Stufe nicht beruecksichtigt werden
             this.zertifikatsstufe = 1;
-        } else if (gesamtPunktzahl >= 60 && gesamtPunktzahl < 80) {
+        } else if ((gesamtPunktzahl >= 60 && gesamtPunktzahl < 80) && !erhoeht.isEmpty()) { //Punktzahl zwischen 60 und 80, mind. eine Aktivitaet wurde in der S2 mit Niveau 2 oder hoeher vollendet
             this.zertifikatsstufe = 2;
-        } else if (gesamtPunktzahl >= 80) {
-            this.zertifikatsstufe = 3;
+        } else if((gesamtPunktzahl >= 60 && gesamtPunktzahl < 80) && erhoeht.isEmpty()) { //Punktzahl zwischen 60 und 80, aber es wurde keine Aktivitaet in der S2 mit Niveau 2 oder hoeher vollendet
+            this.zertifikatsstufe = 1;
+            //Es duerfen nur 20 Punkte in Stufe 1 aus der S1 gewertet werden
+            if ( gesamtPunktzahl - punkteS2  > 20) {
+                gesamtPunktzahl = punkteS2 + 20;
+            }
+        } else if (gesamtPunktzahl >= 80 && ( erhoeht.size() >= 2  || erhoehtNiveau3.size() >= 1 )) { //Punktzahl mind. 80, es wurden entweder zwei Aktivitaeten auf Niveau 2 oder hoeher vollendet ODER mind. eine auf Niveau 3
+            this.zertifikatsstufe = 3; 
+        } else if ( gesamtPunktzahl >= 80 && (erhoeht.size() == 1 && erhoeht.get(0).getNiveau() == 2 )) { //Punktzahl mind. 80, aber es wurde nur eine Aktivitaet auf Niveau 2 erfuellt; es sind 2 fuer Stufe 3 vonnoeten
+            this.zertifikatsstufe = 2;
+            //Es duerfen nur 30 Punkte in Stufe 1 aus der S1 gewertet werden
+            if ( gesamtPunktzahl - punkteS2  > 30) {
+                gesamtPunktzahl = punkteS2 + 30;
+            }
+        } else if ( gesamtPunktzahl >= 80 && erhoeht.isEmpty() ) { //Punktzahl mind. 80, aber es wurde keine Aktivitaet mit Niveau 2 oder hoeher in der S2 erfuellt
+            this.zertifikatsstufe = 1;
+            //Es duerfen nur 20 Punkte in Stufe 1 aus der S1 gewertet werden
+            if ( gesamtPunktzahl - punkteS2  > 20) {
+                gesamtPunktzahl = punkteS2 + 20;
+            }
         }
         
         //Welche Stufen erfuellt wurden

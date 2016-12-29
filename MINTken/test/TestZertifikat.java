@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 /**
  * Testen des Systems
  * @author Joana Bergsiek
- * @version 1.0
+ * @version 1.1
  */
 public class TestZertifikat {
     Zertifikat zer;
@@ -21,6 +21,8 @@ public class TestZertifikat {
     AnforderungsfeldDrei drei2;
     AnforderungsfeldZwei zwei;
     AnforderungsfeldEins eins;
+    AnforderungsfeldDrei fehlendeNiveausZu2;
+    AnforderungsfeldDrei fehlendeNiveausZu3_1;
     
     public TestZertifikat() {
     }
@@ -36,6 +38,8 @@ public class TestZertifikat {
         drei2 = new AnforderungsfeldDrei();
         zwei = new AnforderungsfeldZwei();
         eins = new AnforderungsfeldEins();
+        fehlendeNiveausZu2 = new AnforderungsfeldDrei();
+        fehlendeNiveausZu3_1 = new AnforderungsfeldDrei();
         zer.getAnforderungsfeldEins().aktivitaetErfuellt(zer.getAnforderungsfeldEins().getErfuellbareAktivitaeten().get(0), 3);
         zer.getAnforderungsfeldZwei().aktivitaetErfuellt(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().get(3), 2);
         zer.getAnforderungsfeldDrei().aktivitaetErfuelltS2(zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten().get(0), 3);
@@ -81,6 +85,27 @@ public class TestZertifikat {
         drei2.aktivitaetErfuelltS1(drei2.getErfuellbareAktivitaeten().get(20), 3);
         drei2.aktivitaetErfuelltS1(drei2.getErfuellbareAktivitaeten().get(32), 3);
         drei2.aktivitaetErfuelltS2(drei2.getErfuellbareAktivitaeten().get(2), 3);
+        
+        fehlendeNiveausZu2.aktivitaetErfuelltS1(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(0), 3);
+        fehlendeNiveausZu2.aktivitaetErfuelltS1(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(1), 3);
+        fehlendeNiveausZu2.aktivitaetErfuelltS1(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(2), 3);
+        fehlendeNiveausZu2.aktivitaetErfuelltS1(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(3), 3);
+        fehlendeNiveausZu2.aktivitaetErfuelltS2(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(5), 1);
+        fehlendeNiveausZu2.aktivitaetErfuelltS2(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(6), 1);
+        fehlendeNiveausZu2.aktivitaetErfuelltS2(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(8), 1);
+        fehlendeNiveausZu2.aktivitaetErfuelltS2(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(9), 1);
+        fehlendeNiveausZu2.aktivitaetErfuelltS2(fehlendeNiveausZu2.getErfuellbareAktivitaeten().get(10), 1);
+        
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS1(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(0), 3);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS1(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(1), 3);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS1(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(2), 3);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(6), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(8), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(9), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(10), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(11), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(12), 1);
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(13), 1);
     }
     
     @After
@@ -156,6 +181,29 @@ public class TestZertifikat {
     }
     
     @Test
+    public void testFehlendeNiveausZu2() {
+        //Das Anforderungsfeld gelangt nicht in die 2. Stufe, weil keine Aktivitaeten auf Niveau 2 oder hoeher erfuellt worden sind
+        assertEquals(1, fehlendeNiveausZu2.getZertifikatsstufe());
+    }
+    
+    @Test
+    public void testFehlendeNiveausZu3() {
+        //Das Anforderungsfeld gelangt nicht in die 3. Stufe, weil nur eine Aktivitaeten auf Niveau 2 erfuellt worden ist
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(5), 2);
+        assertEquals(75,fehlendeNiveausZu3_1.getGesamtPunktzahl());
+        assertEquals(2, fehlendeNiveausZu3_1.getZertifikatsstufe());
+    }
+    
+    @Test
+    public void testFehlendeNiveausZu3_2() {
+        //Das Anforderungsfeld gelangt nicht in die 3. Stufe, weil nur keine Aktivitaeten auf Niveau 2 erfuellt worden ist
+        fehlendeNiveausZu3_1.aktivitaetErfuelltS2(fehlendeNiveausZu3_1.getErfuellbareAktivitaeten().get(5), 1);
+        assertEquals(1, fehlendeNiveausZu3_1.getZertifikatsstufe());
+    }
+    
+    
+            
+    @Test
     public void testBeratung() {
         System.out.println(zer.berate()) ;
         System.out.println(zer1.berate()) ;
@@ -165,5 +213,8 @@ public class TestZertifikat {
         System.out.println(drei2.zurNaechstenStufe()) ;
         //zer3.erfuellteAktivitaetenTextdatei();
     }
+    
+    
+    
 }
 

@@ -5,7 +5,7 @@ import java.io.*;
  * ueberprueft, ob die Bedingungen zum MINT-Zertifikat erfuellt worden sind; ggf.
  * in welcher Stufe; was noch erfuellt werden muss.
  * @author Joana Bergsiek
- * @version 1.0
+ * @version 1.1
  */
 public class Zertifikat {
     private int zertifikatsstufe;
@@ -89,17 +89,17 @@ public class Zertifikat {
     /**Diese Klasse erstellt eine Textdatei mit den erledigten Aktivitaeten, samt Punkte
      * und dem Beratungstext der Methode berate(). Die Datei heißt "MINTkenAuswertung",
      * befindet sich im Projektordner und diese kann man dann schließlich dem MINT-zustaendigen Lehrer senden.
+     * @param pfad Der Zielpfad der Datei, noch ohne Fortmatende ".txt" der Auswertungsdatei.
      */
-    public void erfuellteAktivitaetenTextdatei () {
+    public void erfuellteAktivitaetenTextdatei (String pfad) {
         aktualisiereAlle();
-        String dateiNamen = "MINTkenAuswertung.txt";
         BufferedWriter bufferedWriter = null;
-        //String pfad = pPfad;
-        boolean append_to_file = false;
+        String dateipfad = pfad + ".txt";
         
         try {
-            //File file = new File(pfad);
-            FileWriter fileWriter = new FileWriter(dateiNamen, append_to_file);
+            //Erzeuge die Datei
+            File file = new File(dateipfad);
+            FileWriter fileWriter = new FileWriter(file);
             bufferedWriter = new BufferedWriter(fileWriter);
             
             //System.out.println(file.getCanonicalPath());
@@ -116,7 +116,7 @@ public class Zertifikat {
             bufferedWriter.write(beratungsText[3]);
             bufferedWriter.newLine();
             
-            //Nun die Aktivitaeten...
+            //Nun die Aktivitaeten zusaetzlich nennen...
             //S1...
             for (Aktivitaet taet : anforderungsfeldDrei.getErfuellteAktivitaetenS1()) {
                 String zeile = taet.getName() + ", Niveau " + taet.getNiveau() + " und somit "+ taet.getNiveau()*5 +" Punkte.";
@@ -130,7 +130,9 @@ public class Zertifikat {
                 bufferedWriter.write(zeile);
                 bufferedWriter.newLine();
             }
-        } catch (IOException ex) {        } finally {
+        } catch (IOException ex) {   
+        
+        } finally {
             //Datei schließen
             try {
                 if (bufferedWriter != null) {
@@ -141,6 +143,8 @@ public class Zertifikat {
             }
         }
     }
+    
+    //Sondierende Methoden
     
     public AnforderungsfeldEins getAnforderungsfeldEins() {
         return anforderungsfeldEins;

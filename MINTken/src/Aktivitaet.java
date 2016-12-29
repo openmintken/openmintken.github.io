@@ -1,9 +1,9 @@
 /**
  * Die Klasse repraesentiert eine Aktivitaet der Anforderungsfelder I-III, welche
- * zum Erfuellen eines Anforderungsfelds, ferner ,bei mehreren Aktivitaeten, 
+ * zum Erfuellen eines Anforderungsfelds, ferner, bei mehreren Aktivitaeten, 
  * dem MINT-Zertifikat benoetigt wird.
  * @author Joana Bergsiek
- * @version 1.0
+ * @version 1.1
  */
 public class Aktivitaet {
     
