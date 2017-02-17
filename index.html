@@ -1,101 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Offizielle Homepage des Open Source Projekts MINTken, welches eine Auswertung zum MINT-EC-Zertifikat erstellt.">
+    <meta name="author" content="Joana Bergsiek">
+    <link rel="icon" href="Images/MINTkenIcon.ico">
+
     <title>MINTken Homepage</title>
-    <meta name="description" content="Die Homepage für das Programm MINTken von Joana Bergsiek.">
-    <link rel="stylesheet" href="main.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/carousel.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="About">
-        <h1>
-        Was ist MINTken?
-        </h1>
-        <p>
-            MINTken ist ein freies Programm welches Schülern dabei helfen soll, zu überprüfen, ob ihre bisherigen Leistungen sie für das MINT-EC Zertifikat qualifizieren. </br>
-            Dabei werden von mehreren Auswahlboxen die erfüllten Aktivitäten und die jeweilig erreichten Niveaus ausgewählt. </br>
-            Bei einer erfolgreichen Eingabe wird abhängig von den Aktivitäten und deren Niveaus die Zertifikatsstufe, die momentane Punktzahl und ggf. die Bedingung zur nächsten Stufe eines Anforderungsfeldes ausgegeben.</br>
-            Das Programm entstand während einer Facharbeit am Freiherr-vom-Stein Gymnasium Hamm und befindet sich derzeitig in der Version 1.1.</br>
-        </p>
-        <a href="Images/Interface1_1.png">
-            <img id="Oberfläche" alt="Oberfläche des Programms" src="Images/Interface1_1.png" height="150" />
-        </a>
-        <a href="Images/Auswertung1_1.png">
-            <img id="Auswertung" alt="Oberfläche des Programms" src="Images/Auswertung1_1.png" height="150" />
-        </a>
+<!-- NAVBAR
+================================================== -->
+
+<body id="start" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <div class="navbar-wrapper">
+        <div class="container">
+
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="Images/MINTkenIcon.ico" width="30" height="30" class="d-inline-block align-top" alt=""> MINTken
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="download.html">Download</a></li>
+                            <li><a href="kontakt.html">Kontakt</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sonstiges <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#"></a>
+                                    </li>
+                                    <li><a href="about.html">Über das Programm</a></li>
+                                    <li><a href="updates.html">Updates</a></li>
+                                    <li><a href="copyright.html">Copyright</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Weiterführende Seiten</li>
+                                    <li><a href="https://www.mint-ec.de/home.html">MINT-EC</a></li>
+                                    <li><a href="http://www.fvshamm.de/">Freiherr-vom-Stein Gymnasium</a></li>
+                                </ul>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
     </div>
 
-    <div id="Programm und Installation">
-        <h1>
-        Installation und Programmausführung
-        </h1>
-        <p>
-            Damit das Programm funktioniert, muss Java Runtime (JRE) gedownloadet werden. </br>
-            Eine Möglichkeit bietet die <a href="https://www.oracle.com/de/java/index.html"> offizielle Oracle Seite </a> (Java für Benutzer reicht aus). </br>
-            1. Programmordner <a href="https://github.com/openmintken/openmintken.github.io"> hier</a> als ZIP-Datei downloaden und speichern. Dazu auf "Clone or download" und anschließend "Download ZIP" klicken. </br>
-            2. Entpacken des Ordners. </br>
-            3. Öffnen des Ordners "MINTken" > "dist". </br>
-            4. "MINTken.jar" ausführen. </br>
-        </p>
+    <!-- HEADER -->
+    <img class="img-responsive" src="Images/header.png" alt="Header" id="header">
+    <!-- END OF HEADER -->
+
+    <!-- START THE FEATURETTES -->
+    <div class="container marketing" id="features">
+        <hr class="featurette-divider">
+        <div class="row featurette slideanimri" id="first">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Alle Aktivitäten im Überblick,<span class="text-muted" style="color:#94d0b4"> geordnet und gefiltert</span></br></h2>
+                <p class="lead">Das ständige Rumblättern ist von gestern! Mit MINTken hast du alle erfüllbaren Aktivitäten geordnet im Überblick und kannst deine erreichten Fortschritte sofort eintragen ohne dich vorher über alle möglichen Bedingungen und Regeln informiert zu haben. </p>
+            </div>
+            <div class="col-md-5">
+                <span class="glyphicon glyphicon-search feat" style="color:#94d0b4"></span>
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette slideanimle" id="second">
+            <div class="col-md-7 col-md-push-5">
+                <h2 class="featurette-heading"><span class="text-muted" style="color:#94b0d0">Individuelle Beratung</span> je nach eigenem Fortschritt</h2>
+                <p class="lead">Statt die Pausen vor dem Lehrerzimmer warten zu müssen wertet MINTken deine Daten aus und berechnet die jeweilige Zertifikatsstufe. Zusätzlich fängt es fehlerhafte Eingaben ab und gibt dir an, was für die nächste Stufe noch geleistet werden muss. </p>
+            </div>
+            <div class="col-md-5 col-md-pull-7">
+                <span class="glyphicon glyphicon-list-alt" style="color:#94b0d0"></span>
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette slideanimri" id="third">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Abgabefertige Auswertung <span class="text-muted" style="color:#b494d0"></br> als Datei speichern</span></h2>
+                <p class="lead">Nach der Zertifikatsauswertung kann man diese direkt als Textdatei speichern und seinem Lehrer senden oder ausgedruckt überreichen. MINTken erspart dir auf jeden Fall mühselige Schreibarbeit.</p>
+            </div>
+            <div class="col-md-5">
+                <span class="glyphicon glyphicon-floppy-saved" style="color:#b494d0"></span>
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette slideanimle" id="fourth">
+            <div class="col-md-7 col-md-push-5">
+                <h2 class="featurette-heading"><span class="text-muted" style="color:#d094b0">Plattformunabhängig</span> für jedes Betriebssystem geeignet</h2>
+                <p class="lead">Ob Windows, iOS oder Linux: MINTken läuft durch die Programmierung mit Java problemlos auf jedem Betriebssystem. </p>
+            </div>
+            <div class="col-md-5 col-md-pull-7">
+                <span class="glyphicon glyphicon-cog" style="color:#d094b0"></span>
+            </div>
+        </div>
     </div>
 
-    <div id="Changelogs">
-        <h1>
-        1.1 Changelog
-        </h1>
-        <p>
-            Am 29.12.2016 wurde die Version 1.1 veröffentlicht und beinhaltet folgende Änderungen zu 1.0:
-            <li>Es lässt sich nun der Pfad und der Name der Auswertungsdatei bestimmen</li>
-            <li>Durch einen Rechtsklick auf die Tabelle lassen sich Aktivitäten nun direkt hinzufügen</li>
-            <li>Durch einen Rechtsklick auf die Tabelle kann man alle eingetragenen A3-Aktivitäten löschen</li>
-            <li>Man kann die Tabelle nun nach Wörtern filtern</li>
-            <li>Durch einen Klick auf eine Tabellenspalte lässt sich die Tabelle nun, je nach Spalte, alphabetisch sortieren</li>
-            <li>Leichte Oberflächenänderungen: Eingabefeld hinzugefügt; gelbe MINT-Buttons sind nun grafisch</li>
-            <li>Name des Entwicklers steht nun im Programmheader</li>
-            <li>Behebung des Fehlers, dass aufgrund mangelnder höherer Niveaus, A3 trotzdem in Stufe 2/3 gelangt</li>
-            <li>Leichte Codeänderungen</li>
-        </p>
+    <!-- /.container -->
+
+    <!-- /END THE FEATURETTES -->
+
+
+    <!-- ADDITIONAL INFORMATION -->
+
+    <!-- JUMBOTRONS -->
+
+    <div class="jumbotron text-center slideanimup" id="jumbodownload">
+        <div class="content">
+            <h1 class="featurette-heading">Probier es selbst!</h1>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" id="jumbobutton" href="download.html">Jetzt downloaden</a>
+            </p>
+        </div>
+
     </div>
 
-    <div id="Updates">
-        <h1> 
-        Zukünftige Updates
-        </h1>
-        <p>
-            Die Version (1.0) war das Endergebnis meiner Facharbeit, für dessen Fertigung ich sechs Wochen Bearbeitungszeit hatte. </br>
-            Die momentane Version ist 1.1 und hat bereits einige Verbesserungen implementiert. </br>
-            Jedoch ziele ich noch einige Veränderungen/Verbesserungen an, unter anderem
-            <li>Für Schulen: Per Nutzeroberfläche Aktivitäten hinzufügen und entfernen können</li>
-            <li>Die Textausgaben leserfreundlicher gestalten</li>
-            <li>Refactoring des Codes</li>
-            </br>
-            Bei weiteren Vorschlägen melden Sie sich an die im Urheberrechtshinweis zu findende Email.
-        </p>
+
+    <div class="jumbotron text-center slideanimup" id="jumboparticipate">
+        <h1>Dir fehlt noch ein Feature?</h1>
+        <p>Kein Problem! Melde dich entweder bei mir per Mail oder schreib das Programm selbst weiter. </br>
+            MINTken ist Open Source und für jeden unter Berücksichtigung der CC-BY-NC-SA 4.0 Lizenz frei individualisierbar!</p>
+        <div class="btn-group" id="jumbobuttongroup">
+            <a class="btn btn-primary btn-lg id" href="kontakt.html">Kontakt</a>
+            <a class="btn btn-primary btn-lg" href="copyright.html">Copyright</a>
+        </div>
+
     </div>
 
-    <div id="Copyright">
-        <h1>
-        Urheberrechtshinweis MINTken
-        </h1>
-        <p>
-            Das Programm und seine Inhalte verwenden die CC-BY-NC-SA 4.0 </br>
-            (Creative Commons, Namensnennung, nichtkommerziell, gleiche Weitergabe) Lizenzform. </br>
-            Das Urheberrecht liegt, soweit nicht ausdrücklich anders gekennzeichnet, bei Joana Bergsiek & dem MINT-EC. </br>
-            Bitte wenden Sie sich bei Fragen oder anderen Angelegenheiten an <b>officialmintken@gmail.com</b>. </br>
-            Das Programm, welches unter der CC-BY-NC-SA-Lizenz veröffentlicht wurden, darf nach den maßgeblichen Lizenzbedingungen verwendet, bearbeitet und verbreitet werden.</br>
-            20.09.2016
-        </p>
 
-        <li> <a href="http://de.creativecommons.org/was-ist-cc/">Mehr zu Creative Commons</a> </li>
-        <li> <a href="https://www.mint-ec.de/home.html">Offizielle Seite des MINT-ECs </a></li>
-        <li> <a href="http://www.fvshamm.de/">Website des Freiherr-vom-Stein Gymnasiums </a></li>
+    <!-- END OF JUMBOTRONS -->
 
-        <a href="Images/MINTkenIcon.png">
-            <img id="Icon" alt="Das offizielle Icon" src="Images/MINTkenIcon.png" height="100" width="100" />
-        </a>
+
+    <!-- END OF ADDITIONAL INFORMATION -->
+
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="pull-right"><a class="scroll" href="#start"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true" ></span></a></p>
+    </footer>
+    <div class="container text-center">
+        <footer class="footer">
+            <p>&middot; Website designed Februar 2017 mit <a href="https://getbootstrap.com/">Bootstrap</a> &middot;</p>
+        </footer>
     </div>
 
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </body>
+
+</html>
