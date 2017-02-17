@@ -356,7 +356,7 @@ body {
 @keyframes slideari {
     0% {
         opacity: 0;
-        transform: translateX(-30%);
+        transform: translateX(-70%);
     }
     100% {
         opacity: 1;
@@ -367,7 +367,7 @@ body {
 @-webkit-keyframes slideari {
     0% {
         opacity: 0;
-        -webkit-transform: translateX(-30%);
+        -webkit-transform: translateX(-70%);
     }
     100% {
         opacity: 1;
