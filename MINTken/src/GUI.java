@@ -336,7 +336,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel10.setText("Niveau: 1");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
         jLabel11.setText("Die Länge einer Spalte an den Grenzen im Header verändern. Durch Drag&Drop Spalten verschieben. Durch einen Klick auf eine Spalte Tabelle nach dieser alph. sortieren.");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
 
