@@ -2,7 +2,7 @@
 /**
  * Anforderungsfeld II des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.1
+ * @version 1.2
  */
 public class AnforderungsfeldZwei extends Anforderungsfeld {
     /**
@@ -10,11 +10,11 @@ public class AnforderungsfeldZwei extends Anforderungsfeld {
      */
     public AnforderungsfeldZwei() {
         //Initialisierung von erfuellbareAktivitaeten mit den 2 verfuegbaren Moeglichkeiten, dieses Anforderungsfeld zu erfuellen.
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mind. 10 Seiten", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"}));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Wissenschaftspropädeutisches Fach",false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"}));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Besondere Lernleistung", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"}));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Jugend forscht-Wettbewerb", true, new String[]{"Ernsthafte Teilnahme am Regionalwettbewerb","Preisträger im Regionalwettbewerb (keine Sonderpreise)","Teilnahme am Landes- oder Bundeswettbewerb"}));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Vergleichbarem Wettbewerb zu Jugend forscht",true, new String[]{"Ernsthafte Teilnahme am Regionalwettbewerb","Preisträger im Regionalwettbewerb (keine Sonderpreise)","Teilnahme am Landes- oder Bundeswettbewerb"}));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mind. 10 Seiten", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"051"));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Wissenschaftspropädeutisches Fach",false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"052"));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Besondere Lernleistung", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"053"));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Jugend forscht-Wettbewerb", true, new String[]{"Ernsthafte Teilnahme am Regionalwettbewerb","Preisträger im Regionalwettbewerb (keine Sonderpreise)","Teilnahme am Landes- oder Bundeswettbewerb"},"054"));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Vergleichbarem Wettbewerb zu Jugend forscht",true, new String[]{"Ernsthafte Teilnahme am Regionalwettbewerb","Preisträger im Regionalwettbewerb (keine Sonderpreise)","Teilnahme am Landes- oder Bundeswettbewerb"},"055"));
         
         
         this.fokus = "Fachwissenschaftliches Arbeiten im MINT-Bereich der SII";
@@ -29,17 +29,17 @@ public class AnforderungsfeldZwei extends Anforderungsfeld {
         aktualisieren();
         switch (this.zertifikatsstufe) {
             case 0:
-                return "Für Stufe 1 fehlen >= 9 Notenpkt. entweder in einer fachwi. Arbeit mit mind. 10 Seiten, einem wissenschaftspropädeutischem Fach oder in einer besonderen Lernleistung.  Alternativ eine ernsthafte Teilnahme am Regionalwettbewerb bei einem Jugend forscht- oder vergleichbaren Wettbewerb.";
+                return String.format(String.format("%10s", "") + "Für Stufe 1 fehlen >= 9 Notenpkt. entweder in einer fachwi. Arbeit mit mind. 10 Seiten, einem wissenschaftspropädeutischem Fach oder in einer besonderen Lernleistung. %n"+String.format("%10s", "") +  "Alternativ eine ernsthafte Teilnahme am Regionalwettbewerb bei einem Jugend forscht- oder vergleichbaren Wettbewerb.%n");
             case 3: 
                 Aktivitaet referenz = this.erfuellteAktivitaeten.get(0);
                 if (referenz.isIstWettbewerb() == true ) {
-                    return "Höchste Stufe wurde mit einer Teilnahme am Landes- oder Bundeswettbewerb erreicht durch " + referenz.getName();
+                    return String.format(String.format("%10s", "") + "Höchste Stufe wurde mit einer Teilnahme am Landes- oder Bundeswettbewerb erreicht durch " + referenz.getName()+"%n");
                 } else {
-                    return "Höchste Stufe wurde mit >= 13 Notenpunkten erreicht durch " + referenz.getName();
+                    return String.format(String.format("%10s", "") + "Höchste Stufe wurde mit >= 13 Notenpunkten erreicht durch " + referenz.getName()+"%n");
                 }
             default: 
                 Aktivitaet referenz2 = this.erfuellteAktivitaeten.get(0);
-                return "Stufe " + this.zertifikatsstufe + " wurde mit der Erfüllung von " +referenz2.getAnforderung(zertifikatsstufe-1)+" in " +referenz2.getName() + " erreicht.  Zur nächsten Stufe muss folgendes erfüllt werden: " +referenz2.getAnforderung(zertifikatsstufe);
+                return String.format(String.format("%10s", "") + "Stufe " + this.zertifikatsstufe + " wurde mit der Erfüllung von " +referenz2.getAnforderung(zertifikatsstufe-1)+" in " +referenz2.getName() + " erreicht. %n"+String.format("%10s", "") +  "Zur nächsten Stufe muss folgendes erfüllt werden: " +referenz2.getAnforderung(zertifikatsstufe)+"%n");
                 
         }
     }

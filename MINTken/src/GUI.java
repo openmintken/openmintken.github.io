@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JSlider;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicSliderUI;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -26,7 +27,7 @@ import javax.swing.table.TableRowSorter;
 /**
  * Eine grafische Darstellung des MINT-Punktezaehlers
  * @author Joana Bergsiek
- * @version 1.1
+ * @version 1.2
  */
 public class GUI extends javax.swing.JFrame {
     
@@ -38,15 +39,9 @@ public class GUI extends javax.swing.JFrame {
     private final int[] reihenindexPuffer = new int[16]; //siehe reiheHervorheben
     private TableRowSorter<TableModel> rowSorter;
     //Diese Aktivitaeten sind nicht in der S1 absolvierbar
-    private final ArrayList<String> KEINES1AKTIVITAETEN = new ArrayList(){ {add("Naturwissenschaftliche Profilklasse (Falls noch nicht in Anforderungsfeld I oder II eingebracht)");
-        add("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (s.o)");
-        add("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (s.o.)");
-        add("MINT-AG SII");
-    }}; 
+    private final ArrayList<String> keineS1Aktivitaeten = new ArrayList<>(); 
     //Diese Aktivitaeten sind nicht in der S2 absolvierbar
-    private final ArrayList<String> KEINES2AKTIVITAETEN = new ArrayList(){ {add("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie");
-        add("MINT-AG SI");
-    }}; 
+    private final ArrayList<String> keineS2Aktivitaeten = new ArrayList<>();  
     
     /**
      * Creates new form GUI
@@ -132,13 +127,12 @@ public class GUI extends javax.swing.JFrame {
         jSlider16 = new javax.swing.JSlider();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
 
         jFrame1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jFrame1.setForeground(java.awt.Color.lightGray);
@@ -187,7 +181,7 @@ public class GUI extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MINTken Version 1.1 Joana Bergsiek");
+        setTitle("MINTken Version 1.2 Joana Bergsiek");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 780));
@@ -227,7 +221,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(93, 157, 69));
         jLabel1.setText("Anforderungsfeld II");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(157, 88, 69));
@@ -242,7 +236,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 380, 50));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 380, 50));
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(69, 127, 157));
@@ -252,7 +246,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.setBackground(new java.awt.Color(93, 157, 69));
         jComboBox2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 13)); // NOI18N
         jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 380, 50));
+        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 380, 50));
 
         jSlider1.setMaximum(3);
         jSlider1.setMinimum(1);
@@ -279,16 +273,17 @@ public class GUI extends javax.swing.JFrame {
                 jSlider2StateChanged(evt);
             }
         });
-        getContentPane().add(jSlider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
+        getContentPane().add(jSlider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(93, 157, 69));
         jLabel5.setText("Niveau: 1");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
 
         jComboBox3.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox3.setName("3"); // NOI18N
+        jComboBox3.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox3ItemStateChanged(evt);
@@ -299,7 +294,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox3FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 240, 30));
+        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 240, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(157, 69, 73));
@@ -343,6 +338,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox4.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox4.setName("4"); // NOI18N
+        jComboBox4.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox4.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox4ItemStateChanged(evt);
@@ -353,7 +349,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox4FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 240, 30));
+        getContentPane().add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 240, -1));
 
         jLabel12.setForeground(new java.awt.Color(157, 69, 73));
         jLabel12.setText("Niveau: 1");
@@ -384,6 +380,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox5.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox5.setName("5"); // NOI18N
+        jComboBox5.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox5.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox5ItemStateChanged(evt);
@@ -394,7 +391,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox5FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 240, 30));
+        getContentPane().add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 240, -1));
 
         jLabel13.setForeground(new java.awt.Color(157, 69, 73));
         jLabel13.setText("Niveau: 1");
@@ -403,6 +400,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox6.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox6.setName("6"); // NOI18N
+        jComboBox6.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox6.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox6ItemStateChanged(evt);
@@ -413,7 +411,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox6FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 240, 30));
+        getContentPane().add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 240, -1));
 
         jLabel14.setForeground(new java.awt.Color(157, 69, 73));
         jLabel14.setText("Niveau: 1");
@@ -433,6 +431,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox7.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox7.setName("7"); // NOI18N
+        jComboBox7.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox7.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox7ItemStateChanged(evt);
@@ -443,7 +442,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox7FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 240, 30));
+        getContentPane().add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 240, -1));
 
         jLabel15.setForeground(new java.awt.Color(157, 69, 73));
         jLabel15.setText("Niveau: 1");
@@ -463,6 +462,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox8.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox8.setName("8"); // NOI18N
+        jComboBox8.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox8.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox8ItemStateChanged(evt);
@@ -473,7 +473,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox8FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 240, 30));
+        getContentPane().add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 240, -1));
 
         jLabel16.setForeground(new java.awt.Color(157, 69, 73));
         jLabel16.setText("Niveau: 1");
@@ -493,6 +493,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox9.setBackground(new java.awt.Color(157, 69, 73));
         jComboBox9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox9.setName("9"); // NOI18N
+        jComboBox9.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox9.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox9ItemStateChanged(evt);
@@ -503,7 +504,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox9FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 240, 30));
+        getContentPane().add(jComboBox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 240, -1));
 
         jLabel17.setForeground(new java.awt.Color(157, 69, 73));
         jLabel17.setText("Niveau: 1");
@@ -523,6 +524,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox10.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox10.setName("10"); // NOI18N
+        jComboBox10.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox10.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox10ItemStateChanged(evt);
@@ -533,7 +535,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox10FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 240, 30));
+        getContentPane().add(jComboBox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 240, -1));
 
         jLabel18.setForeground(new java.awt.Color(157, 107, 69));
         jLabel18.setText("Niveau: 1");
@@ -553,6 +555,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox11.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox11.setName("11"); // NOI18N
+        jComboBox11.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox11.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox11ItemStateChanged(evt);
@@ -563,7 +566,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox11FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox11, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 240, 30));
+        getContentPane().add(jComboBox11, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 240, -1));
 
         jLabel19.setForeground(new java.awt.Color(157, 107, 69));
         jLabel19.setText("Niveau: 1");
@@ -583,6 +586,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox12.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox12.setName("12"); // NOI18N
+        jComboBox12.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox12.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox12ItemStateChanged(evt);
@@ -593,7 +597,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox12FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox12, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 290, 240, 30));
+        getContentPane().add(jComboBox12, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 290, 240, -1));
 
         jLabel20.setForeground(new java.awt.Color(157, 107, 69));
         jLabel20.setText("Niveau: 1");
@@ -613,6 +617,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox13.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox13.setName("13"); // NOI18N
+        jComboBox13.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox13.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox13ItemStateChanged(evt);
@@ -623,7 +628,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox13FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 240, 240, 30));
+        getContentPane().add(jComboBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 240, 240, -1));
 
         jLabel21.setForeground(new java.awt.Color(157, 107, 69));
         jLabel21.setText("Niveau: 1");
@@ -643,6 +648,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox14.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox14.setName("14"); // NOI18N
+        jComboBox14.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox14.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox14ItemStateChanged(evt);
@@ -653,7 +659,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox14FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox14, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 240, 30));
+        getContentPane().add(jComboBox14, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 240, -1));
 
         jLabel22.setForeground(new java.awt.Color(157, 107, 69));
         jLabel22.setText("Niveau: 1");
@@ -673,6 +679,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox15.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox15.setName("15"); // NOI18N
+        jComboBox15.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox15.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox15ItemStateChanged(evt);
@@ -683,7 +690,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox15FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox15, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, 240, 30));
+        getContentPane().add(jComboBox15, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, 240, -1));
 
         jLabel23.setForeground(new java.awt.Color(157, 107, 69));
         jLabel23.setText("Niveau: 1");
@@ -703,6 +710,7 @@ public class GUI extends javax.swing.JFrame {
         jComboBox16.setBackground(new java.awt.Color(157, 107, 69));
         jComboBox16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox16.setName("16"); // NOI18N
+        jComboBox16.setPreferredSize(new java.awt.Dimension(28, 35));
         jComboBox16.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox16ItemStateChanged(evt);
@@ -713,7 +721,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox16FocusGained(evt);
             }
         });
-        getContentPane().add(jComboBox16, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, 240, 30));
+        getContentPane().add(jComboBox16, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, 240, -1));
 
         jLabel24.setForeground(new java.awt.Color(157, 107, 69));
         jLabel24.setText("Niveau: 1");
@@ -735,18 +743,20 @@ public class GUI extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Auswertungsbutton.png"))); // NOI18N
         jButton1.setToolTipText("Auswertung");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setPreferredSize(new java.awt.Dimension(45, 40));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 20, 56, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(965, 20, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 153));
         jButton2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Speicherbutton.png"))); // NOI18N
-        jButton2.setToolTipText("Auswertung als Datei");
+        jButton2.setToolTipText("Auswertung als Datei speichern ");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setPreferredSize(new java.awt.Dimension(45, 40));
         jButton2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jButton2StateChanged(evt);
@@ -757,22 +767,13 @@ public class GUI extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, 56, -1));
-
-        jLabel25.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(93, 157, 69));
-        jLabel25.setText("Für Niveaustufen ?-Button neben Feld klicken");
-        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
-
-        jLabel26.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(69, 127, 157));
-        jLabel26.setText("Für Niveaustufen ?-Button neben Feld klicken");
-        getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1015, 20, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(157, 88, 69));
         jButton3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("?");
+        jButton3.setToolTipText("Hilfe zum Anforderungsfeld");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -792,24 +793,26 @@ public class GUI extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 20, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1213, 20, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(93, 157, 69));
         jButton5.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("?");
+        jButton5.setToolTipText("Hilfe zum Anforderungsfeld");
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
 
         jButton6.setBackground(new java.awt.Color(69, 127, 157));
         jButton6.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("?");
+        jButton6.setToolTipText("Hilfe zum Anforderungsfeld");
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -821,6 +824,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
         jTextField1.setText(" Tabelle nach Wörtern filtern...");
         jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 69, 73), 2, true));
+        jTextField1.setPreferredSize(new java.awt.Dimension(260, 24));
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt);
@@ -831,7 +835,19 @@ public class GUI extends javax.swing.JFrame {
                 jTextField1KeyTyped(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, 250, 30));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, -1, 30));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 153));
+        jButton7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Ladebutton.png"))); // NOI18N
+        jButton7.setToolTipText("Auswertung aus Datei laden");
+        jButton7.setPreferredSize(new java.awt.Dimension(45, 40));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1065, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -920,9 +936,12 @@ public class GUI extends javax.swing.JFrame {
         jLabel24.setText(text);
     }//GEN-LAST:event_jSlider16StateChanged
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-         //Erstelle neues Zertifikat, damit sich jComboBox'en bei einer Aenderung der Wahl nicht draufaddieren
-         zer = new Zertifikat();
+    /**
+     * return true wenn die Daten des Nutzers fehlerhaft waren, false wenn ein erfolgreiches Zertifikat berechnet wurde 
+     */
+    private boolean werteDatenAus() {
+        //Erstelle neues Zertifikat, damit sich jComboBox'en bei einer Aenderung der Wahl nicht draufaddieren
+        zer = new Zertifikat();
         
         ArrayList<String> aktivNamen = new ArrayList<>();
         boolean fertig = false;
@@ -935,51 +954,61 @@ public class GUI extends javax.swing.JFrame {
             String akA3 = alleA3Boxen.get(i).getSelectedItem().toString();
             
             
-            
-            if (akA1.equals("3 Kurse, davon mindestens 1 Abiturfach auf erhöhtem Niveau mit >= 4 Wochenstunden bzw  1 Leistungskurs jeweils durchgehend in der Qualifikationsphase belegt; alle anzurechnenden Kurse >= 5 Punkte")
-                    && akA3.equals("Naturwissenschaftliche Profilklasse (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
-                JOptionPane.showMessageDialog(jFrame1, "Naturwissenschaftliche Profilklasse bereits in A1 eingetragen.");
+            if (akA2.equals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
+                JOptionPane.showMessageDialog(jFrame1, "Wissenschaftliche Arbeit bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if (akA2.equals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (s.o.)")) {
-                JOptionPane.showMessageDialog(jFrame1, "Wissenschaftliche Arbeit bereis in A2 eingetragen.");
-                fertig = true;
-                break;
-            } else if (akA2.equals("Besondere Lernleistung") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (s.o.)")) {
+            } else if (akA2.equals("Besondere Lernleistung") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Besondere Lernleistung bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if (akA2.equals("Wissenschaftspropädeutisches Fach") && akA3.equals("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (s.o)")) {
+            } else if (akA2.equals("Wissenschaftspropädeutisches Fach") && akA3.equals("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Wissenschaftspropädeutisches Fach bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if(aktivNamen.contains(akA3) && !akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Eine Aktivitaet wurde 2 Mal eingetragen
-                JOptionPane.showMessageDialog(jFrame1, new String[] {"Eine Aktivität kann einmalig entweder in der S I oder der S II einberechnet werden.","Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."} );
-                fertig = true;
-                break;
-            } else { //Kein Ausnahmefall
-                if (!akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
-                    int currentSliderValue = alleA3Slider.get(i).getValue();
-                    if(alleA3Boxen.get(i).getName().contains("1")) { //S2-jComboBox
-                        Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
-                        if(ausgewaehltS2.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
-                            JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
-                            fertig = true;
-                            break;
-                        }
-                        zer.getAnforderungsfeldDrei().aktivitaetErfuelltS2(ausgewaehltS2, currentSliderValue);
-                    } else { //S1-jCombobox
-                        Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
-                        if(ausgewaehltS1.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
-                            JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
-                            fertig = true;
-                            break;
-                        }
-                        zer.getAnforderungsfeldDrei().aktivitaetErfuelltS1(ausgewaehltS1, currentSliderValue);
+            } else if(aktivNamen.contains(akA3) && !akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) {
+                int currentSliderValue = alleA3Slider.get(i).getValue();
+                if(alleA3Boxen.get(i).getName().contains("1")) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    if (ausgewaehltS2.isMehrfachWertbar() == false) {
+                        JOptionPane.showMessageDialog(jFrame1, new String[] {akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.","Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."} );
+                        fertig = true;
+                        break;
+                    }
+                } else { //S1-jCombobox
+                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    
+                    if (ausgewaehltS1.isMehrfachWertbar() == false) {
+                        JOptionPane.showMessageDialog(jFrame1, new String[] {akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.","Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."} );
+                        fertig = true;
+                        break;
                     }
                 }
-                aktivNamen.add(akA3);
+            } 
+            //Kein Ausnahmefall, die Schleife musste nicht angehalten werden
+            if (!akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
+                int currentSliderValue = alleA3Slider.get(i).getValue();
+                if(alleA3Boxen.get(i).getName().contains("1")) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    if(ausgewaehltS2.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
+                        JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
+                        fertig = true;
+                        break;
+                    }
+                    zer.getAnforderungsfeldDrei().aktivitaetErfuelltS2(ausgewaehltS2, currentSliderValue);
+                } else { //S1-jCombobox
+                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    if(ausgewaehltS1.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
+                        JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
+                        fertig = true;
+                        break;
+                    }
+                    
+                    zer.getAnforderungsfeldDrei().aktivitaetErfuelltS1(ausgewaehltS1, currentSliderValue);
+                }
             }
+            aktivNamen.add(akA3);
+            
         } 
         
         if (fertig == true) {
@@ -994,26 +1023,19 @@ public class GUI extends javax.swing.JFrame {
                 zer.getAnforderungsfeldZwei().aktivitaetErfuellt(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().get(jComboBox2.getSelectedIndex()-1), jSlider2.getValue());
             }
             zer.aktualisiereAlle();
-            
-            //Der Beratungstext
-            String[] beratungstext = zer.berate().split(" _// "); //Teilung des Textes
-            String[] feldEins = beratungstext[0].split("\\  "); //Teilung des 1. Anforderungsfeldes bei doppelten Leerzeichen (Trennung der moeglichen Aktivitaeten und Anforderungen zur naechsten Stufe)
-            String[] feldZwei = beratungstext[1].split("\\  "); //Teilung des 2. Anforderungsfeldes bei doppelten ( " s.o.)
-            String[] feldDrei = beratungstext[2].split(", "); //Teilung des 3. Anforderungsfeldes bei den Kommata (=Aufzaehlung der Aktivitaeten)
-            String[] allesZusammen = new String[feldEins.length + feldZwei.length + feldDrei.length + 1]; 
-            //Vereine die Arrays zu einem (in allesZusammen)
-            System.arraycopy(feldEins, 0, allesZusammen, 0, feldEins.length);
-            System.arraycopy(feldZwei, 0, allesZusammen, feldEins.length, feldZwei.length);
-            System.arraycopy(feldDrei, 0, allesZusammen, feldEins.length + feldZwei.length, feldDrei.length);
-            allesZusammen[allesZusammen.length-1] = beratungstext[3]; //Die Gesamtstufe des Zertifikats kommt am Ende
-            
-            
-            //Ergebnis ausgeben
-            JOptionPane.showMessageDialog(jFrame1, allesZusammen);
         }
-        
-        
-        
+        return fertig;
+    }
+    
+    
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+            if (werteDatenAus() == false) {
+                //Der Beratungstext
+                String[] beratungstext = zer.berate().split(" _// "); //Teilung des Textes zwischen den einzelnen Anforderungsfeldern
+            
+                //Ergebnis ausgeben
+                JOptionPane.showMessageDialog(jFrame1, beratungstext);
+            }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton2StateChanged
@@ -1021,59 +1043,56 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(zer.getAnforderungsfeldEins().zertifikatsstufe == 0
-           && zer.getAnforderungsfeldZwei().zertifikatsstufe == 0
-           && zer.getAnforderungsfeldDrei().getGesamtPunktzahl() == 0) { //Es fand noch keine Auswertung statt
-            JOptionPane.showMessageDialog(jFrame1, "Bitte vorher auswerten!");
-        } else { //Es gab bereits mindestens eine Auswertung
-            //Erzeuge ein Dialogfenster, damit der Nutzer selbststaendig den Dateipfad
-            //und -namen seiner Auswertung bestimmen kann
-            JFileChooser jFileChooser1 = new JFileChooser();
-            jFileChooser1.showSaveDialog(this);
-            String dateiname = jFileChooser1.getToolTipText();
-            jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            if (werteDatenAus()== false) {
+                //Erzeuge ein Dialogfenster, damit der Nutzer selbststaendig den Dateipfad
+                //und -namen seiner Auswertung bestimmen kann
+                JFileChooser jFileChooser1 = new JFileChooser();
+                jFileChooser1.setDialogTitle("MINTken-Auswertung speichern");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
+                jFileChooser1.setFileFilter(filter);
+                jFileChooser1.showSaveDialog(this);
+                String dateiname = jFileChooser1.getToolTipText();
+                jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         
-            try {
-                //Versuche die Datei unter gegebenen Namen zu speichern
-                zer.erfuellteAktivitaetenTextdatei(jFileChooser1.getSelectedFile().getAbsolutePath());
-                JOptionPane.showMessageDialog(jFrame1, "Datei wurde im ausgesuchten Pfad gespeichert." );
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen." );
+                try {
+                    //Versuche die Datei unter gegebenen Namen zu speichern
+                    zer.erfuellteAktivitaetenTextdatei(jFileChooser1.getSelectedFile().getAbsolutePath());
+                    JOptionPane.showMessageDialog(jFrame1, "Datei wurde im ausgewählten Pfad gespeichert." );
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen oder fehlerhaft." );
+                }
             }
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //Knopf fuer Beschreibung des Zertifikats
-        String hilfetext[] = {"Das MINT-EC-Zertifikat wird auf Antrag zusammen mit dem Abiturzeugnis an Schülerinnen und Schüler vergeben, die im Laufe ihrer Schulzeit kontinuierlich\n" +
-" über den Unterricht hinaus besondere Leistungen in den MINT-Fächern (Mathematik, Informatik, Naturwissenschaften, Technik) erbracht haben.\n" +
-"Schülerinnen und Schüler, die die Mindestbedingungen erfüllen, beantragen bis zu dem von der Schule festgelegten Termin die Verleihung des Zertifikats mit Hilfe eines Formulars,\n"+
-" einer Liste der erbrachten MINT-Leistungen sowie des ausgefüllten Dokumentationsheftes oder eines Portfolios, das Zeugniskopien, Teilnahmebescheinigungen, Wettbewerbsurkunden usw. enthält.\n" + 
-"Die Schule prüft die eingereichten Unterlagen und ermittelt gemäß der Vergaberichtlinien die Gesamteinstufung des Zertifikats.\n" +
-"Schülerinnen und Schüler, die das MINT-EC-Zertifikat erhalten, müssen Mindestanforderungen in den drei Anforderungsfeldern\n" +
-"I 	 Fachliche Kompetenz\n" +
-"II 	 Fachwissenschaftliches Arbeiten\n" +
-"III 	 Zusätzliche MINT-Aktivitäten\n" +
-"erfüllen.\n"+ 
-"In jedem der drei Anforderungsfelder werden die Schülerleistungen einer der drei Stufen\n" +
-"1 	 „mit Erfolg“\n" +
-"2 	 „mit besonderem Erfolg“\n" +
-"3 	 „mit Auszeichnung“\n" +
-"zugeordnet.\n" + 
-"Ein Zertifikat wird nur verliehen, wenn in jedem der drei Felder mindestens die Stufe 1 erreicht wurde.\n" + 
-"Die Gesamteinstufung des Zertifikates ergibt sich aus dem mathematisch gerundeten Mittelwert der in den drei Anforderungsfeldern erreichten Stufen.\n" +
-"Das MINT-EC-Zertifikat wird in Form einer vierseitigen Urkunde verliehen.\n" +
-                 "Quelle: https://www.mint-ec.de/mint-ec-zertifikat.html ; Broschüre 'Das MINT-EC-Zertifikat' ; 16.6.2016 "};
+        String text = String.format("Das MINT-EC-Zertifikat wird auf Antrag des Schülers zusammen mit dem Abiturzeugnis an Schülerinnen und Schüler vergeben, die im Laufe ihrer\n"
+                + "Schulzeit kontinuierlich über den Unterricht hinaus besondere Leistungen in den MINT-Fächern (Mathematik, Informatik, Naturwissenschaften, Technik) erbracht haben.\n"
+                + "Die Kontrolle der Aktivitäten erfolgt durch Kopien von Urkunden, Zeugnissen etc., die beim MINT-Koordinator abgegeben werden müssen. \n \n"
+                + "Schülerinnen und Schüler, die das MINT-EC-Zertifikat erhalten, müssen Mindestanforderungen in den drei Anforderungsfeldern\n" +
+                   String.format("%36s ", "") + "I 	 Fachliche Kompetenz\n" +
+                   String.format("%36s ", "") +"II 	 Fachwissenschaftliches Arbeiten\n" +
+                   String.format("%36s ", "") +"III  Zusätzliche MINT-Aktivitäten erfüllen.\n \n"
+                   + "In jedem der drei Anforderungsfelder werden die Schülerleistungen einer der drei Stufen\n" +
+                   String.format("%36s ", "") +"1 	 „mit Erfolg“\n" +
+                   String.format("%36s ", "") +"2 	 „mit besonderem Erfolg“\n" +
+                   String.format("%36s ", "") +"3 	 „mit Auszeichnung“ zugeordnet\n \n"
+                + "Ein Zertifikat wird nur verliehen, wenn in jedem der drei Felder mindestens die Stufe 1 erreicht wurde.\n" + 
+                   "Die Gesamteinstufung des Zertifikates ergibt sich aus dem mathematisch gerundeten Mittelwert der in den drei Anforderungsfeldern erreichten Stufen.\n" +
+                   "Das MINT-EC-Zertifikat wird in Form einer vierseitigen Urkunde verliehen.\n" );
+ 
                                 
-        JOptionPane.showMessageDialog(jFrame1, hilfetext );
+        JOptionPane.showMessageDialog(jFrame1, text );
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Knopf fuer A2
         String hilfetext[] = {zer.getAnforderungsfeldZwei().getFokus(), 
+                                " ",
                                 "Anforderung für Stufe 1: >= 9 Notenpunkte.",
                                 "Anforderung für Stufe 2: >= 11 Notenpunkte.",
                                 "Anforderung für Stufe 3: >= 13 Notenpunkte.",
+                                " ",
                                 "Wenn Einbeziehung einer der möglichen Wettbewerbe: ",
                                 "Anforderung für Stufe 1: Ernsthafte Teilnahme am Regionalwettbewerb.",
                                 "Anforderung für Stufe 2: Preisträger im Regionalwettbewerb (keine Sonderpreise).",
@@ -1083,10 +1102,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //Knopf fuer A3
-        String hilfetext[] = {zer.getAnforderungsfeldDrei().getFokus(), 
+        String hilfetext[] = {zer.getAnforderungsfeldDrei().getFokus(),
+                                " ",
                                 "Anforderung für Stufe 1: Ab 40 Punkte, davon maximal 20 aus der SI.",
                                 "Anforderung für Stufe 2: Ab 60 Punkte, davon maximal 30 aus der SI UND mindestens einmal Niveau 2 in der SII.",
-                                "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII ODER einmal Niveau 3 in der SII.",
+                                "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII",
+                                String.format("%36s ", "") + "ODER 80 Punkte, davon maximal 40 aus der SI UND einmal Niveau 3 in der SII.",
+                                " ",
                                 "Eine Aktivität kann entweder durch einer der Boxen oder direkt aus der Tabelle mit einem Rechtsklick hinzugefügt werden."};
         JOptionPane.showMessageDialog(jFrame1, hilfetext );
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1206,9 +1228,13 @@ public class GUI extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //Knopf fuer A1
         String hilfetext[] = {zer.getAnforderungsfeldEins().getFokus(), 
+                                " ",
                                 "Anforderung für Stufe 1: Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte.",
                                 "Anforderung für Stufe 2: Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte.",
-                                "Anforderung für Stufe 3: Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte."};
+                                "Anforderung für Stufe 3: Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte.",
+                                " ",
+                                "Dabei müssen die Kurse durchgehend in der Qualifikationsphase belegt worden sein und die Punkte eines anzurechnenden Kurses dürfen nicht unter 5 liegen.",
+                                "Das Ergebnis darf nicht gerundert werden (Beispiel: 12,75 Punkte -> Stufe 2 )"};
         JOptionPane.showMessageDialog(jFrame1, hilfetext );
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1240,7 +1266,7 @@ public class GUI extends javax.swing.JFrame {
         int reihenIndex = jTable1.getSelectedRow();
         String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
 
-        if (KEINES1AKTIVITAETEN.contains(aktivitaet)) { //ungueltige Aktivitaet; siehe naechste Zeile
+        if (keineS1Aktivitaeten.contains(aktivitaet)) { //ungueltige Aktivitaet; siehe naechste Zeile
             JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SI absolvieren.");
         } else { //gueltige Aktivitaet
             //Gehe die Comboboxen der SI durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
@@ -1266,7 +1292,7 @@ public class GUI extends javax.swing.JFrame {
         int reihenIndex = jTable1.getSelectedRow();
         String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
 
-        if (KEINES2AKTIVITAETEN.contains(aktivitaet)) {
+        if (keineS2Aktivitaeten.contains(aktivitaet)) {
             JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SII absolvieren.");
         } else {
             //Gehe die Comboboxen der SII durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
@@ -1287,11 +1313,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        //Setze alle A3-Boxen und ihre Regler auf Anfangszustand
-        for (int i = 0; i < alleA3Boxen.size(); i++) {
-            alleA3Boxen.get(i).setSelectedItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
-            alleA3Slider.get(i).setValue(1);
-        }
+        leereAlleA3Boxen();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -1333,6 +1355,58 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField1FocusGained
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //Erzeuge den FileChooser
+        JFileChooser jFileChooser1 = new JFileChooser();
+        jFileChooser1.setDialogTitle("MINTken-Auswertung Laden");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
+        jFileChooser1.setFileFilter(filter);
+        jFileChooser1.showOpenDialog(this);
+        String dateiname = jFileChooser1.getToolTipText();
+        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        
+        
+        try {
+            //Erhalte die Codes aus der Datei und fuege die Aktivitaeten dem Zertifikat hinzu
+            ArrayList<String> codes = zer.erhalteCodesAusDatei(jFileChooser1.getSelectedFile().getAbsolutePath());
+            leereAlleA3Boxen();
+            zer = new Zertifikat();
+            zer.erzeugeZertfikatsdaten(codes);
+            
+            //A1-Box & Regler einstellen
+            if (!zer.getAnforderungsfeldEins().erfuellteAktivitaeten.isEmpty()) {
+                jComboBox1.setSelectedItem(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getName());
+                jSlider1.setValue(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getNiveau());
+            }
+            
+            
+            //A2-Box & Regler einstellen
+            if (!zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.isEmpty()) {
+                jComboBox2.setSelectedItem(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getName());
+                jSlider2.setValue(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getNiveau());
+            }
+            
+            
+            //A3S1-Boxen & Regler einstellen
+            for (int i = 0 ; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().size(); i++) {
+                alleA3Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getName());
+                alleA3Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getNiveau());
+            }
+            
+            //A3S2-Boxen & Regler einstellen
+            int boxindex = 13;
+            for (int i = 0 ; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().size(); i++) {
+                alleA3Boxen.get(boxindex).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getName());
+                alleA3Slider.get(boxindex).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getNiveau());
+                boxindex--;
+            }
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(jFrame1, "Laden der Datei fehlgeschlagen oder fehlerhaft." );
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1362,6 +1436,16 @@ public class GUI extends javax.swing.JFrame {
                 new GUI().setVisible(true);
             }
         });
+    }
+    
+    /**
+     * Setze alle A3-Boxen und ihre Regler auf Anfangszustand
+     */
+    public void leereAlleA3Boxen() {
+        for (int i = 0; i < alleA3Boxen.size(); i++) {
+            alleA3Boxen.get(i).setSelectedItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
+            alleA3Slider.get(i).setValue(1);
+        }
     }
     
     /**
@@ -1412,6 +1496,7 @@ public class GUI extends javax.swing.JFrame {
      */
     private void initialisiereMeineElemente() {
         zer = new Zertifikat();
+        initialisiereSpeziallisten();
         initalisiereJTable();
         initialisiereAlleCombo();
         addAlleA3Boxen();
@@ -1508,6 +1593,24 @@ public class GUI extends javax.swing.JFrame {
     }
     
     /**
+     * Fuellt die Listen keineS1Aktivitaeten und keineS2Aktivitaeten welche jeweils die Aktivitaeten beherbergen, welche nicht in der jeweiligen Stufe erfuellbar sind.
+     */
+    private void initialisiereSpeziallisten() {
+        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
+            switch(erfuellbareAktivitaeten.getErfuellbarFuer()) {
+                case 1: //Die momentane Aktivitaet ist nur in der SI erfuellbar
+                    keineS2Aktivitaeten.add(erfuellbareAktivitaeten.getName());
+                    break;
+                case 2: //Die momentane Aktivitaet ist nur in der SII erfuellbar
+                    keineS1Aktivitaeten.add(erfuellbareAktivitaeten.getName());
+                    break;
+                default: //Die momentane Aktivitaet kann in beiden Stufen erfuellt werden
+                    break;
+            }
+        }
+    }
+    
+    /**
      * Fuellt die ComboBox mit den Aktivitaeten des Anforderungsfeldes 1
      */
     private void initialisiereA1Combo() {
@@ -1535,7 +1638,7 @@ public class GUI extends javax.swing.JFrame {
     private void initialisiereA3S1Combo(JComboBox box) {
         box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if ((KEINES1AKTIVITAETEN.contains(erfuellbareAktivitaeten.getName()))) {
+            if ((keineS1Aktivitaeten.contains(erfuellbareAktivitaeten.getName()))) {
                 //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S1
             } else {
                 box.addItem(erfuellbareAktivitaeten.getName());
@@ -1551,7 +1654,7 @@ public class GUI extends javax.swing.JFrame {
     private void initialisiereA3S2Combo(JComboBox box) {
         box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if ((KEINES2AKTIVITAETEN.contains(erfuellbareAktivitaeten.getName()))) {
+            if ((keineS2Aktivitaeten.contains(erfuellbareAktivitaeten.getName()))) {
             //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S2
             } else {
                 box.addItem(erfuellbareAktivitaeten.getName());
@@ -1662,6 +1765,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox10;
     private javax.swing.JComboBox<String> jComboBox11;
@@ -1696,8 +1800,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

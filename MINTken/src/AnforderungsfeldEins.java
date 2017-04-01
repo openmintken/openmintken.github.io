@@ -2,7 +2,7 @@
 /**
  * Anforderungsfeld I des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.1
+ * @version 1.2
  */
 public class AnforderungsfeldEins extends Anforderungsfeld {
     
@@ -11,10 +11,10 @@ public class AnforderungsfeldEins extends Anforderungsfeld {
      */
     public AnforderungsfeldEins() {
         //Initialisierung von erfuellbareAktivitaeten mit den 2 verfuegbaren Moeglichkeiten, dieses Anforderungsfeld zu erfuellen.
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("2 Abiturfächer auf erhöhtem Niveau mit >= 4 Wochenstunden bzw. 2 Leistungskurse", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"}));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("3 Kurse, davon mindestens 1 Abiturfach auf erhöhtem Niveau mit >= 4 Wochenstunden bzw  1 Leistungskurs jeweils durchgehend in der Qualifikationsphase belegt; alle anzurechnenden Kurse >= 5 Punkte", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"}));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("2 Abiturfächer als Leistungskurse", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"},"001"));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("3 Kurse, davon mind. 1 Abiturfach als Leistungskurs", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"},"002"));
     
-        this.fokus = "Fachliche Kompetenz in den MINT-Fächern der SII";
+        this.fokus = "Fachliche Kompetenz in den MINT-Fächern während der Qualifikationsphase";
     }
     
     /**
@@ -28,14 +28,16 @@ public class AnforderungsfeldEins extends Anforderungsfeld {
         switch (this.zertifikatsstufe) {
             case 0:
                 //Keine Aktivitaet wurde abgeschlossen
-                return "Für Stufe 1 fehlt die Erfüllung ("+ this.erfuellbareAktivitaeten.get(0).getAnforderung(0) +") einer der beiden Aktivitäten:  " + this.erfuellbareAktivitaeten.get(0).getName() +  //2 LKs
-                        "  ODER " + this.erfuellbareAktivitaeten.get(1).getName(); //1LK
+                return String.format(String.format("%10s", "") + "Für Stufe 1 fehlt die Erfüllung ("+ this.erfuellbareAktivitaeten.get(0).getAnforderung(0) +") einer der beiden Aktivitäten:%n"
+                        + String.format("%10s", "") +this.erfuellbareAktivitaeten.get(0).getName() +"%n"  //2 LKs
+                        + String.format("%10s", "") + "ODER " + this.erfuellbareAktivitaeten.get(1).getName())+"%n"; //1LK
+                
             case 3:
                 //Hoechste Stufe wurde erreicht.
-                return "Höchste Stufe wurde mit >=13 Notenpunkten erreicht durch " +this.erfuellteAktivitaeten.get(0).getName(); 
+                return String.format(String.format("%10s", "") + "Höchste Stufe wurde mit >=13 Notenpunkten erreicht durch " +this.erfuellteAktivitaeten.get(0).getName() + "%n"); 
             default:
                 //Stufe 1 oder 2
-                return "Stufe " + this.zertifikatsstufe+ " wurde mit der Erfüllung von " +this.erfuellteAktivitaeten.get(0).getAnforderung(zertifikatsstufe-1) + " erreicht in " + this.erfuellteAktivitaeten.get(0).getName() +".  Zur nächsten Stufe fehlen 2 weitere Punkte.";
+                return String.format(String.format("%10s", "") + "Stufe " + this.zertifikatsstufe+ " wurde mit der Erfüllung von " +this.erfuellteAktivitaeten.get(0).getAnforderung(zertifikatsstufe-1) + " erreicht in " + this.erfuellteAktivitaeten.get(0).getName() +". %n"+String.format("%10s", "") +  "Zur nächsten Stufe fehlen 2 weitere Punkte.%n");
         }
     }
     

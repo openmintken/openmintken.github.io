@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * ausschließlich das, was die Anforderungsfelder alle gemeinsam haben. 
  * Da es kein allgemeines Anforderungsfeld gibt, ist diese Klasse abstrakt. 
  * @author Joana Bergsiek
- * @version 1.1
+ * @version 1.2
  */
 public abstract class Anforderungsfeld {
     
@@ -55,6 +55,24 @@ public abstract class Anforderungsfeld {
         aktualisieren();
     }
     
+    /**
+     * Fuegt der Liste erfuellteAktivitaeten eine Aktivitaet hinzu.
+     * @param pCode Die Aktivitaet unter pCode, welche hinzugefuegt werden soll. 
+     * Falls die Id eines Codes zu keiner Aktivitaet gehoert oder ungueltig ist wird nichts gemacht. 
+     * Die ersten 3 Zahlen sind die AktivitaetsID.
+     * Die 4. Zahl des Codes das erfuellte Niveau.
+     */
+    public void aktivitaetErfuellt (String pCode) {
+        if (pCode.length() >= 4) { //Code gueltige Laenge?
+            String aktivitaetsID = pCode.substring(0,3); 
+            if (enthaeltID(aktivitaetsID)) { //Ist die 3-stellige ID einer Aktivitaet zugewiesen?
+                int niveau =(int) Integer.valueOf(pCode.substring(3,4));
+                Aktivitaet taet = erhalteAktivitaetUnterID(aktivitaetsID);
+                aktivitaetErfuellt(taet, niveau);
+            }
+        }
+    }
+    
     
     /**
      * Aktualisiert die Parameter eines Anforderungsfeldes.
@@ -76,6 +94,34 @@ public abstract class Anforderungsfeld {
             }
             
         }
+    }
+    
+    /**
+     * Abfrage, ob es bereits eine Aktivitaet unter pID gibt.
+     * @param pID Die zu ueberpruefende ID
+     * @return true wenn eine Aktivitaet bereits pID enthaelt; false wenn nicht
+     */
+    public boolean enthaeltID(String pID) {
+        for (int i=0; i<this.erfuellbareAktivitaeten.size(); i++) {
+            if(this.erfuellbareAktivitaeten.get(i).getAktivitaetsID().equals(pID)) {
+                return true;
+            } 
+        }
+        return false;
+    }
+    
+    /**
+     * Gibt die Aktivitaet unter einer ID wieder, falls existend.
+     * @param pID Die ID der Aktivitat, welche man haben will.
+     * @return Die Aktivitaet unter pID; wenn es die Aktivitaet unter pID nicht gibt, dann null
+     */
+    public Aktivitaet erhalteAktivitaetUnterID(String pID) {
+        for (int i=0; i<this.erfuellbareAktivitaeten.size(); i++) {
+            if(this.erfuellbareAktivitaeten.get(i).getAktivitaetsID().equals(pID)) {
+                return this.erfuellbareAktivitaeten.get(i);
+            } 
+        }
+        return null;
     }
     
     
