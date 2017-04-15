@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Testen des Systems
  * @author Joana Bergsiek
- * @version 1.2
+ * @version 1.3
  */
 public class TestZertifikat {
     Zertifikat zer;

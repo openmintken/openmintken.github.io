@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * ueberprueft, ob die Bedingungen zum MINT-Zertifikat erfuellt worden sind; ggf.
  * in welcher Stufe; was noch erfuellt werden muss.
  * @author Joana Bergsiek
- * @version 1.2
+ * @version 1.3
  */
 public class Zertifikat {
     private int zertifikatsstufe;
@@ -127,7 +127,7 @@ public class Zertifikat {
             } else {
                 Aktivitaet taetA1 = anforderungsfeldEins.getErfuellteAktivitaeten().get(0);
                 String aktivitaetsIDA1 = taetA1.getAktivitaetsID()+ Integer.toString(taetA1.getNiveau()) + "1"; //Eine ID der Laenge 5, die sich aus der eigentlichen AktivitaetsID, deren erfuelltes Niveau und das Anforderungsfeld zusammensetzt
-                A1Zeile = aktivitaetsIDA1 + " "+ taetA1.getName() + ", Niveau " + taetA1.getNiveau() + " und somit in der "+ taetA1.getNiveau() +". Stufe.";
+                A1Zeile = aktivitaetsIDA1 + " "+ taetA1.getName() + ", " + taetA1.getAnforderung(taetA1.getNiveau()-1) + " und somit Niveau "+ taetA1.getNiveau() +".";
                 bufferedWriter.write(A1Zeile);
                 bufferedWriter.newLine();
             }
@@ -141,7 +141,7 @@ public class Zertifikat {
             } else {
                 Aktivitaet taetA2 = anforderungsfeldZwei.getErfuellteAktivitaeten().get(0);
                 String aktivitaetsIDA2 = taetA2.getAktivitaetsID()+ Integer.toString(taetA2.getNiveau()) + "2" ;  
-                A2Zeile = aktivitaetsIDA2 + " "+ taetA2.getName() + ", Niveau " + taetA2.getNiveau() + " und somit in der "+ taetA2.getNiveau() +". Stufe.";
+                A2Zeile = aktivitaetsIDA2 + " "+ taetA2.getName() + ",  " + taetA2.getAnforderung(taetA2.getNiveau()-1) + " und somit Niveau "+ taetA2.getNiveau() +".";
                 bufferedWriter.write(A2Zeile);
                 bufferedWriter.newLine();
             }
@@ -153,7 +153,7 @@ public class Zertifikat {
             for (Aktivitaet taet : anforderungsfeldDrei.getErfuellteAktivitaetenS1()) {
                 String A3S1Zeile = "";
                 String aktivitaetsID = taet.getAktivitaetsID()+ Integer.toString(taet.getNiveau()) + "4"; //Die letzte Zahl fuer A3S1 Aktivitaeten ist immer 4 (3 + 1) 
-                A3S1Zeile = aktivitaetsID + " "+ taet.getName() + ", Niveau " + taet.getNiveau() + " und somit "+ taet.getNiveau()*5 +" Punkte.";
+                A3S1Zeile = aktivitaetsID + " "+ taet.getName() + ", Niveau "+taet.getNiveau()+" durch " + taet.getAnforderung(taet.getNiveau()-1) + " und somit "+ taet.getNiveau()*5 +" Punkte.";
                 bufferedWriter.write(A3S1Zeile);
                 bufferedWriter.newLine();
             }
@@ -162,7 +162,7 @@ public class Zertifikat {
             for (Aktivitaet taet : anforderungsfeldDrei.getErfuellteAktivitaetenS2()) {
                 String A3S2Zeile = "";
                 String aktivitaetsID = taet.getAktivitaetsID()+  Integer.toString(taet.getNiveau()) + "5"; //Die letzte Zahl fuer A3S2 Aktivitaeten ist immer 5 (3 + 2) 
-                A3S2Zeile = aktivitaetsID + " "+ taet.getName() + ", Niveau " + taet.getNiveau() + " und somit "+ taet.getNiveau()*5 +" Punkte.";
+                A3S2Zeile = aktivitaetsID + " "+ taet.getName() + ", Niveau "+taet.getNiveau()+" durch " + taet.getAnforderung(taet.getNiveau()-1) + " und somit "+ taet.getNiveau()*5 +" Punkte.";
                 bufferedWriter.write(A3S2Zeile);
                 bufferedWriter.newLine();
             }
@@ -230,7 +230,6 @@ public class Zertifikat {
             
             line = reader.readLine();
         }
-        
         return codes;
     }
     

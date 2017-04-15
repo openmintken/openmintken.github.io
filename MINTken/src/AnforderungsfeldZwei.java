@@ -2,7 +2,7 @@
 /**
  * Anforderungsfeld II des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.2
+ * @version 1.3
  */
 public class AnforderungsfeldZwei extends Anforderungsfeld {
     /**
