@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Anforderungsfeld III des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.3
+ * @version 1.3.1
  */
 public class AnforderungsfeldDrei extends Anforderungsfeld {
     

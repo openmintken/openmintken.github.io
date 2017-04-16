@@ -3,7 +3,7 @@
  * zum Erfuellen eines Anforderungsfelds, ferner, bei mehreren Aktivitaeten, 
  * dem MINT-Zertifikat benoetigt wird.
  * @author Joana Bergsiek
- * @version 1.3
+ * @version 1.3.1
  */
 public class Aktivitaet {
     

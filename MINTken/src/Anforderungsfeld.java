@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * ausschließlich das, was die Anforderungsfelder alle gemeinsam haben. 
  * Da es kein allgemeines Anforderungsfeld gibt, ist diese Klasse abstrakt. 
  * @author Joana Bergsiek
- * @version 1.3
+ * @version 1.3.1
  */
 public abstract class Anforderungsfeld {
     

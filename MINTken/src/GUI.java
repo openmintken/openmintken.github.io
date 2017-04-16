@@ -27,11 +27,12 @@ import javax.swing.table.TableRowSorter;
 
 /**
  * Eine grafische Darstellung des MINT-Punktezaehlers
+ *
  * @author Joana Bergsiek
- * @version 1.3
+ * @version 1.3.1
  */
 public class GUI extends javax.swing.JFrame {
-    
+
     private final ArrayList<Aktivitaet> S1 = new ArrayList<>(); //Geltende Aktivitaeten; siehe initialisiereA3S1Combo und jButton1MouseClicked
     private final ArrayList<Aktivitaet> S2 = new ArrayList<>(); //Geltende Aktivitaeten; siehe initialisiereA3S2Combo und jButton1MouseClicked
     private final ArrayList<JComboBox> alleA3S1Boxen = new ArrayList<>();
@@ -40,22 +41,21 @@ public class GUI extends javax.swing.JFrame {
     private final ArrayList<JSlider> alleA3S2Slider = new ArrayList<>();
     private final ArrayList<JLabel> alleA3S1Label = new ArrayList<>();
     private final ArrayList<JLabel> alleA3S2Label = new ArrayList<>();
-    private final int startanzahlA3Boxen = 7;
+    private final int startanzahlA3Boxen = 6;
     private Zertifikat zer;
     private final int[] reihenindexPuffer = new int[10000]; //siehe reiheHervorheben
     private TableRowSorter<TableModel> rowSorter;
     //Diese Aktivitaeten sind nicht in der S1 absolvierbar
-    private final ArrayList<String> keineS1Aktivitaeten = new ArrayList<>(); 
+    private final ArrayList<String> keineS1Aktivitaeten = new ArrayList<>();
     //Diese Aktivitaeten sind nicht in der S2 absolvierbar
-    private final ArrayList<String> keineS2Aktivitaeten = new ArrayList<>();  
-    
-    
+    private final ArrayList<String> keineS2Aktivitaeten = new ArrayList<>();
+
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
-        
+
         initialisiereMeineElemente();
     }
 
@@ -92,10 +92,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -104,6 +100,30 @@ public class GUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jMenuBar1 = new BackgroundMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem16 = new javax.swing.JMenuItem();
 
         jFrame1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jFrame1.setForeground(java.awt.Color.lightGray);
@@ -152,7 +172,7 @@ public class GUI extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MINTken Version 1.3 Joana Bergsiek");
+        setTitle("MINTken Version 1.3.1");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 780));
@@ -187,7 +207,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 1280, 240));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 1280, 240));
 
         jLabel1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(93, 157, 69));
@@ -195,16 +215,16 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(157, 88, 69));
+        jLabel2.setForeground(new java.awt.Color(157, 69, 73));
         jLabel2.setText("Anforderungsfeld III");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
 
         jComboBox1.setBackground(new java.awt.Color(69, 127, 157));
         jComboBox1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 13)); // NOI18N
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
             }
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 380, 50));
@@ -217,6 +237,11 @@ public class GUI extends javax.swing.JFrame {
         jComboBox2.setBackground(new java.awt.Color(93, 157, 69));
         jComboBox2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 13)); // NOI18N
         jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
         getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 380, 50));
 
         jSlider1.setMaximum(3);
@@ -254,112 +279,60 @@ public class GUI extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(157, 69, 73));
         jLabel6.setText("Erledigt in S I");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, -1));
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 38, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(157, 69, 73));
-        jLabel7.setText("(Unter- und Mittelstufe)");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, -1, -1));
+        jLabel7.setText("(Mittelstufe)");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(708, 60, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(157, 107, 69));
-        jLabel8.setText("S II");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, -1, -1));
+        jLabel8.setText("Erledigt in S II");
+        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel8.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 38, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(157, 107, 69));
         jLabel9.setText("(Oberstufe)");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 60, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
         jLabel11.setText("Die Länge einer Spalte an den Grenzen im Header verändern. Durch Drag&Drop Spalten verschieben. Durch einen Klick auf eine Spalte Tabelle nach dieser alph. sortieren.");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 153));
         jButton1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Auswertungsbutton.png"))); // NOI18N
         jButton1.setToolTipText("Auswertung");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setPreferredSize(new java.awt.Dimension(45, 40));
+        jButton1.setPreferredSize(new java.awt.Dimension(35, 35));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(965, 20, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 153));
         jButton2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Speicherbutton.png"))); // NOI18N
         jButton2.setToolTipText("Auswertung als Datei speichern ");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setPreferredSize(new java.awt.Dimension(45, 40));
-        jButton2.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jButton2StateChanged(evt);
-            }
-        });
+        jButton2.setPreferredSize(new java.awt.Dimension(35, 35));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1015, 20, -1, -1));
-
-        jButton3.setBackground(new java.awt.Color(157, 88, 69));
-        jButton3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("?");
-        jButton3.setToolTipText("Hilfe zum Anforderungsfeld");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, -1));
-
-        jButton4.setBackground(new java.awt.Color(157, 149, 69));
-        jButton4.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("?");
-        jButton4.setToolTipText("Was ist das MINT-Zertifikat?");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1213, 20, -1, -1));
-
-        jButton5.setBackground(new java.awt.Color(93, 157, 69));
-        jButton5.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("?");
-        jButton5.setToolTipText("Hilfe zum Anforderungsfeld");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
-
-        jButton6.setBackground(new java.awt.Color(69, 127, 157));
-        jButton6.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("?");
-        jButton6.setToolTipText("Hilfe zum Anforderungsfeld");
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 20, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
-        jTextField1.setText(" Tabelle nach Wörtern filtern...");
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("Tabelle nach Wörtern filtern...");
         jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(157, 69, 73), 2, true));
         jTextField1.setPreferredSize(new java.awt.Dimension(260, 24));
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -372,46 +345,47 @@ public class GUI extends javax.swing.JFrame {
                 jTextField1KeyTyped(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, -1, 30));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 440, -1, 30));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 153));
         jButton7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Ladebutton.png"))); // NOI18N
         jButton7.setToolTipText("Auswertung aus Datei laden");
-        jButton7.setPreferredSize(new java.awt.Dimension(45, 40));
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setPreferredSize(new java.awt.Dimension(35, 35));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1065, 20, -1, -1));
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 20, -1, -1));
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(400, 360));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(400, 360));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(400, 316));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(400, 316));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 1340));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane2.setViewportView(jPanel1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 400, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 380, -1));
 
         jScrollPane3.setBorder(null);
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setMinimumSize(new java.awt.Dimension(400, 360));
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(400, 360));
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(400, 316));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(400, 316));
 
-        jPanel2.setMinimumSize(new java.awt.Dimension(400, 340));
+        jPanel2.setMinimumSize(new java.awt.Dimension(400, 1340));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane3.setViewportView(jPanel2);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, 400, -1));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, 380, -1));
 
-        jButton8.setBackground(new java.awt.Color(157, 88, 69));
+        jButton8.setBackground(new java.awt.Color(157, 69, 73));
         jButton8.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("+");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/addS1.png"))); // NOI18N
         jButton8.setToolTipText("Auswahlbox für SI hinzufügen");
         jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton8.setPreferredSize(new java.awt.Dimension(40, 30));
@@ -420,12 +394,12 @@ public class GUI extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 40, -1));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 40, 35, 35));
 
         jButton9.setBackground(new java.awt.Color(157, 107, 69));
         jButton9.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("+");
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/addS2.png"))); // NOI18N
         jButton9.setToolTipText("Auswahlbox für SII hinzufügen");
         jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton9.setPreferredSize(new java.awt.Dimension(40, 30));
@@ -434,15 +408,233 @@ public class GUI extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 35, 35));
+
+        jLabel10.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(69, 127, 157));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 290, -1));
+
+        jLabel12.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(93, 157, 69));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 290, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/removeS1.png"))); // NOI18N
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setPreferredSize(new java.awt.Dimension(10, 10));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/removeS2.png"))); // NOI18N
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setPreferredSize(new java.awt.Dimension(10, 10));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 410, -1, -1));
+
+        jMenuBar1.setBackground(new java.awt.Color(157, 69, 73));
+        jMenuBar1.setBorder(null);
+        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuBar1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+
+        jMenu1.setText("Aktionen");
+        jMenu1.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jMenu1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jMenu1MouseExited(evt);
+            }
+        });
+
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem11.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/addS1Men.png"))); // NOI18N
+        jMenuItem11.setText("Auswahlbox für SI hinzufügen");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem12.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/addS2Men.png"))); // NOI18N
+        jMenuItem12.setText("Auswahlbox für SII hinzufügen");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem12);
+
+        jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem14.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/removeS1Men.png"))); // NOI18N
+        jMenuItem14.setText("Auswahlbox für SI entfernen");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem14);
+
+        jMenuItem15.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem15.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/removeS2Men.png"))); // NOI18N
+        jMenuItem15.setText("Auswahlbox für SII entfernen");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem15);
+        jMenu1.add(jSeparator3);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/AuswertungsbuttonMen.png"))); // NOI18N
+        jMenuItem4.setText("Daten auswerten");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/SpeicherbuttonMen.png"))); // NOI18N
+        jMenuItem5.setText("Auswertung speichern");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/LadebuttonMen.png"))); // NOI18N
+        jMenuItem6.setText("Auswertung laden");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+        jMenu1.add(jSeparator4);
+
+        jMenuItem13.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem13.setText("Programm beenden");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem13);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Informationen zum Zertifikat");
+        jMenu2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jMenu2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jMenu2MouseExited(evt);
+            }
+        });
+
+        jMenuItem7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/HilfeZerMen.png"))); // NOI18N
+        jMenuItem7.setText("Was ist das MINT-EC-Zertifikat?");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+        jMenu2.add(jSeparator2);
+
+        jMenuItem8.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/HilfeA1Men.png"))); // NOI18N
+        jMenuItem8.setText("Hilfe zu Anforderungsfeld I");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
+        jMenuItem9.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/HilfeA2Men.png"))); // NOI18N
+        jMenuItem9.setText("Hilfe zu Anforderungsfeld II");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem10.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/HilfeA3Men.png"))); // NOI18N
+        jMenuItem10.setText("Hilfe zu Anforderungsfeld III");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Hilfe");
+        jMenu3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+
+        jMenuItem16.setText("Über MINTken");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem16);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-    
+    /**
+     * *
+     * Aktualisiert den Text was die jeweiligen Niveaus erfuellt unter den A1&A2
+     * Reglern
+     */
+    private void updateNiveautext(JComboBox box, JLabel label, JSlider slider, int anforderungsfeld) {
+        String bedText = "";
+        if (!box.getSelectedItem().toString().contains("Bitte wähle")) {
+            if (anforderungsfeld == 1) {
+                bedText = zer.getAnforderungsfeldEins().erfuellbareAktivitaeten.get(box.getSelectedIndex() - 1).getAnforderung(slider.getValue() - 1);
+            } else {
+                bedText = zer.getAnforderungsfeldZwei().erfuellbareAktivitaeten.get(box.getSelectedIndex() - 1).getAnforderung(slider.getValue() - 1);
+            }
+            label.setText(bedText);
+        } else {
+            label.setText("");
+        }
+    }
+
     private void jSliderStateChanged(javax.swing.event.ChangeEvent evt, JSlider slider) {
         String text = "Niveau: " + String.valueOf(slider.getValue());
         int index = 0;
@@ -454,41 +646,137 @@ public class GUI extends javax.swing.JFrame {
             alleA3S2Label.get(index).setText(text);
         }
     }
-    
+
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         String text = "Niveau: " + String.valueOf(jSlider1.getValue());
         jLabel4.setText(text);
+
+        updateNiveautext(jComboBox1, jLabel10, jSlider1, 1);
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
         String text = "Niveau: " + String.valueOf(jSlider2.getValue());
         jLabel5.setText(text);
+
+        updateNiveautext(jComboBox2, jLabel12, jSlider2, 2);
     }//GEN-LAST:event_jSlider2StateChanged
 
+    private void datenauswertenAktion() {
+        if (werteDatenAus() == false) {
+            //Der Beratungstext
+            String[] beratungstext = zer.berate().split(" _// "); //Teilung des Textes zwischen den einzelnen Anforderungsfeldern
+
+            //Ergebnis ausgeben
+            JOptionPane.showMessageDialog(jFrame1, beratungstext);
+        }
+    }
+
+    private void alsDateiSpeichernAktion() {
+        if (werteDatenAus() == false) {
+            //Erzeuge ein Dialogfenster, damit der Nutzer selbststaendig den Dateipfad
+            //und -namen seiner Auswertung bestimmen kann
+            JFileChooser jFileChooser1 = new JFileChooser();
+            jFileChooser1.setDialogTitle("MINTken-Auswertung speichern");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
+            jFileChooser1.setFileFilter(filter);
+            jFileChooser1.showSaveDialog(this);
+            String dateiname = jFileChooser1.getToolTipText();
+            jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+            try {
+                //Versuche die Datei unter gegebenen Namen zu speichern
+                zer.erfuellteAktivitaetenTextdatei(jFileChooser1.getSelectedFile().getAbsolutePath());
+                JOptionPane.showMessageDialog(jFrame1, "Datei wurde im ausgewählten Pfad gespeichert.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen oder fehlerhaft.");
+            }
+        }
+    }
+
+    private void dateiLadenAktion() {
+        //Erzeuge den FileChooser
+        JFileChooser jFileChooser1 = new JFileChooser();
+        jFileChooser1.setDialogTitle("MINTken-Auswertung Laden");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
+        jFileChooser1.setFileFilter(filter);
+        jFileChooser1.showOpenDialog(this);
+        String dateiname = jFileChooser1.getSelectedFile().getAbsolutePath();
+        if (!dateiname.endsWith(".txt")) {
+            JOptionPane.showMessageDialog(jFrame1, "Es können nur Textdateien (.txt) ausgelesen werden.");
+        }
+        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        try {
+            //Erhalte die Codes aus der Datei und fuege die Aktivitaeten dem Zertifikat hinzu
+            ArrayList<String> codes = zer.erhalteCodesAusDatei(dateiname);
+            if (codes.isEmpty()) {
+                JOptionPane.showMessageDialog(jFrame1, "Es wurde eine ungültige MINTken-Auswertungsdatei ausgewählt. \n"
+                        + "\n"
+                        + "Für eine gültige Datei müssen vor der Aktivitätenaufzählung am Schluss jeweils 5-stellige Codes stehen.");
+            }
+            leereAlleA3Boxen();
+            zer = new Zertifikat();
+            zer.erzeugeZertfikatsdaten(codes);
+
+            //A1-Box & Regler einstellen
+            if (!zer.getAnforderungsfeldEins().erfuellteAktivitaeten.isEmpty()) {
+                jComboBox1.setSelectedItem(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getName());
+                jSlider1.setValue(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getNiveau());
+            }
+
+            //A2-Box & Regler einstellen
+            if (!zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.isEmpty()) {
+                jComboBox2.setSelectedItem(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getName());
+                jSlider2.setValue(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getNiveau());
+            }
+
+            //A3S1-Boxen & Regler einstellen
+            for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().size(); i++) {
+                if (i >= alleA3S1Boxen.size()) {
+                    fuegeA3S1SetHinzu();
+                }
+                alleA3S1Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getName());
+                alleA3S1Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getNiveau());
+            }
+
+            //A3S2-Boxen & Regler einstellen
+            for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().size(); i++) {
+                if (i >= alleA3S2Boxen.size()) {
+                    fuegeA3S2SetHinzu();
+                }
+                alleA3S2Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getName());
+                alleA3S2Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getNiveau());
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(jFrame1, "Laden der Datei fehlgeschlagen oder fehlerhaft.");
+        }
+    }
+
     /**
-     * return true wenn die Daten des Nutzers fehlerhaft waren, false wenn ein erfolgreiches Zertifikat berechnet wurde 
+     * return true wenn die Daten des Nutzers fehlerhaft waren, false wenn ein
+     * erfolgreiches Zertifikat berechnet wurde
      */
     private boolean werteDatenAus() {
         //Erstelle neues Zertifikat, damit sich jComboBox'en bei einer Aenderung der Wahl nicht draufaddieren
         zer = new Zertifikat();
-        
+
         ArrayList<String> aktivNamen = new ArrayList<>();
         boolean fertig = false;
         ArrayList<JComboBox> alleA3Boxen = new ArrayList<>();
         alleA3Boxen.addAll((Collection<? extends JComboBox>) alleA3S1Boxen.clone());
         alleA3Boxen.addAll((Collection<? extends JComboBox>) alleA3S2Boxen.clone());
-        
+
         ArrayList<JSlider> alleA3Slider = new ArrayList<>();
         alleA3Slider.addAll((Collection<? extends JSlider>) alleA3S1Slider.clone());
         alleA3Slider.addAll((Collection<? extends JSlider>) alleA3S2Slider.clone());
-        
+
         //Pruefe zunaechst alle Felder....
-        for (int i=0; i<alleA3Boxen.size();i++) {
+        for (int i = 0; i < alleA3Boxen.size(); i++) {
             String akA1 = jComboBox1.getSelectedItem().toString();
             String akA2 = jComboBox2.getSelectedItem().toString();
             String akA3 = alleA3Boxen.get(i).getSelectedItem().toString();
-            
-            
+
             if (akA2.equals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Wissenschaftliche Arbeit bereits in A2 eingetragen.");
                 fertig = true;
@@ -501,172 +789,82 @@ public class GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(jFrame1, "Wissenschaftspropädeutisches Fach bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if(aktivNamen.contains(akA3) && !akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) {
+            } else if (aktivNamen.contains(akA3) && !akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) {
                 int currentSliderValue = alleA3Slider.get(i).getValue();
-                if(i >= alleA3S1Boxen.size()) { //S2-jComboBox
-                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                if (i >= alleA3S1Boxen.size()) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS2.isMehrfachWertbar() == false) {
-                        JOptionPane.showMessageDialog(jFrame1, new String[] {akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.","Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."} );
+                        JOptionPane.showMessageDialog(jFrame1, new String[]{akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.", "Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."});
                         fertig = true;
                         break;
                     }
                 } else { //S1-jCombobox
-                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS1.isMehrfachWertbar() == false) {
-                        JOptionPane.showMessageDialog(jFrame1, new String[] {akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.","Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."} );
+                        JOptionPane.showMessageDialog(jFrame1, new String[]{akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.", "Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."});
                         fertig = true;
                         break;
                     }
                 }
-            } 
+            }
             //Kein Ausnahmefall, die Schleife musste nicht angehalten werden
             if (!akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
                 int currentSliderValue = alleA3Slider.get(i).getValue();
-                if(i >= alleA3S1Boxen.size()) { //S2-jComboBox
-                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
-                    if(ausgewaehltS2.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
+                if (i >= alleA3S1Boxen.size()) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    if (ausgewaehltS2.getAnforderung(currentSliderValue - 1).equals("")) { //siehe naechste Zeile
                         JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
                         fertig = true;
                         break;
                     }
                     zer.getAnforderungsfeldDrei().aktivitaetErfuelltS2(ausgewaehltS2, currentSliderValue);
                 } else { //S1-jCombobox
-                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex()-1 ); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
-                    if(ausgewaehltS1.getAnforderung(currentSliderValue-1).equals("")) { //siehe naechste Zeile
+                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    if (ausgewaehltS1.getAnforderung(currentSliderValue - 1).equals("")) { //siehe naechste Zeile
                         JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
                         fertig = true;
                         break;
                     }
-                    
+
                     zer.getAnforderungsfeldDrei().aktivitaetErfuelltS1(ausgewaehltS1, currentSliderValue);
                 }
             }
             aktivNamen.add(akA3);
-            
-        } 
-        
+
+        }
+
         if (fertig == true) {
             //Die Schleife musste wegen einer Fehlermeldung abgebrochen werden, mache nichts mehr
         } else {
             //Jetzt noch die Anforderungsfelder I & II
             if (!jComboBox1.getSelectedItem().toString().equals("Bitte wähle eine Aktivität des Anforderungsfeldes I")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
-                zer.getAnforderungsfeldEins().aktivitaetErfuellt(zer.getAnforderungsfeldEins().getErfuellbareAktivitaeten().get(jComboBox1.getSelectedIndex()-1), jSlider1.getValue());
+                zer.getAnforderungsfeldEins().aktivitaetErfuellt(zer.getAnforderungsfeldEins().getErfuellbareAktivitaeten().get(jComboBox1.getSelectedIndex() - 1), jSlider1.getValue());
             }
-        
+
             if (!jComboBox2.getSelectedItem().toString().equals("Bitte wähle eine Aktivität des Anforderungsfeldes II")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
-                zer.getAnforderungsfeldZwei().aktivitaetErfuellt(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().get(jComboBox2.getSelectedIndex()-1), jSlider2.getValue());
+                zer.getAnforderungsfeldZwei().aktivitaetErfuellt(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().get(jComboBox2.getSelectedIndex() - 1), jSlider2.getValue());
             }
             zer.aktualisiereAlle();
         }
         return fertig;
     }
-    
-    
+
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-            if (werteDatenAus() == false) {
-                //Der Beratungstext
-                String[] beratungstext = zer.berate().split(" _// "); //Teilung des Textes zwischen den einzelnen Anforderungsfeldern
-            
-                //Ergebnis ausgeben
-                JOptionPane.showMessageDialog(jFrame1, beratungstext);
-            }
+        datenauswertenAktion();
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jButton2StateChanged
-        
-    }//GEN-LAST:event_jButton2StateChanged
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            if (werteDatenAus()== false) {
-                //Erzeuge ein Dialogfenster, damit der Nutzer selbststaendig den Dateipfad
-                //und -namen seiner Auswertung bestimmen kann
-                JFileChooser jFileChooser1 = new JFileChooser();
-                jFileChooser1.setDialogTitle("MINTken-Auswertung speichern");
-                FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
-                jFileChooser1.setFileFilter(filter);
-                jFileChooser1.showSaveDialog(this);
-                String dateiname = jFileChooser1.getToolTipText();
-                jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        
-                try {
-                    //Versuche die Datei unter gegebenen Namen zu speichern
-                    zer.erfuellteAktivitaetenTextdatei(jFileChooser1.getSelectedFile().getAbsolutePath());
-                    JOptionPane.showMessageDialog(jFrame1, "Datei wurde im ausgewählten Pfad gespeichert." );
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(jFrame1, "Speichern der Datei fehlgeschlagen oder fehlerhaft." );
-                }
-            }
+        alsDateiSpeichernAktion();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //Knopf fuer Beschreibung des Zertifikats
-        String text = String.format("Das MINT-EC-Zertifikat wird auf Antrag des Schülers zusammen mit dem Abiturzeugnis an Schülerinnen und Schüler vergeben, die im Laufe ihrer\n"
-                + "Schulzeit kontinuierlich über den Unterricht hinaus besondere Leistungen in den MINT-Fächern (Mathematik, Informatik, Naturwissenschaften, Technik) erbracht haben.\n"
-                + "Die Kontrolle der Aktivitäten erfolgt durch Kopien von Urkunden, Zeugnissen etc., die beim MINT-Koordinator abgegeben werden müssen. \n \n"
-                + "Schülerinnen und Schüler, die das MINT-EC-Zertifikat erhalten, müssen Mindestanforderungen in den drei Anforderungsfeldern\n" +
-                   String.format("%36s ", "") + "I 	 Fachliche Kompetenz\n" +
-                   String.format("%36s ", "") +"II 	 Fachwissenschaftliches Arbeiten\n" +
-                   String.format("%36s ", "") +"III  Zusätzliche MINT-Aktivitäten erfüllen.\n \n"
-                   + "In jedem der drei Anforderungsfelder werden die Schülerleistungen einer der drei Stufen\n" +
-                   String.format("%36s ", "") +"1 	 „mit Erfolg“\n" +
-                   String.format("%36s ", "") +"2 	 „mit besonderem Erfolg“\n" +
-                   String.format("%36s ", "") +"3 	 „mit Auszeichnung“ zugeordnet\n \n"
-                + "Ein Zertifikat wird nur verliehen, wenn in jedem der drei Felder mindestens die Stufe 1 erreicht wurde.\n" + 
-                   "Die Gesamteinstufung des Zertifikates ergibt sich aus dem mathematisch gerundeten Mittelwert der in den drei Anforderungsfeldern erreichten Stufen.\n" +
-                   "Das MINT-EC-Zertifikat wird in Form einer vierseitigen Urkunde verliehen.\n" );
- 
-                                
-        JOptionPane.showMessageDialog(jFrame1, text );
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Knopf fuer A2
-        String hilfetext[] = {zer.getAnforderungsfeldZwei().getFokus(), 
-                                " ",
-                                "Anforderung für Stufe 1: >= 9 Notenpunkte.",
-                                "Anforderung für Stufe 2: >= 11 Notenpunkte.",
-                                "Anforderung für Stufe 3: >= 13 Notenpunkte.",
-                                " ",
-                                "Wenn Einbeziehung einer der möglichen Wettbewerbe: ",
-                                "Anforderung für Stufe 1: Ernsthafte Teilnahme am Regionalwettbewerb.",
-                                "Anforderung für Stufe 2: Preisträger im Regionalwettbewerb (keine Sonderpreise).",
-                                "Anforderung für Stufe 3: Teilnahme am Landes- oder Bundeswettbewerb."};
-        JOptionPane.showMessageDialog(jFrame1, hilfetext );
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //Knopf fuer A3
-        String hilfetext[] = {zer.getAnforderungsfeldDrei().getFokus(),
-                                " ",
-                                "Anforderung für Stufe 1: Ab 40 Punkte, davon maximal 20 aus der SI.",
-                                "Anforderung für Stufe 2: Ab 60 Punkte, davon maximal 30 aus der SI UND mindestens einmal Niveau 2 in der SII.",
-                                "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII",
-                                String.format("%36s ", "") + "ODER 80 Punkte, davon maximal 40 aus der SI UND einmal Niveau 3 in der SII.",
-                                " ",
-                                "Eine Aktivität kann entweder durch einer der Boxen oder direkt aus der Tabelle mit einem Rechtsklick hinzugefügt werden."};
-        JOptionPane.showMessageDialog(jFrame1, hilfetext );
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void comboBoxStateChange(java.awt.event.ItemEvent evt, JComboBox box) {
         reiheHervorheben(box);
     }
-    
-    private void comboBoxFocusGained (java.awt.event.FocusEvent evt, JComboBox box) {
+
+    private void comboBoxFocusGained(java.awt.event.FocusEvent evt, JComboBox box) {
         reiheHervorheben(box);
-    } 
-    
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //Knopf fuer A1
-        String hilfetext[] = {zer.getAnforderungsfeldEins().getFokus(), 
-                                " ",
-                                "Anforderung für Stufe 1: Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte.",
-                                "Anforderung für Stufe 2: Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte.",
-                                "Anforderung für Stufe 3: Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte.",
-                                " ",
-                                "Dabei müssen die Kurse durchgehend in der Qualifikationsphase belegt worden sein und die Punkte eines anzurechnenden Kurses dürfen nicht unter 5 liegen.",
-                                "Das Ergebnis darf nicht gerundert werden (Beispiel: 12,75 Punkte -> Stufe 2 )"};
-        JOptionPane.showMessageDialog(jFrame1, hilfetext );
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         if (SwingUtilities.isRightMouseButton(evt)) {
@@ -708,10 +906,10 @@ public class GUI extends javax.swing.JFrame {
                     alleA3S1Slider.get(i).requestFocusInWindow();
                     break;
                 }
-                if (i == alleA3S1Boxen.size()-1) { 
+                if (i == alleA3S1Boxen.size() - 1) {
                     fuegeA3S1SetHinzu();
-                    alleA3S1Boxen.get(i+1).setSelectedItem(aktivitaet);
-                    alleA3S1Slider.get(i+1).requestFocusInWindow();
+                    alleA3S1Boxen.get(i + 1).setSelectedItem(aktivitaet);
+                    alleA3S1Slider.get(i + 1).requestFocusInWindow();
                     jScrollPane2.getVerticalScrollBar().setValue(jScrollPane2.getVerticalScrollBar().getMaximum());
                     break;
                 }
@@ -737,10 +935,10 @@ public class GUI extends javax.swing.JFrame {
                     alleA3S2Slider.get(i).requestFocusInWindow();
                     break;
                 }
-                if (i == alleA3S2Boxen.size()-1) { 
+                if (i == alleA3S2Boxen.size() - 1) {
                     fuegeA3S2SetHinzu();
-                    alleA3S2Boxen.get(i+1).setSelectedItem(aktivitaet);
-                    alleA3S2Slider.get(i+1).requestFocusInWindow();
+                    alleA3S2Boxen.get(i + 1).setSelectedItem(aktivitaet);
+                    alleA3S2Slider.get(i + 1).requestFocusInWindow();
                     jScrollPane3.getVerticalScrollBar().setValue(jScrollPane3.getVerticalScrollBar().getMaximum());
                     break;
                 }
@@ -786,71 +984,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         //Das Textfield wurde erstmalig ausgewaehlt
-        if(jTextField1.getText().equals(" Tabelle nach Wörtern filtern...")) {
+        if (jTextField1.getText().equals("Tabelle nach Wörtern filtern...")) {
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //Erzeuge den FileChooser
-        JFileChooser jFileChooser1 = new JFileChooser();
-        jFileChooser1.setDialogTitle("MINTken-Auswertung Laden");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
-        jFileChooser1.setFileFilter(filter);
-        jFileChooser1.showOpenDialog(this);
-        String dateiname = jFileChooser1.getSelectedFile().getAbsolutePath();
-        if (!dateiname.endsWith(".txt")) {
-            JOptionPane.showMessageDialog(jFrame1, "Es können nur Textdateien (.txt) ausgelesen werden." );
-        }
-        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        
-        
-        try {
-            //Erhalte die Codes aus der Datei und fuege die Aktivitaeten dem Zertifikat hinzu
-            ArrayList<String> codes = zer.erhalteCodesAusDatei(dateiname);
-            if (codes.isEmpty()) {
-                JOptionPane.showMessageDialog(jFrame1, "Es wurde eine ungültige MINTken-Auswertungsdatei ausgewählt. \n"
-                        + "\n"
-                        + "Für eine gültige Datei müssen vor der Aktivitätenaufzählung am Schluss jeweils 5-stellige Codes stehen.");
-            }
-            leereAlleA3Boxen();
-            zer = new Zertifikat();
-            zer.erzeugeZertfikatsdaten(codes);
-            
-            //A1-Box & Regler einstellen
-            if (!zer.getAnforderungsfeldEins().erfuellteAktivitaeten.isEmpty()) {
-                jComboBox1.setSelectedItem(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getName());
-                jSlider1.setValue(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getNiveau());
-            }
-            
-            
-            //A2-Box & Regler einstellen
-            if (!zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.isEmpty()) {
-                jComboBox2.setSelectedItem(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getName());
-                jSlider2.setValue(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getNiveau());
-            }
-            
-            //A3S1-Boxen & Regler einstellen
-            for (int i = 0 ; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().size(); i++) {
-                if (i >= alleA3S1Boxen.size()) {
-                    fuegeA3S1SetHinzu();
-                }
-                alleA3S1Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getName());
-                alleA3S1Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getNiveau());
-            }
-            
-            //A3S2-Boxen & Regler einstellen
-            for (int i = 0 ; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().size(); i++) {
-                if (i >= alleA3S2Boxen.size()) {
-                    fuegeA3S2SetHinzu();
-                }
-                alleA3S2Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getName());
-                alleA3S2Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getNiveau());
-            }
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(jFrame1, "Laden der Datei fehlgeschlagen oder fehlerhaft." );
-        }
+        dateiLadenAktion();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -860,8 +1000,140 @@ public class GUI extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         fuegeA3S2SetHinzu();
     }//GEN-LAST:event_jButton9ActionPerformed
-    
-    
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        datenauswertenAktion();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        alsDateiSpeichernAktion();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        dateiLadenAktion();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        String hilfetext[] = {zer.getAnforderungsfeldEins().getFokus(),
+            " ",
+            "Anforderung für Stufe 1: Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte.",
+            "Anforderung für Stufe 2: Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte.",
+            "Anforderung für Stufe 3: Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte.",
+            " ",
+            "Dabei müssen die Kurse durchgehend in der Qualifikationsphase belegt worden sein und die Punkte eines anzurechnenden Kurses dürfen nicht unter 5 liegen.",
+            "Das Ergebnis darf nicht gerundert werden (Beispiel: 12,75 Punkte -> Stufe 2 )"};
+        JOptionPane.showMessageDialog(jFrame1, hilfetext);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        String hilfetext[] = {zer.getAnforderungsfeldZwei().getFokus(),
+            " ",
+            "Anforderung für Stufe 1: >= 9 Notenpunkte.",
+            "Anforderung für Stufe 2: >= 11 Notenpunkte.",
+            "Anforderung für Stufe 3: >= 13 Notenpunkte.",
+            " ",
+            "Wenn Einbeziehung einer der möglichen Wettbewerbe: ",
+            "Anforderung für Stufe 1: Ernsthafte Teilnahme am Regionalwettbewerb.",
+            "Anforderung für Stufe 2: Preisträger im Regionalwettbewerb (keine Sonderpreise).",
+            "Anforderung für Stufe 3: Teilnahme am Landes- oder Bundeswettbewerb."};
+        JOptionPane.showMessageDialog(jFrame1, hilfetext);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        String hilfetext[] = {zer.getAnforderungsfeldDrei().getFokus(),
+            " ",
+            "Anforderung für Stufe 1: Ab 40 Punkte, davon maximal 20 aus der SI.",
+            "Anforderung für Stufe 2: Ab 60 Punkte, davon maximal 30 aus der SI UND mindestens einmal Niveau 2 in der SII.",
+            "Anforderung für Stufe 3: Ab 80 Punkte, davon maximal 40 aus der SI UND mindestens zweimal Niveau 2 in der SII",
+            String.format("%36s ", "") + "ODER 80 Punkte, davon maximal 40 aus der SI UND einmal Niveau 3 in der SII.",
+            " ",
+            "Eine Aktivität kann entweder durch einer der Boxen oder direkt aus der Tabelle mit einem Rechtsklick hinzugefügt werden."};
+        JOptionPane.showMessageDialog(jFrame1, hilfetext);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        String text = String.format("Das MINT-EC-Zertifikat wird auf Antrag des Schülers zusammen mit dem Abiturzeugnis an Schülerinnen und Schüler vergeben, die im Laufe ihrer\n"
+                + "Schulzeit kontinuierlich über den Unterricht hinaus besondere Leistungen in den MINT-Fächern (Mathematik, Informatik, Naturwissenschaften, Technik) erbracht haben.\n"
+                + "Die Kontrolle der Aktivitäten erfolgt durch Kopien von Urkunden, Zeugnissen etc., die beim MINT-Koordinator abgegeben werden müssen. \n \n"
+                + "Schülerinnen und Schüler, die das MINT-EC-Zertifikat erhalten, müssen Mindestanforderungen in den drei Anforderungsfeldern\n"
+                + String.format("%36s ", "") + "I 	 Fachliche Kompetenz\n"
+                + String.format("%36s ", "") + "II 	 Fachwissenschaftliches Arbeiten\n"
+                + String.format("%36s ", "") + "III  Zusätzliche MINT-Aktivitäten erfüllen.\n \n"
+                + "In jedem der drei Anforderungsfelder werden die Schülerleistungen einer der drei Stufen\n"
+                + String.format("%36s ", "") + "1 	 „mit Erfolg“\n"
+                + String.format("%36s ", "") + "2 	 „mit besonderem Erfolg“\n"
+                + String.format("%36s ", "") + "3 	 „mit Auszeichnung“ zugeordnet\n \n"
+                + "Ein Zertifikat wird nur verliehen, wenn in jedem der drei Felder mindestens die Stufe 1 erreicht wurde.\n"
+                + "Die Gesamteinstufung des Zertifikates ergibt sich aus dem mathematisch gerundeten Mittelwert der in den drei Anforderungsfeldern erreichten Stufen.\n"
+                + "Das MINT-EC-Zertifikat wird in Form einer vierseitigen Urkunde verliehen.\n");
+
+        JOptionPane.showMessageDialog(jFrame1, text);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        fuegeA3S1SetHinzu();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        fuegeA3S2SetHinzu();
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenu1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseEntered
+        JMenu item = (JMenu) evt.getSource();
+        item.setSelected(true);
+    }//GEN-LAST:event_jMenu1MouseEntered
+
+    private void jMenu1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseExited
+        JMenu item = (JMenu) evt.getSource();
+        if (!item.isPopupMenuVisible()) {
+            item.setSelected(false);
+        }
+    }//GEN-LAST:event_jMenu1MouseExited
+
+    private void jMenu2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseEntered
+        JMenu item = (JMenu) evt.getSource();
+        item.setSelected(true);
+    }//GEN-LAST:event_jMenu2MouseEntered
+
+    private void jMenu2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseExited
+        JMenu item = (JMenu) evt.getSource();
+        if (!item.isPopupMenuVisible()) {
+            item.setSelected(false);
+        }
+    }//GEN-LAST:event_jMenu2MouseExited
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        updateNiveautext(jComboBox1, jLabel10, jSlider1, 1);
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        updateNiveautext(jComboBox2, jLabel12, jSlider2, 2);
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        entferneA3Set(alleA3S1Boxen);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        entferneA3Set(alleA3S2Boxen);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        entferneA3Set(alleA3S1Boxen);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        entferneA3Set(alleA3S2Boxen);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        new About().setVisible(true);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -882,7 +1154,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -892,7 +1164,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /**
      * Setze alle A3-Boxen und ihre Regler auf Anfangszustand
      */
@@ -906,36 +1178,36 @@ public class GUI extends javax.swing.JFrame {
             alleA3S2Slider.get(i).setValue(1);
         }
     }
-    
+
     /**
-     * Hebt die Reihe einer ausgewaehlten Aktivitaet hervor, indem sie markiert wird und ggf. an erster Stelle steht 
+     * Hebt die Reihe einer ausgewaehlten Aktivitaet hervor, indem sie markiert
+     * wird und ggf. an erster Stelle steht
      */
     private void reiheHervorheben(JComboBox box) {
-        String ausgewaehlteAkt = box.getSelectedItem().toString(); 
+        String ausgewaehlteAkt = box.getSelectedItem().toString();
         int ausgewaehlteBox = 0;
         if (alleA3S1Boxen.contains(box)) {
             ausgewaehlteBox = alleA3S1Boxen.indexOf(box);
         } else {
             ausgewaehlteBox = alleA3S2Boxen.indexOf(box) + alleA3S2Boxen.size();
         }
-        
-        if(ausgewaehlteAkt.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Nutzer hat die Komponente zurueck auf den Anfangszustand gesetzt, also keine Aktivitaet
+
+        if (ausgewaehlteAkt.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Nutzer hat die Komponente zurueck auf den Anfangszustand gesetzt, also keine Aktivitaet
             //Loesche alte Auswahl
-            int alteReiheIndex = reihenindexPuffer[ausgewaehlteBox+1];
+            int alteReiheIndex = reihenindexPuffer[ausgewaehlteBox + 1];
             jTable1.removeRowSelectionInterval(alteReiheIndex, alteReiheIndex);
         }
-        
-        for (int i=0; i<jTable1.getRowCount(); i++) {
+
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
             String ausgewaehlteReihe = jTable1.getValueAt(i, 1).toString();
             if (ausgewaehlteAkt.equals(ausgewaehlteReihe)) {
                 jTable1.setRowSelectionInterval(i, i); //markiere ausgewaehlte Akitivitaet in der Liste
                 jTable1.scrollRectToVisible(new Rectangle(jTable1.getCellRect(i, 0, true))); //autoscrolle zu der Aktivitaet, so dass diese immer nach dem Auswaehlen sichtbar ist
-                reihenindexPuffer[ausgewaehlteBox+1] = i;
+                reihenindexPuffer[ausgewaehlteBox + 1] = i;
             }
         }
     }
-    
-    
+
     /**
      * Fuellt die Tabelle mit den Aktivitaeten.
      */
@@ -943,8 +1215,8 @@ public class GUI extends javax.swing.JFrame {
         ArrayList<Aktivitaet> taeten = zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten();
         int aktisize = taeten.size();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
-        for (int reihe=0; reihe<aktisize; reihe++) {
+
+        for (int reihe = 0; reihe < aktisize; reihe++) {
             if (zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten().get(reihe).isIstWettbewerb() == true) { //Die Aktivitaet ist ein Wettbewerb
                 Object[] aktiDaten = {"Wettbewerb", taeten.get(reihe).getName(), taeten.get(reihe).getAnforderung(0), taeten.get(reihe).getAnforderung(1), taeten.get(reihe).getAnforderung(2)}; //Alle Aktivitaetsdaten fuer eine Reihe
                 model.addRow(aktiDaten);
@@ -954,7 +1226,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /**
      * Fasst die Initialisation der hinzugefuegten Komponenten zusammen.
      */
@@ -969,21 +1241,21 @@ public class GUI extends javax.swing.JFrame {
         }
         setzeIcon();
         aendereThumbs();
-        jTable1.getTableHeader().setDefaultRenderer(new HeaderColor()); 
+        jTable1.getTableHeader().setDefaultRenderer(new HeaderColor());
         this.rowSorter = new TableRowSorter<>(jTable1.getModel());
         jTable1.setRowSorter(rowSorter);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(10);
         jScrollPane3.getVerticalScrollBar().setUnitIncrement(10);
     }
-    
+
     /**
      * Fasst die Neuinitialisierung der JSlider thumbs zusammen
      */
     private void aendereThumbs() {
-        jSlider1.setUI(new CustomSliderUI(jSlider1,69,127,157)); //blau
-        jSlider2.setUI(new CustomSliderUI(jSlider2,93,157,69)); //gruen
+        jSlider1.setUI(new CustomSliderUI(jSlider1, 69, 127, 157)); //blau
+        jSlider2.setUI(new CustomSliderUI(jSlider2, 93, 157, 69)); //gruen
     }
-    
+
     /**
      * Fasst die Initialisierung aller ComboBox'en zusammen
      */
@@ -991,13 +1263,15 @@ public class GUI extends javax.swing.JFrame {
         initialisiereA1Combo();
         initialisiereA2Combo();
     }
-    
+
     /**
-     * Fuellt die Listen keineS1Aktivitaeten und keineS2Aktivitaeten welche jeweils die Aktivitaeten beherbergen, welche nicht in der jeweiligen Stufe erfuellbar sind.
+     * Fuellt die Listen keineS1Aktivitaeten und keineS2Aktivitaeten welche
+     * jeweils die Aktivitaeten beherbergen, welche nicht in der jeweiligen
+     * Stufe erfuellbar sind.
      */
     private void initialisiereSpeziallisten() {
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            switch(erfuellbareAktivitaeten.getErfuellbarFuer()) {
+            switch (erfuellbareAktivitaeten.getErfuellbarFuer()) {
                 case 1: //Die momentane Aktivitaet ist nur in der SI erfuellbar
                     keineS2Aktivitaeten.add(erfuellbareAktivitaeten.getName());
                     break;
@@ -1009,7 +1283,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /**
      * Fuellt die ComboBox mit den Aktivitaeten des Anforderungsfeldes 1
      */
@@ -1020,7 +1294,7 @@ public class GUI extends javax.swing.JFrame {
         }
         adjustScrollBar(jComboBox1);
     }
-    
+
     /**
      * Fuellt die ComboBox mit den Aktivitaeten des Anforderungsfeldes 2
      */
@@ -1031,7 +1305,7 @@ public class GUI extends javax.swing.JFrame {
         }
         adjustScrollBar(jComboBox2);
     }
-    
+
     /**
      * Fuellt die ComboBox der S1 mit den Aktivitaeten des Anforderungsfeldes 3
      */
@@ -1047,7 +1321,7 @@ public class GUI extends javax.swing.JFrame {
         }
         adjustScrollBar(box);
     }
-    
+
     /**
      * Fuellt die ComboBox der S2 mit den Aktivitaeten des Anforderungsfeldes 3
      */
@@ -1055,7 +1329,7 @@ public class GUI extends javax.swing.JFrame {
         box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
         for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
             if ((keineS2Aktivitaeten.contains(erfuellbareAktivitaeten.getName()))) {
-            //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S2
+                //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S2
             } else {
                 box.addItem(erfuellbareAktivitaeten.getName());
                 S2.add(erfuellbareAktivitaeten);
@@ -1063,15 +1337,16 @@ public class GUI extends javax.swing.JFrame {
         }
         adjustScrollBar(box);
     }
-    
+
     /**
      * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S1SetHinzu() {
+        int abstandZwischenElementen = 55;
         //Initialisiere die Box
-        int yKoordBox = alleA3S1Boxen.size() * 50 ;
+        int yKoordBox = alleA3S1Boxen.size() * abstandZwischenElementen;
         alleA3S1Boxen.add(new javax.swing.JComboBox<>());
-        final JComboBox box = alleA3S1Boxen.get(alleA3S1Boxen.size()-1);
+        final JComboBox box = alleA3S1Boxen.get(alleA3S1Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 69, 73));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         box.setPreferredSize(new java.awt.Dimension(28, 35));
@@ -1089,10 +1364,10 @@ public class GUI extends javax.swing.JFrame {
         });
         //Fuelle den Inhalt der Box
         initialisiereA3S1Combo(box);
-        
+
         //Initialisiere Regler
         alleA3S1Slider.add(new javax.swing.JSlider());
-        final JSlider regler = alleA3S1Slider.get(alleA3S1Slider.size()-1);
+        final JSlider regler = alleA3S1Slider.get(alleA3S1Slider.size() - 1);
         regler.setMaximum(3);
         regler.setMinimum(1);
         regler.setValue(1);
@@ -1103,30 +1378,31 @@ public class GUI extends javax.swing.JFrame {
                 jSliderStateChanged(evt, regler);
             }
         });
-        regler.setUI(new CustomSliderUI(regler,157,69,73)); 
-        
+        regler.setUI(new CustomSliderUI(regler, 157, 69, 73));
+
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S1Label.size() * 50  + 20;
+        int yKoordLabel = alleA3S1Label.size() * abstandZwischenElementen + 20;
         alleA3S1Label.add(new javax.swing.JLabel());
-        JLabel label = alleA3S1Label.get(alleA3S1Label.size()-1);
+        JLabel label = alleA3S1Label.get(alleA3S1Label.size() - 1);
         label.setForeground(new java.awt.Color(157, 69, 73));
         label.setText("Niveau: 1");
-        
+
         //Fuege alles dem Panel hinzu und passe die Ansicht an
         jPanel1.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, yKoordBox, 240, -1));
-        jPanel1.add(regler, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordBox, 130, 20));
+        jPanel1.add(regler, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordBox, 115, 20));
         jPanel1.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordLabel, -1, -1));
         jScrollPane2.setViewportView(jPanel1);
     }
-    
+
     /**
      * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S2SetHinzu() {
+        int abstandZwischenElementen = 55;
         //Initialisiere die Box
-        int yKoordBox = alleA3S2Boxen.size() * 50;
+        int yKoordBox = alleA3S2Boxen.size() * abstandZwischenElementen;
         alleA3S2Boxen.add(new javax.swing.JComboBox<>());
-        final JComboBox box = alleA3S2Boxen.get(alleA3S2Boxen.size()-1);
+        final JComboBox box = alleA3S2Boxen.get(alleA3S2Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 107, 69));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         box.setPreferredSize(new java.awt.Dimension(28, 35));
@@ -1144,10 +1420,10 @@ public class GUI extends javax.swing.JFrame {
         });
         //Fuelle den Inhalt der Box
         initialisiereA3S2Combo(box);
-        
+
         //Initialisiere Regler
         alleA3S2Slider.add(new javax.swing.JSlider());
-        final JSlider regler = alleA3S2Slider.get(alleA3S2Slider.size()-1);
+        final JSlider regler = alleA3S2Slider.get(alleA3S2Slider.size() - 1);
         regler.setMaximum(3);
         regler.setMinimum(1);
         regler.setValue(1);
@@ -1158,31 +1434,105 @@ public class GUI extends javax.swing.JFrame {
                 jSliderStateChanged(evt, regler);
             }
         });
-        regler.setUI(new CustomSliderUI(regler,157, 107, 69)); 
-        
+        regler.setUI(new CustomSliderUI(regler, 157, 107, 69));
+
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S2Label.size() * 50  + 20;
+        int yKoordLabel = alleA3S2Label.size() * abstandZwischenElementen + 20;
         alleA3S2Label.add(new javax.swing.JLabel());
-        JLabel label = alleA3S2Label.get(alleA3S2Label.size()-1);
+        JLabel label = alleA3S2Label.get(alleA3S2Label.size() - 1);
         label.setForeground(new java.awt.Color(157, 107, 69));
         label.setText("Niveau: 1");
-        
+
         //Fuege alles dem Panel hinzu und passe die Ansicht an
         jPanel2.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, yKoordBox, 240, -1));
-        jPanel2.add(regler, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordBox, 130, 20));
+        jPanel2.add(regler, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordBox, 115, 20));
         jPanel2.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, yKoordLabel, -1, -1));
         jScrollPane3.setViewportView(jPanel2);
     }
-    
-    
-    
+
+    /**
+     * Entfernt ein Set (Box, Regler, Label) von der GUI fuer A3 fuer SI oder
+     * SII. Es wird stets das letzte leere Set entfernt. Wenn das letzte Set
+     * Daten hat, das vorletzte aber leer ist, werden die Daten vom letzten Set
+     * auf das vorletzte uebertragen und das letzte wird entfernt. Wenn es kein
+     * Set gibt, was entfernt werden koennte, mache nichts.
+     */
+    private void entferneA3Set(ArrayList<JComboBox> boxen) {
+        if (boxen.isEmpty()) {
+            //Mache nichts, es kann nichts entfernt werden
+        } else {
+            int i = boxen.size() - 1;
+            if (boxen.get(i).getSelectedIndex() == 0) { //Es wurde keine Aktivitaet fuer das letzte Set ausgewaehlt
+                if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
+                    //Entferne die Elemente in der GUI
+                    jPanel1.remove(boxen.get(i));
+                    jPanel1.remove(alleA3S1Slider.get(i));
+                    jPanel1.remove(alleA3S1Label.get(i));
+                    //Entferne die Elemente in den Listen
+                    boxen.remove(i);
+                    alleA3S1Slider.remove(i);
+                    alleA3S1Label.remove(i);
+                    //Update die Ansicht des Scrollpanels
+                    jScrollPane2.setViewportView(jPanel1);
+                } else { //Es wird ein Set fuer SII entfernt
+                    //Entferne die Elemente in der GUI
+                    jPanel2.remove(boxen.get(i));
+                    jPanel2.remove(alleA3S2Slider.get(i));
+                    jPanel2.remove(alleA3S2Label.get(i));
+                    //Entferne die Elemente in den Listen
+                    boxen.remove(i);
+                    alleA3S2Slider.remove(i);
+                    alleA3S2Label.remove(i);
+                    //Update die Ansicht des Scrollpanels
+                    jScrollPane3.setViewportView(jPanel2);
+                }
+            } else {
+                if ( i > 0 && boxen.get(i - 1).getSelectedIndex() == 0 && boxen.get(i).getSelectedIndex() != 0) { //Das vorletzte Set ist leer aber nicht das letzte
+                    boxen.get(i - 1).setSelectedIndex(boxen.get(i).getSelectedIndex());
+                    if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
+                        //Uebertrage Daten auf vorheriges Element
+                        alleA3S1Slider.get(i - 1).setValue(alleA3S1Slider.get(i).getValue());
+                        alleA3S1Label.get(i - 1).setText(alleA3S1Label.get(i).getText());
+                        //Entferne die Elemente in der GUI
+                        jPanel1.remove(boxen.get(i));
+                        jPanel1.remove(alleA3S1Slider.get(i));
+                        jPanel1.remove(alleA3S1Label.get(i));
+                        //Entferne die Elemente in den Listen
+                        boxen.remove(i);
+                        alleA3S1Slider.remove(i);
+                        alleA3S1Label.remove(i);
+                        //Update die Ansicht des Scrollpanels
+                        jScrollPane2.setViewportView(jPanel1);
+                    } else { //Es wird ein Set fuer SII entfernt
+                        //Uebertrage Daten auf vorheriges Element
+                        alleA3S2Slider.get(i - 1).setValue(alleA3S2Slider.get(i).getValue());
+                        alleA3S2Label.get(i - 1).setText(alleA3S2Label.get(i).getText());
+                        //Entferne die Elemente in der GUI
+                        jPanel2.remove(boxen.get(i));
+                        jPanel2.remove(alleA3S2Slider.get(i));
+                        jPanel2.remove(alleA3S2Label.get(i));
+                        //Entferne die Elemente in den Listen
+                        boxen.remove(i);
+                        alleA3S2Slider.remove(i);
+                        alleA3S2Label.remove(i);
+                        //Update die Ansicht des Scrollpanels
+                        jScrollPane3.setViewportView(jPanel2);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Fuegt den JComboBox'en horizontale Rollleisten hinzu.
+     *
      * @see https://community.oracle.com/thread/1775495?tstart=0
      * @param box Die JComboBox, die eine horizontale Rolleiste bekommen soll
      */
     private void adjustScrollBar(JComboBox box) {
-        if (box.getItemCount() == 0) return;
+        if (box.getItemCount() == 0) {
+            return;
+        }
         Object comp = box.getUI().getAccessibleChild(box, 0);
         if (!(comp instanceof JPopupMenu)) {
             return;
@@ -1192,44 +1542,67 @@ public class GUI extends javax.swing.JFrame {
         scrollPane.setHorizontalScrollBar(new JScrollBar(JScrollBar.HORIZONTAL));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     }
-    
-    
-    
+
     /**
-     * Fuegt dem Programm ein individuelles Icon hinzu und ersetzt das Java-Icon 
+     * Fuegt dem Programm ein individuelles Icon hinzu und ersetzt das Java-Icon
      */
     private void setzeIcon() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resource/icon.png")));
     }
-    
-    
+
     /**
-     * Benutze einen Renderer, um die Farbe der Tabelle zu aendern (hier zu einem roten Hintergrund und weißer Schrift)
+     * Aendert die Farbe der Menuleiste
+     *
+     * @see http://stackoverflow.com/a/15649006
+     */
+    static public class BackgroundMenuBar extends JMenuBar {
+
+        Color bgColor = new java.awt.Color(255, 255, 255);
+
+        public void setColor(Color color) {
+            bgColor = color;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(bgColor);
+            g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        }
+    }
+
+    /**
+     * Benutze einen Renderer, um die Farbe der Tabelle zu aendern (hier zu
+     * einem roten Hintergrund und weißer Schrift)
      */
     static public class HeaderColor extends DefaultTableCellRenderer {
+
         public HeaderColor() {
             setOpaque(true);
         }
-        
+
         @Override
-        public Component getTableCellRendererComponent (JTable mytable, Object value, boolean selected, boolean focus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable mytable, Object value, boolean selected, boolean focus, int row, int column) {
             super.getTableCellRendererComponent(mytable, value, selected, focus, row, column);
-            setBackground(new java.awt.Color(157,69,73)); //rot
+            setBackground(new java.awt.Color(157, 69, 73)); //rot
             setForeground(new java.awt.Color(255, 255, 255)); //weiß
             return this;
         }
     }
-    
+
     /**
-    * Aendere das Aussehen des JSlider thumbs
-    * @see http://stackoverflow.com/a/12297384/714968
-    */
+     * Aendere das Aussehen des JSlider thumbs
+     *
+     * @see http://stackoverflow.com/a/12297384/714968
+     */
     public class CustomSliderUI extends BasicSliderUI {
+
         int color1;
         int color2;
         int color3;
-        private BasicStroke stroke = new BasicStroke(1f, BasicStroke.CAP_ROUND, 
-            BasicStroke.JOIN_ROUND, 0f, new float[]{1f, 2f}, 0f);
+        private BasicStroke stroke = new BasicStroke(1f, BasicStroke.CAP_ROUND,
+                BasicStroke.JOIN_ROUND, 0f, new float[]{1f, 2f}, 0f);
 
         public CustomSliderUI(JSlider b, int c1, int c2, int c3) {
             super(b);
@@ -1241,8 +1614,8 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public void paint(Graphics g, JComponent c) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
             super.paint(g, c);
         }
 
@@ -1250,7 +1623,7 @@ public class GUI extends javax.swing.JFrame {
         protected Dimension getThumbSize() {
             return new Dimension(15, 16);
         }
-        
+
         @Override
         public void paintThumb(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
@@ -1263,7 +1636,7 @@ public class GUI extends javax.swing.JFrame {
             shape.lineTo(x2, topY);
             shape.lineTo((x1 + x2) / 2, topY + width);
             shape.closePath();
-            g2d.setPaint(new Color(color1,color2,color3));
+            g2d.setPaint(new Color(color1, color2, color3));
             g2d.fill(shape);
             Stroke old = g2d.getStroke();
             g2d.setStroke(new BasicStroke(2f));
@@ -1271,15 +1644,14 @@ public class GUI extends javax.swing.JFrame {
             g2d.draw(shape);
             g2d.setStroke(old);
         }
-}
-    
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1287,7 +1659,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1296,9 +1670,26 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -1306,12 +1697,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    
-    
 }

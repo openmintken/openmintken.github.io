@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * ueberprueft, ob die Bedingungen zum MINT-Zertifikat erfuellt worden sind; ggf.
  * in welcher Stufe; was noch erfuellt werden muss.
  * @author Joana Bergsiek
- * @version 1.3
+ * @version 1.3.1
  */
 public class Zertifikat {
     private int zertifikatsstufe;
