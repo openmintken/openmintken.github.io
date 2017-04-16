@@ -600,6 +600,14 @@ public class GUI extends javax.swing.JFrame {
 
         jMenu3.setText("Hilfe");
         jMenu3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12)); // NOI18N
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jMenu3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jMenu3MouseExited(evt);
+            }
+        });
 
         jMenuItem16.setText("Über MINTken");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
@@ -1133,6 +1141,18 @@ public class GUI extends javax.swing.JFrame {
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         new About().setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenu3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseEntered
+        JMenu item = (JMenu) evt.getSource();
+        item.setSelected(true);
+    }//GEN-LAST:event_jMenu3MouseEntered
+
+    private void jMenu3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseExited
+        JMenu item = (JMenu) evt.getSource();
+        if (!item.isPopupMenuVisible()) {
+            item.setSelected(false);
+        }
+    }//GEN-LAST:event_jMenu3MouseExited
 
     /**
      * @param args the command line arguments
