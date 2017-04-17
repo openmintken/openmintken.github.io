@@ -49,6 +49,7 @@ public class GUI extends javax.swing.JFrame {
     private final ArrayList<String> keineS1Aktivitaeten = new ArrayList<>();
     //Diese Aktivitaeten sind nicht in der S2 absolvierbar
     private final ArrayList<String> keineS2Aktivitaeten = new ArrayList<>();
+    private final int abstandZwischenA3Elementen = 55;
 
     /**
      * Creates new form GUI
@@ -1362,9 +1363,8 @@ public class GUI extends javax.swing.JFrame {
      * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S1SetHinzu() {
-        int abstandZwischenElementen = 55;
         //Initialisiere die Box
-        int yKoordBox = alleA3S1Boxen.size() * abstandZwischenElementen;
+        int yKoordBox = alleA3S1Boxen.size() * abstandZwischenA3Elementen;
         alleA3S1Boxen.add(new javax.swing.JComboBox<>());
         final JComboBox box = alleA3S1Boxen.get(alleA3S1Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 69, 73));
@@ -1401,7 +1401,7 @@ public class GUI extends javax.swing.JFrame {
         regler.setUI(new CustomSliderUI(regler, 157, 69, 73));
 
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S1Label.size() * abstandZwischenElementen + 20;
+        int yKoordLabel = alleA3S1Label.size() * abstandZwischenA3Elementen + 20;
         alleA3S1Label.add(new javax.swing.JLabel());
         JLabel label = alleA3S1Label.get(alleA3S1Label.size() - 1);
         label.setForeground(new java.awt.Color(157, 69, 73));
@@ -1418,9 +1418,8 @@ public class GUI extends javax.swing.JFrame {
      * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S2SetHinzu() {
-        int abstandZwischenElementen = 55;
         //Initialisiere die Box
-        int yKoordBox = alleA3S2Boxen.size() * abstandZwischenElementen;
+        int yKoordBox = alleA3S2Boxen.size() * abstandZwischenA3Elementen;
         alleA3S2Boxen.add(new javax.swing.JComboBox<>());
         final JComboBox box = alleA3S2Boxen.get(alleA3S2Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 107, 69));
@@ -1457,7 +1456,7 @@ public class GUI extends javax.swing.JFrame {
         regler.setUI(new CustomSliderUI(regler, 157, 107, 69));
 
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S2Label.size() * abstandZwischenElementen + 20;
+        int yKoordLabel = alleA3S2Label.size() * abstandZwischenA3Elementen + 20;
         alleA3S2Label.add(new javax.swing.JLabel());
         JLabel label = alleA3S2Label.get(alleA3S2Label.size() - 1);
         label.setForeground(new java.awt.Color(157, 107, 69));
@@ -1507,36 +1506,57 @@ public class GUI extends javax.swing.JFrame {
                     jScrollPane3.setViewportView(jPanel2);
                 }
             } else {
-                if ( i > 0 && boxen.get(i - 1).getSelectedIndex() == 0 && boxen.get(i).getSelectedIndex() != 0) { //Das vorletzte Set ist leer aber nicht das letzte
-                    boxen.get(i - 1).setSelectedIndex(boxen.get(i).getSelectedIndex());
-                    if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
-                        //Uebertrage Daten auf vorheriges Element
-                        alleA3S1Slider.get(i - 1).setValue(alleA3S1Slider.get(i).getValue());
-                        alleA3S1Label.get(i - 1).setText(alleA3S1Label.get(i).getText());
-                        //Entferne die Elemente in der GUI
-                        jPanel1.remove(boxen.get(i));
-                        jPanel1.remove(alleA3S1Slider.get(i));
-                        jPanel1.remove(alleA3S1Label.get(i));
-                        //Entferne die Elemente in den Listen
-                        boxen.remove(i);
-                        alleA3S1Slider.remove(i);
-                        alleA3S1Label.remove(i);
-                        //Update die Ansicht des Scrollpanels
-                        jScrollPane2.setViewportView(jPanel1);
-                    } else { //Es wird ein Set fuer SII entfernt
-                        //Uebertrage Daten auf vorheriges Element
-                        alleA3S2Slider.get(i - 1).setValue(alleA3S2Slider.get(i).getValue());
-                        alleA3S2Label.get(i - 1).setText(alleA3S2Label.get(i).getText());
-                        //Entferne die Elemente in der GUI
-                        jPanel2.remove(boxen.get(i));
-                        jPanel2.remove(alleA3S2Slider.get(i));
-                        jPanel2.remove(alleA3S2Label.get(i));
-                        //Entferne die Elemente in den Listen
-                        boxen.remove(i);
-                        alleA3S2Slider.remove(i);
-                        alleA3S2Label.remove(i);
-                        //Update die Ansicht des Scrollpanels
-                        jScrollPane3.setViewportView(jPanel2);
+                for (int k = i; k > 0; k--) { //Suche von hinten an nach einem moeglichen leeren Element
+                    if (boxen.get(k - 1).getSelectedIndex() == 0 && boxen.get(k).getSelectedIndex() != 0) { //Das vorkommende Set ist leer aber nicht das momentane
+                        boxen.get(k - 1).setSelectedIndex(boxen.get(k).getSelectedIndex());
+                        if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
+                            //Uebertrage Daten auf vorheriges Element
+                            alleA3S1Slider.get(k - 1).setValue(alleA3S1Slider.get(k).getValue());
+                            alleA3S1Label.get(k - 1).setText(alleA3S1Label.get(k).getText());
+                            //Entferne die Elemente in der GUI
+                            jPanel1.remove(alleA3S1Boxen.get(k));
+                            jPanel1.remove(alleA3S1Slider.get(k));
+                            jPanel1.remove(alleA3S1Label.get(k));
+                            //Entferne die Elemente in den Listen
+                            alleA3S1Boxen.remove(k);
+                            alleA3S1Slider.remove(k);
+                            alleA3S1Label.remove(k);
+                            //Nun muessen ggf. die nachfolgenden Elemente nachruecken
+                            for (int l = k; l < alleA3S1Boxen.size(); l++) {
+                                jPanel1.remove(alleA3S1Boxen.get(l));
+                                jPanel1.remove(alleA3S1Slider.get(l));
+                                jPanel1.remove(alleA3S1Label.get(l));
+                                jPanel1.add(alleA3S1Boxen.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, alleA3S1Boxen.get(l).getY()-abstandZwischenA3Elementen, 240, -1));
+                                jPanel1.add(alleA3S1Slider.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S1Slider.get(l).getY()-abstandZwischenA3Elementen, 115, 20));
+                                jPanel1.add(alleA3S1Label.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S1Label.get(l).getY()-abstandZwischenA3Elementen, -1, -1));
+                            }
+                            //Update die Ansicht des Scrollpanels
+                            jScrollPane2.setViewportView(jPanel1);
+                            break;
+                        } else { //Es wird ein Set fuer SII entfernt
+                            //Uebertrage Daten auf vorheriges Element
+                            alleA3S2Slider.get(k - 1).setValue(alleA3S2Slider.get(k).getValue());
+                            alleA3S2Label.get(k - 1).setText(alleA3S2Label.get(k).getText());
+                            //Entferne die Elemente in der GUI
+                            jPanel2.remove(boxen.get(k));
+                            jPanel2.remove(alleA3S2Slider.get(k));
+                            jPanel2.remove(alleA3S2Label.get(k));
+                            //Entferne die Elemente in den Listen
+                            alleA3S2Boxen.remove(k);
+                            alleA3S2Slider.remove(k);
+                            alleA3S2Label.remove(k);
+                            for (int l = k; l < alleA3S2Boxen.size(); l++) {
+                                jPanel2.remove(alleA3S2Boxen.get(l));
+                                jPanel2.remove(alleA3S2Slider.get(l));
+                                jPanel2.remove(alleA3S2Label.get(l));
+                                jPanel2.add(alleA3S2Boxen.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, alleA3S2Boxen.get(l).getY()-abstandZwischenA3Elementen, 240, -1));
+                                jPanel2.add(alleA3S2Slider.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S2Slider.get(l).getY()-abstandZwischenA3Elementen, 115, 20));
+                                jPanel2.add(alleA3S2Label.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S2Label.get(l).getY()-abstandZwischenA3Elementen, -1, -1));
+                            }
+                            //Update die Ansicht des Scrollpanels
+                            jScrollPane3.setViewportView(jPanel2);
+                            break;
+                        }
                     }
                 }
             }
