@@ -69,7 +69,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Das Programm und seine Inhalte verwenden die CC-BY-NC-SA 4.0 Lizenzform.&#xa;Das Urheberrecht liegt, soweit nicht ausdr&#xfc;cklich anders gekennzeichnet, bei Joana Bergsiek &amp; dem MINT-EC. &#xa;Das Programm, welches unter der CC-BY-NC-SA-Lizenz ver&#xf6;ffentlicht wurde, darf nach den ma&#xdf;geblichen Lizenzbedingungen verwendet, bearbeitet und verbreitet werden. &#xa;Bitte wenden Sie sich bei Fragen oder anderen Angelegenheiten an Joana Bergsiek unter officialmintken@gmail.com &#xa;&#xa;F&#xfc;r mehr Informationen bitte die Hauptseite https://openmintken.github.io/ besuchen."/>
+            <Property name="text" type="java.lang.String" value="Das Programm und seine Inhalte verwenden die CC-BY-NC-SA 4.0 Lizenzform.&#xa;&#xa;Das Urheberrecht liegt, soweit nicht ausdr&#xfc;cklich anders gekennzeichnet, bei Joana Bergsiek &amp; dem MINT-EC. Das Programm, welches unter der CC-BY-NC-SA-Lizenz ver&#xf6;ffentlicht wurde, darf nach den ma&#xdf;geblichen Lizenzbedingungen verwendet, bearbeitet und verbreitet werden. &#xa;&#xa;Bitte wenden Sie sich bei Fragen oder anderen Angelegenheiten an Joana Bergsiek unter officialmintken@gmail.com &#xa;&#xa;F&#xfc;r mehr Informationen bitte die Hauptseite https://openmintken.github.io/ besuchen."/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>

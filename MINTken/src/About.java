@@ -42,7 +42,7 @@ public class About extends javax.swing.JFrame {
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Das Programm und seine Inhalte verwenden die CC-BY-NC-SA 4.0 Lizenzform.\nDas Urheberrecht liegt, soweit nicht ausdrücklich anders gekennzeichnet, bei Joana Bergsiek & dem MINT-EC. \nDas Programm, welches unter der CC-BY-NC-SA-Lizenz veröffentlicht wurde, darf nach den maßgeblichen Lizenzbedingungen verwendet, bearbeitet und verbreitet werden. \nBitte wenden Sie sich bei Fragen oder anderen Angelegenheiten an Joana Bergsiek unter officialmintken@gmail.com \n\nFür mehr Informationen bitte die Hauptseite https://openmintken.github.io/ besuchen.");
+        jTextArea2.setText("Das Programm und seine Inhalte verwenden die CC-BY-NC-SA 4.0 Lizenzform.\n\nDas Urheberrecht liegt, soweit nicht ausdrücklich anders gekennzeichnet, bei Joana Bergsiek & dem MINT-EC. Das Programm, welches unter der CC-BY-NC-SA-Lizenz veröffentlicht wurde, darf nach den maßgeblichen Lizenzbedingungen verwendet, bearbeitet und verbreitet werden. \n\nBitte wenden Sie sich bei Fragen oder anderen Angelegenheiten an Joana Bergsiek unter officialmintken@gmail.com \n\nFür mehr Informationen bitte die Hauptseite https://openmintken.github.io/ besuchen.");
         jTextArea2.setWrapStyleWord(true);
         jScrollPane2.setViewportView(jTextArea2);
 

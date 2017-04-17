@@ -1368,6 +1368,7 @@ public class GUI extends javax.swing.JFrame {
         alleA3S1Boxen.add(new javax.swing.JComboBox<>());
         final JComboBox box = alleA3S1Boxen.get(alleA3S1Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 69, 73));
+        box.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         box.setPreferredSize(new java.awt.Dimension(28, 35));
         box.addItemListener(new java.awt.event.ItemListener() {
@@ -1404,6 +1405,7 @@ public class GUI extends javax.swing.JFrame {
         int yKoordLabel = alleA3S1Label.size() * abstandZwischenA3Elementen + 20;
         alleA3S1Label.add(new javax.swing.JLabel());
         JLabel label = alleA3S1Label.get(alleA3S1Label.size() - 1);
+        label.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         label.setForeground(new java.awt.Color(157, 69, 73));
         label.setText("Niveau: 1");
 
@@ -1423,6 +1425,7 @@ public class GUI extends javax.swing.JFrame {
         alleA3S2Boxen.add(new javax.swing.JComboBox<>());
         final JComboBox box = alleA3S2Boxen.get(alleA3S2Boxen.size() - 1);
         box.setBackground(new java.awt.Color(157, 107, 69));
+        box.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         box.setPreferredSize(new java.awt.Dimension(28, 35));
         box.addItemListener(new java.awt.event.ItemListener() {
@@ -1459,6 +1462,7 @@ public class GUI extends javax.swing.JFrame {
         int yKoordLabel = alleA3S2Label.size() * abstandZwischenA3Elementen + 20;
         alleA3S2Label.add(new javax.swing.JLabel());
         JLabel label = alleA3S2Label.get(alleA3S2Label.size() - 1);
+        label.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         label.setForeground(new java.awt.Color(157, 107, 69));
         label.setText("Niveau: 1");
 
@@ -1630,7 +1634,7 @@ public class GUI extends javax.swing.JFrame {
             return this;
         }
     }
-
+    
     /**
      * Aendere das Aussehen des JSlider thumbs
      *
