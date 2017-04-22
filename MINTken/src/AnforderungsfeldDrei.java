@@ -20,7 +20,7 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         
         //Falls noch nicht in Anforderungsfeld I oder II eingebracht (Implementiere dafuer eine Ueberpruefung in GUI als Fehlerabfang des Nutzers)
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {">= 9 Notenpunkte", ">= 11 Notenpunkte", ">= 13 Notenpunkte"},false, "101",2));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {"Mittelwert aller Kurshalbjahre >= 9 Notenpunkte","Mittelwert aller Kurshalbjahre >= 11 Notenpunkte","Mittelwert aller Kurshalbjahre >= 13 Notenpunkte"}, false,"102",2));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("wissenschaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {"Mittelwert aller Kurshalbjahre >= 9 Notenpunkte","Mittelwert aller Kurshalbjahre >= 11 Notenpunkte","Mittelwert aller Kurshalbjahre >= 13 Notenpunkte"}, false,"102",2));
         
         //Wettbewerbe
         this.erfuellbareAktivitaeten.add(new Aktivitaet("BundesUmwelt Wettbewerb", true, new String[] {"Urkunde", "Förder- oder Anerkennungspreis", "Haupt- oder Sonderpreis"},true, "103",3));
@@ -31,16 +31,16 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("FIRST LEGO League", true, new String[] {"ernsthafte Teilnahme Regionalwettbewerb", "Preisträger Regionalwettbewerb", "Qualifikation Semi-Finals / Finale Zentraleuropa"},true,"108",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Formel 1 in der Schule", true, new String[] {"ernsthafte Teilnahme Landesmeisterschaft", "Preisträger Landesmeisterschaft", "Qualifikation Deutschlandfinale"},true,"109",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Heureka", true, new String[] {"ernsthafte Teilnahme Landesmeisterschaft", "Preisträger Landesmeisterschaft", "Qualifikation Deutschlandfinale"},true,"110",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Informatik-Biber", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. Preis oder 2. Preis",""},false,"111",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Informatik-Biber", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. Preis oder 2. Preis",""},true,"111",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Internationale BiologieOlympiade", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", "Qualifikation für die 3. Runde"},true,"112",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Internationale ChemieOlympiade", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", "Qualifikation für die 3. Runde"},true,"113",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Internationaler Chemiewettbewerb", true, new String[] {"Certificate of Merit / Certificate of High Destination", "Certificate of Excellence",""},true, "114",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Internationale Junior Science Olympiade", true, new String[] {"ernsthafte Teilnahme", "Teilnahme am Quiz", "Qualifikation für die 2.Runde"},true, "115",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Internationale PhysikOlympiade", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", "Qualifikation für die 3. Runde"},true,"116",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Jugend präsentiert", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. oder 2. Preis", ""},false,"117",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Känguru der Mathematik", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. Preis oder 2. Preis",""},false, "118",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathematik-Olympiade", true, new String[] {"3 ernsthafte Teilnahme an der Schulrunde", "Qualifikation für die Regionalrunde (Stadt/Kreis)", "Qualifikation für die Landesrunde oder Bundeswettbewerb"}, false, "119",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathe / Physik im Advent", true, new String[] {">= 21 korrekte Antworten bei einer Teilnahme", ">= 21 korrekte Antworten bei je 2 Teilnahmen", ""},false, "120",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Jugend präsentiert", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. oder 2. Preis", ""},true,"117",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Känguru der Mathematik", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. Preis oder 2. Preis",""},true, "118",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathematik-Olympiade", true, new String[] {"3 ernsthafte Teilnahme an der Schulrunde", "Qualifikation für die Regionalrunde (Stadt/Kreis)", "Qualifikation für die Landesrunde oder Bundeswettbewerb"}, true, "119",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathe / Physik im Advent", true, new String[] {">= 21 korrekte Antworten bei einer Teilnahme", ">= 21 korrekte Antworten bei je 2 Teilnahmen", ""},true, "120",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-EC SchoolSlam", true, new String[] {"ernsthafte Teilnahme", "Preisträger", ""},true,"121",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MNU-Bundeswettbewerb Physik", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", "Qualifikation für die Bundesrunde"},true,"122",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("RoboCup", true, new String[] {"ernsthafte Teilnahme am Qualifikationsturnier", "Qualifikation für Deutsche Meisterschaft", "Preisträger Deutsche Meisterschaft"},true,"123",3));
@@ -48,10 +48,10 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Schülerwettbewerb der Siemens Stiftung", true, new String[] {"ernsthafte Teilnahme", "Vorentscheid erreicht", "Finalteilnahme"},true, "125",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("World Robot Olympiad", true, new String[] {"ernsthafte Teilnahme am Regionalwettbewerb", "1. Preis oder 2. Preis", ""},true,"126",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("BW Landeswettbewerb Mathematik", true, new String[] {"ernsthafte Teilnahme", "Preisträger 1. Runde", "Preisträger 2. Runde"}, true, "127",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Experimente antworten (BY)", true, new String[] {"3 mal ernsthafte Teilnahme", "3 mal Sachpreis", "Superpreis"}, false, "128",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Experimente antworten (BY)", true, new String[] {"3 mal ernsthafte Teilnahme", "3 mal Sachpreis", "Superpreis"}, true, "128",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Explore Science (BW)", true, new String[] {"ernsthafte Teilnahme", "technischer Preisträger", ""}, true, "129",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Freestyle Physics (NW)", true, new String[] {"ernsthafte Teilnahme", "technischer Preisträger", ""}, true, "130",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("NW bio-logisch", true, new String[] {"3 mal ernsthafte Teilnahme oder Urkunde 'mit gutem Erfolg'", "Urkunde 'mit sehr gutem Erfolg'", "Hall of Fame (Schülerakademie)"}, false, "131",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("NW bio-logisch", true, new String[] {"3 mal ernsthafte Teilnahme oder Urkunde 'mit gutem Erfolg'", "Urkunde 'mit sehr gutem Erfolg'", "Hall of Fame (Schülerakademie)"}, true, "131",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("NW zdi-Roboterwettbewerb",true, new String[] {"ernsthafte Teilnahme", "Preisträger",""},true, "132",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("RP Landeswettbewerb Mathematik", true, new String[] {"Qualifikation für die 2. Runde", "Preisträger der 2. Runde", " Teilnahme an der 3. Runde"}, true, "133",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("RP Landeswettbewerb Physik", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", "Teilnahme an der 3. Runde"}, true, "134", 3));
@@ -68,7 +68,7 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-AG SI", false, new String[] {"1 Jahreswochenstunde", "2 Jahreswochenstunden", "3 Jahreswochenstunden"}, false , "142",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-AG SII", false, new String[] {"1 Jahreswochenstunde", "2 Jahreswochenstunden", "3 Jahreswochenstunden"},false, "143",2));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-EC-Programm (zurzeit Fraunhofer Talents, MINTLehrernachwuchsförderung)", false, new String[] {"", "", "15 Punkte pro Jahr"}, true, "144",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie", false, new String[] {"1 Jahr / Ernsthafte Teilnahme", "2 Jahre", ""}, false, "145",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie", false, new String[] {"1 Jahr / Ernsthafte Teilnahme", "2 Jahre", ""}, false, "145",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT 100 oder vergleichbare Veranstaltung außerhalb des Unterrichts",false, new String[] {"ganztätig","",""}, false,"146",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Naturwissenschaftliche Profilklasse", false, new String[] {"1 Jahr", "2 Jahre", "3 Jahre"}, false, "147",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Schüler-Ingenieur-Akademie", false, new String[] {"" , "", "15 Punkte bei erfolgreicher Teilnahme"}, false, "148",3));
