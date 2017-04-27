@@ -69,7 +69,7 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-AG SII", false, new String[] {"1 Jahreswochenstunde", "2 Jahreswochenstunden", "3 Jahreswochenstunden"},false, "143",2));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-EC-Programm (zurzeit Fraunhofer Talents, MINTLehrernachwuchsförderung)", false, new String[] {"", "", "15 Punkte pro Jahr"}, true, "144",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-Wahl(pflicht)fach SI (2-3 Wochenstunden)/ Junior-Ingenieur-Akademie", false, new String[] {"1 Jahr / Ernsthafte Teilnahme", "2 Jahre", ""}, false, "145",1));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT 100 oder vergleichbare Veranstaltung außerhalb des Unterrichts",false, new String[] {"ganztätig","",""}, false,"146",1));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT 100 oder vergleichbare Veranstaltung außerhalb des Unterrichts",false, new String[] {"ganztägig","",""}, false,"146",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Naturwissenschaftliche Profilklasse", false, new String[] {"1 Jahr", "2 Jahre", "3 Jahre"}, false, "147",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Schüler-Ingenieur-Akademie", false, new String[] {"" , "", "15 Punkte bei erfolgreicher Teilnahme"}, false, "148",3));
         
