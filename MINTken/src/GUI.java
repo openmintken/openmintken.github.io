@@ -75,6 +75,8 @@ public class GUI extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -171,6 +173,16 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(jMenuItem3);
+
+        jPopupMenu2.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 10)); // NOI18N
+
+        jMenuItem17.setText("Aktivität entfernen");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem17);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MINTken Version 1.3.1");
@@ -346,7 +358,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextField1KeyTyped(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 440, -1, 30));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 435, -1, 30));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 153));
         jButton7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 11)); // NOI18N
@@ -656,6 +668,22 @@ public class GUI extends javax.swing.JFrame {
         }
     }
 
+    private void jComboBoxMouseReleased(java.awt.event.MouseEvent evt, JComboBox box) {
+                if (SwingUtilities.isRightMouseButton(evt)) {
+                    //Wechsel den Fokus
+                    box.requestFocusInWindow();
+
+                    //Setze das Menue auf Startzustand
+                    jPopupMenu2.removeAll();
+
+                    //Fuege die Auswahlmoeglichkeiten hinzu
+                    jPopupMenu2.add(jMenuItem17);
+
+                    //Zeige das Menue an
+                    jPopupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            }
+    
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         String text = "Niveau: " + String.valueOf(jSlider1.getValue());
         jLabel4.setText(text);
@@ -1155,6 +1183,29 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu3MouseExited
 
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        JComboBox ausgewaehlteBox = null;
+        //Bekomme die Position des Mauzeigers und entscheide dementsprechend, ob eine Box im SI Feld oder SII Feld ausgewaehlt werden soll
+        int mouseIndex = this.getMousePosition().x;
+        if (mouseIndex >= 870) { //Maus befindet sich im SII-Feld
+            ausgewaehlteBox = (JComboBox) jPanel2.getComponentAt(jPopupMenu2.getInvoker().getLocation());
+            
+        } else {
+            ausgewaehlteBox = (JComboBox) jPanel1.getComponentAt(jPopupMenu2.getInvoker().getLocation());
+        }
+        
+        //Suche die Box in den Listen und setze ein Set auf den Anfangszustand
+        if (alleA3S1Boxen.contains(ausgewaehlteBox)) { //S1 Box
+            int setIndex = alleA3S1Boxen.indexOf(ausgewaehlteBox);
+            alleA3S1Boxen.get(setIndex).setSelectedIndex(0);
+            alleA3S1Slider.get(setIndex).setValue(1);
+        } else { //S2 Box
+            int setIndex = alleA3S2Boxen.indexOf(ausgewaehlteBox);
+            alleA3S2Boxen.get(setIndex).setSelectedIndex(0);
+            alleA3S2Slider.get(setIndex).setValue(1);
+        } 
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1383,6 +1434,12 @@ public class GUI extends javax.swing.JFrame {
                 comboBoxFocusGained(evt, box);
             }
         });
+        box.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jComboBoxMouseReleased(evt, box);
+            }
+        });
         //Fuelle den Inhalt der Box
         initialisiereA3S1Combo(box);
 
@@ -1438,6 +1495,12 @@ public class GUI extends javax.swing.JFrame {
             @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
                 comboBoxFocusGained(evt, box);
+            }
+        });
+        box.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jComboBoxMouseReleased(evt, box);
             }
         });
         //Fuelle den Inhalt der Box
@@ -1726,6 +1789,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -1737,6 +1801,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
