@@ -2,7 +2,7 @@
 /**
  * Anforderungsfeld I des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class AnforderungsfeldEins extends Anforderungsfeld {
     
@@ -11,6 +11,8 @@ public class AnforderungsfeldEins extends Anforderungsfeld {
      */
     public AnforderungsfeldEins() {
         //Initialisierung von erfuellbareAktivitaeten mit den 2 verfuegbaren Moeglichkeiten, dieses Anforderungsfeld zu erfuellen.
+        //Alle Aktivitaeten sind mit einem EINDEUTIGEN Code von inklusive 1 - 50 zu versehen
+        //Derzeit hoechster Code: 2
         this.erfuellbareAktivitaeten.add(new Aktivitaet("2 Abiturfächer als Leistungskurse", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"},"001"));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("3 Kurse, davon mind. 1 Abiturfach als Leistungskurs", false, new String[]{"Mittelwert aller anzurechnender Kurse >= 9 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 11 Notenpunkte","Mittelwert aller anzurechnender Kurse >= 13 Notenpunkte"},"002"));
     

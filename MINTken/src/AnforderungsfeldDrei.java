@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Anforderungsfeld III des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class AnforderungsfeldDrei extends Anforderungsfeld {
     
@@ -17,10 +17,14 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
     
     public AnforderungsfeldDrei() {
         //Folgende Felder sind in der Reihenfolge geordnet, wie sie auch in den offiziellen Dokumenten angeorndet sind.
+        //Alle Aktivitaeten sind mit einem EINDEUTIGEN Code von inklusive 101 - 999 zu versehen
+        //Derzeit hoechster Code: 150
         
         //Falls noch nicht in Anforderungsfeld I oder II eingebracht (Implementiere dafuer eine Ueberpruefung in GUI als Fehlerabfang des Nutzers)
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {">= 9 Notenpunkte", ">= 11 Notenpunkte", ">= 13 Notenpunkte"},false, "101",2));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("wissenschaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {"Mittelwert aller Kurshalbjahre >= 9 Notenpunkte","Mittelwert aller Kurshalbjahre >= 11 Notenpunkte","Mittelwert aller Kurshalbjahre >= 13 Notenpunkte"}, false,"102",2));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {">= 9 Notenpunkte", ">= 11 Notenpunkte", ">= 13 Notenpunkte"},false, "101",2));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {">= 9 Notenpunkte", ">= 11 Notenpunkte", ">= 13 Notenpunkte"},false, "149",2));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Wissenschaftspropädeutisches Fach (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {"Mittelwert aller Kurshalbjahre >= 9 Notenpunkte","Mittelwert aller Kurshalbjahre >= 11 Notenpunkte","Mittelwert aller Kurshalbjahre >= 13 Notenpunkte"}, false,"102",2));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", false, new String[] {"Mittelwert aller Kurshalbjahre >= 9 Notenpunkte","Mittelwert aller Kurshalbjahre >= 11 Notenpunkte","Mittelwert aller Kurshalbjahre >= 13 Notenpunkte"}, false,"150",2));
         
         //Wettbewerbe
         this.erfuellbareAktivitaeten.add(new Aktivitaet("BundesUmwelt Wettbewerb", true, new String[] {"Urkunde", "Förder- oder Anerkennungspreis", "Haupt- oder Sonderpreis"},true, "103",3));

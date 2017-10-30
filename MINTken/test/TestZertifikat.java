@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Testen des Systems
  * @author Joana Bergsiek
- * @version 1.3
+ * @version 1.3.2
  */
 public class TestZertifikat {
     Zertifikat zer;
@@ -107,8 +107,8 @@ public class TestZertifikat {
     assertEquals(2,eins.getErfuellbareAktivitaeten().size());
     assertTrue(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().size() == 5);
     assertEquals(5,zwei.getErfuellbareAktivitaeten().size());
-    assertTrue(zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten().size() == 48);
-    assertEquals(48,drei.getErfuellbareAktivitaeten().size());
+    assertTrue(zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten().size() == 50);
+    assertEquals(50,drei.getErfuellbareAktivitaeten().size());
     }
     
     @Test
@@ -210,7 +210,7 @@ public class TestZertifikat {
     AnforderungsfeldZwei zwei = new AnforderungsfeldZwei();
     assertEquals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten", zwei.erhalteAktivitaetUnterID("051").getName());
     AnforderungsfeldDrei drei = new AnforderungsfeldDrei();
-    assertEquals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", drei.erhalteAktivitaetUnterID("101").getName());
+    assertEquals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten (Falls noch nicht in Anforderungsfeld I oder II eingebracht)", drei.erhalteAktivitaetUnterID("101").getName());
     assertEquals(false, drei.erhalteAktivitaetUnterID("101").getName().equals("Formel 1 in der Schule"));
     assertEquals(false, drei.erhalteAktivitaetUnterID("101").getName().equals("2 Abiturfächer als Leistungskurse"));
     assertEquals(false, drei.erhalteAktivitaetUnterID("101").getName().equals("Besondere Lernleistung"));
@@ -253,16 +253,26 @@ public class TestZertifikat {
         assertEquals(15, kat.getAnforderungsfeldDrei().getPunkteS1()+ kat.getAnforderungsfeldDrei().getPunkteS2());
     }
     
-    /*@Test
-    public void testBeratung() {
-    System.out.println(zer.berate()) ;
-    System.out.println(zer1.berate()) ;
-    System.out.println(zer2.berate()) ;
-    System.out.println(zer3.berate()) ;
-    System.out.println(zer4.berate()) ;
-    System.out.println(drei2.zurNaechstenStufe()) ;
-    //zer3.erfuellteAktivitaetenTextdatei();
-    }*/
+    @Test
+    public void gueltigeCodes() {
+        assertEquals(true, zer.istGueltigerCode("00231"));
+        assertEquals(true, zer.istGueltigerCode("05132"));
+        assertEquals(true, zer.istGueltigerCode("14524"));
+        assertEquals(true, zer.istGueltigerCode("11115"));
+        assertEquals(true, zer.istGueltigerCode("00014"));
+        assertEquals(false, zer.istGueltigerCode("00012"));
+        assertEquals(false, zer.istGueltigerCode("00011"));
+        assertEquals(false, zer.istGueltigerCode("00000"));
+        assertEquals(false, zer.istGueltigerCode("10024"));
+        assertEquals(false, zer.istGueltigerCode("05114"));
+        assertEquals(false, zer.istGueltigerCode("05111"));
+        assertEquals(false, zer.istGueltigerCode("00112"));
+        assertEquals(false, zer.istGueltigerCode("00113"));
+        assertEquals(false, zer.istGueltigerCode("00114"));
+        assertEquals(false, zer.istGueltigerCode("99912"));
+        assertEquals(false, zer.istGueltigerCode("99911"));
+        assertEquals(false, zer.istGueltigerCode("99984"));
+    }
     
 }
 

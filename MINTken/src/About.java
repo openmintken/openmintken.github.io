@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 /**
  * Ein Hilfefenster, welches den Nutzer ueber das Programm informieren soll
  * @author Joana Bergsiek
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class About extends javax.swing.JFrame {
 

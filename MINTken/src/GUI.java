@@ -1,55 +1,54 @@
 
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+import java.awt.*;
 import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.swing.*;
+import javax.swing.table.*;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicSliderUI;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  * Eine grafische Darstellung des MINT-Punktezaehlers
  *
  * @author Joana Bergsiek
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class GUI extends javax.swing.JFrame {
-
-    private final ArrayList<Aktivitaet> S1 = new ArrayList<>(); //Geltende Aktivitaeten; siehe initialisiereA3S1Combo und jButton1MouseClicked
-    private final ArrayList<Aktivitaet> S2 = new ArrayList<>(); //Geltende Aktivitaeten; siehe initialisiereA3S2Combo und jButton1MouseClicked
-    private final ArrayList<JComboBox> alleA3S1Boxen = new ArrayList<>();
-    private final ArrayList<JComboBox> alleA3S2Boxen = new ArrayList<>();
-    private final ArrayList<JSlider> alleA3S1Slider = new ArrayList<>();
-    private final ArrayList<JSlider> alleA3S2Slider = new ArrayList<>();
-    private final ArrayList<JLabel> alleA3S1Label = new ArrayList<>();
-    private final ArrayList<JLabel> alleA3S2Label = new ArrayList<>();
-    private final int startanzahlA3Boxen = 6;
+    private final ArrayList<Aktivitaet> GUELTIGE_A3S1_AKTIVITAETEN = new ArrayList<>();
+    private final ArrayList<Aktivitaet> GUELTIGE_A3S2_AKTIVITAETEN = new ArrayList<>();
+    private final ArrayList<ArrayList<Aktivitaet>> GUELTIGE_A3_AKTIVITAETEN = new ArrayList<>();
+    
+    private final ArrayList<String> UNGUELTIGE_A3S1_AKTIVITAETEN = new ArrayList<>();
+    private final ArrayList<String> UNGUELTIGE_A3S2_AKTIVITAETEN = new ArrayList<>();
+    private final ArrayList<ArrayList<String>> UNGUELTIGE_A3_AKTIVITAETEN = new ArrayList<>();
+    
+    private final ArrayList<JComboBox> ALLE_A3S1_BOXEN = new ArrayList<>();
+    private final ArrayList<JComboBox> ALLE_A3S2_BOXEN = new ArrayList<>();
+    private final ArrayList<ArrayList<JComboBox>> ALLE_A3_BOXEN = new ArrayList<>();
+    
+    private final ArrayList<JSlider> ALLE_A3S1_SLIDER = new ArrayList<>();
+    private final ArrayList<JSlider> ALLE_A3S2_SLIDER = new ArrayList<>();
+    private final ArrayList<ArrayList<JSlider>> ALLE_A3_SLIDER = new ArrayList<>();
+    
+    private final ArrayList<JLabel> ALLE_A3S1_LABEL = new ArrayList<>();
+    private final ArrayList<JLabel> ALLE_A3S2_LABEL = new ArrayList<>();
+    private final ArrayList<ArrayList<JLabel>> ALLE_A3_LABEL = new ArrayList<>();
+    
+    private JScrollPane[] alleJScrollPanes = new JScrollPane[2];
+    private JPanel[] alleJPanel = new JPanel[2];
+    
+    private final String A3STANDARDBOXTEXT = "Bitte wähle eine Aktivität des Anforderungsfeldes III";
+    private final int STARTANZAHLA3BOXEN = 6;
     private Zertifikat zer;
     private final int[] reihenindexPuffer = new int[10000]; //siehe reiheHervorheben
     private TableRowSorter<TableModel> rowSorter;
-    //Diese Aktivitaeten sind nicht in der S1 absolvierbar
-    private final ArrayList<String> keineS1Aktivitaeten = new ArrayList<>();
-    //Diese Aktivitaeten sind nicht in der S2 absolvierbar
-    private final ArrayList<String> keineS2Aktivitaeten = new ArrayList<>();
-    private final int abstandZwischenA3Elementen = 55;
+    
+    private final int ABSTANDZWISCHENA3ELEMENTEN = 55;
 
     /**
      * Creates new form GUI
@@ -58,6 +57,19 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
 
         initialisiereMeineElemente();
+        
+        GUELTIGE_A3_AKTIVITAETEN.add(0, GUELTIGE_A3S1_AKTIVITAETEN);
+        GUELTIGE_A3_AKTIVITAETEN.add(1, GUELTIGE_A3S2_AKTIVITAETEN);
+        UNGUELTIGE_A3_AKTIVITAETEN.add(0, UNGUELTIGE_A3S1_AKTIVITAETEN);
+        UNGUELTIGE_A3_AKTIVITAETEN.add(1, UNGUELTIGE_A3S2_AKTIVITAETEN);
+        ALLE_A3_BOXEN.add(0, ALLE_A3S1_BOXEN);
+        ALLE_A3_BOXEN.add(1, ALLE_A3S2_BOXEN);
+        ALLE_A3_SLIDER.add(0, ALLE_A3S1_SLIDER);
+        ALLE_A3_SLIDER.add(1, ALLE_A3S2_SLIDER);
+        ALLE_A3_LABEL.add(0, ALLE_A3S1_LABEL);
+        ALLE_A3_LABEL.add(1, ALLE_A3S2_LABEL);
+        alleJScrollPanes = new JScrollPane[]{jScrollPane2, jScrollPane3};
+        alleJPanel = new JPanel[]{jPanel1, jPanel2};
     }
 
     /**
@@ -185,7 +197,7 @@ public class GUI extends javax.swing.JFrame {
         jPopupMenu2.add(jMenuItem17);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MINTken Version 1.3.1");
+        setTitle("MINTken Version 1.3.2");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 780));
@@ -638,9 +650,7 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * *
-     * Aktualisiert den Text was die jeweiligen Niveaus erfuellt unter den A1&A2
-     * Reglern
+     * Aktualisiert unter den A1&A2 Reglern die Bedingung einer Aktivitaet 
      */
     private void updateNiveautext(JComboBox box, JLabel label, JSlider slider, int anforderungsfeld) {
         String bedText = "";
@@ -656,16 +666,18 @@ public class GUI extends javax.swing.JFrame {
         }
     }
 
-    private void jSliderStateChanged(javax.swing.event.ChangeEvent evt, JSlider slider) {
+    /**
+     * Aendert den Text eines Auswahlsets passend zur momentanen Niveaustufe.
+     * @param slider Der Slider, zu dem der momentan ausgewaehlte Wert angezeigt werden soll.
+     */
+    private void jSliderStateChanged(JSlider slider) {
         String text = "Niveau: " + String.valueOf(slider.getValue());
-        int index = 0;
-        if (alleA3S1Slider.contains(slider)) {
-            index = alleA3S1Slider.indexOf(slider);
-            alleA3S1Label.get(index).setText(text);
-        } else {
-            index = alleA3S2Slider.indexOf(slider);
-            alleA3S2Label.get(index).setText(text);
-        }
+        int sekundarstufe = 1; //s2
+        if (ALLE_A3S1_SLIDER.contains(slider)) {
+            sekundarstufe = 0; //s1
+        } 
+        int index = ALLE_A3_SLIDER.get(sekundarstufe).indexOf(slider);
+        ALLE_A3_LABEL.get(sekundarstufe).get(index).setText(text);
     }
 
     private void jComboBoxMouseReleased(java.awt.event.MouseEvent evt, JComboBox box) {
@@ -736,11 +748,9 @@ public class GUI extends javax.swing.JFrame {
         jFileChooser1.setDialogTitle("MINTken-Auswertung Laden");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
         jFileChooser1.setFileFilter(filter);
+        jFileChooser1.removeChoosableFileFilter(jFileChooser1.getAcceptAllFileFilter());
         jFileChooser1.showOpenDialog(this);
         String dateiname = jFileChooser1.getSelectedFile().getAbsolutePath();
-        if (!dateiname.endsWith(".txt")) {
-            JOptionPane.showMessageDialog(jFrame1, "Es können nur Textdateien (.txt) ausgelesen werden.");
-        }
         jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
         try {
@@ -750,48 +760,48 @@ public class GUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(jFrame1, "Es wurde eine ungültige MINTken-Auswertungsdatei ausgewählt. \n"
                         + "\n"
                         + "Für eine gültige Datei müssen vor der Aktivitätenaufzählung am Schluss jeweils 5-stellige Codes stehen.");
-            }
-            leereAlleA3Boxen();
-            zer = new Zertifikat();
-            zer.erzeugeZertfikatsdaten(codes);
+            } else {
+                leereAlleA3Boxen();
+                zer = new Zertifikat();
+                zer.erzeugeZertfikatsdaten(codes);
 
-            //A1-Box & Regler einstellen
-            if (!zer.getAnforderungsfeldEins().erfuellteAktivitaeten.isEmpty()) {
-                jComboBox1.setSelectedItem(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getName());
-                jSlider1.setValue(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getNiveau());
-            }
-
-            //A2-Box & Regler einstellen
-            if (!zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.isEmpty()) {
-                jComboBox2.setSelectedItem(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getName());
-                jSlider2.setValue(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getNiveau());
-            }
-
-            //A3S1-Boxen & Regler einstellen
-            for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().size(); i++) {
-                if (i >= alleA3S1Boxen.size()) {
-                    fuegeA3S1SetHinzu();
+                //A1-Box & Regler einstellen
+                if (!zer.getAnforderungsfeldEins().erfuellteAktivitaeten.isEmpty()) {
+                    jComboBox1.setSelectedItem(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getName());
+                    jSlider1.setValue(zer.getAnforderungsfeldEins().erfuellteAktivitaeten.get(0).getNiveau());
                 }
-                alleA3S1Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getName());
-                alleA3S1Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getNiveau());
-            }
 
-            //A3S2-Boxen & Regler einstellen
-            for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().size(); i++) {
-                if (i >= alleA3S2Boxen.size()) {
-                    fuegeA3S2SetHinzu();
+                //A2-Box & Regler einstellen
+                if (!zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.isEmpty()) {
+                    jComboBox2.setSelectedItem(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getName());
+                    jSlider2.setValue(zer.getAnforderungsfeldZwei().erfuellteAktivitaeten.get(0).getNiveau());
                 }
-                alleA3S2Boxen.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getName());
-                alleA3S2Slider.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getNiveau());
-            }
 
+                //A3S1-Boxen & Regler einstellen
+                for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().size(); i++) {
+                    if (i >= ALLE_A3S1_BOXEN.size()) {
+                        fuegeA3S1SetHinzu();
+                    }
+                    ALLE_A3S1_BOXEN.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getName());
+                    ALLE_A3S1_SLIDER.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS1().get(i).getNiveau());
+                }
+
+                //A3S2-Boxen & Regler einstellen
+                for (int i = 0; i < zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().size(); i++) {
+                    if (i >= ALLE_A3S2_BOXEN.size()) {
+                        fuegeA3S2SetHinzu();
+                    }
+                    ALLE_A3S2_BOXEN.get(i).setSelectedItem(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getName());
+                    ALLE_A3S2_SLIDER.get(i).setValue(zer.getAnforderungsfeldDrei().getErfuellteAktivitaetenS2().get(i).getNiveau());
+                }
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(jFrame1, "Laden der Datei fehlgeschlagen oder fehlerhaft.");
         }
     }
 
     /**
-     * return true wenn die Daten des Nutzers fehlerhaft waren, false wenn ein
+     * @return true wenn die Daten des Nutzers fehlerhaft waren, false wenn ein
      * erfolgreiches Zertifikat berechnet wurde
      */
     private boolean werteDatenAus() {
@@ -801,12 +811,12 @@ public class GUI extends javax.swing.JFrame {
         ArrayList<String> aktivNamen = new ArrayList<>();
         boolean fertig = false;
         ArrayList<JComboBox> alleA3Boxen = new ArrayList<>();
-        alleA3Boxen.addAll((Collection<? extends JComboBox>) alleA3S1Boxen.clone());
-        alleA3Boxen.addAll((Collection<? extends JComboBox>) alleA3S2Boxen.clone());
+        alleA3Boxen.addAll((Collection<? extends JComboBox>) ALLE_A3S1_BOXEN.clone());
+        alleA3Boxen.addAll((Collection<? extends JComboBox>) ALLE_A3S2_BOXEN.clone());
 
         ArrayList<JSlider> alleA3Slider = new ArrayList<>();
-        alleA3Slider.addAll((Collection<? extends JSlider>) alleA3S1Slider.clone());
-        alleA3Slider.addAll((Collection<? extends JSlider>) alleA3S2Slider.clone());
+        alleA3Slider.addAll((Collection<? extends JSlider>) ALLE_A3S1_SLIDER.clone());
+        alleA3Slider.addAll((Collection<? extends JSlider>) ALLE_A3S2_SLIDER.clone());
 
         //Pruefe zunaechst alle Felder....
         for (int i = 0; i < alleA3Boxen.size(); i++) {
@@ -814,29 +824,29 @@ public class GUI extends javax.swing.JFrame {
             String akA2 = jComboBox2.getSelectedItem().toString();
             String akA3 = alleA3Boxen.get(i).getSelectedItem().toString();
 
-            if (akA2.equals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
+            if (akA2.equals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Wissenschaftliche Arbeit bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if (akA2.equals("Besondere Lernleistung") && akA3.equals("Fachwissenschaftliche Arbeit mit mindestens 10 Seiten oder besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
+            } else if (akA2.equals("Besondere Lernleistung") && akA3.equals("Besondere Lernleistung (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Besondere Lernleistung bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if (akA2.equals("Wissenschaftspropädeutisches Fach") && akA3.equals("wissenshaftspropädeutisches Fach oder zusätzlicher MINT-Kurs durchgängig in der Qualifikationsphase belegt (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
+            } else if (akA2.equals("Wissenschaftspropädeutisches Fach") && akA3.equals("Wissenschaftspropädeutisches Fach (Falls noch nicht in Anforderungsfeld I oder II eingebracht)")) {
                 JOptionPane.showMessageDialog(jFrame1, "Wissenschaftspropädeutisches Fach bereits in A2 eingetragen.");
                 fertig = true;
                 break;
-            } else if (aktivNamen.contains(akA3) && !akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) {
+            } else if (aktivNamen.contains(akA3) && !akA3.equals(A3STANDARDBOXTEXT)) {
                 int currentSliderValue = alleA3Slider.get(i).getValue();
-                if (i >= alleA3S1Boxen.size()) { //S2-jComboBox
-                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                if (i >= ALLE_A3S1_BOXEN.size()) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = GUELTIGE_A3S2_AKTIVITAETEN.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS2.isMehrfachWertbar() == false) {
                         JOptionPane.showMessageDialog(jFrame1, new String[]{akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.", "Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."});
                         fertig = true;
                         break;
                     }
                 } else { //S1-jCombobox
-                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    Aktivitaet ausgewaehltS1 = GUELTIGE_A3S1_AKTIVITAETEN.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS1.isMehrfachWertbar() == false) {
                         JOptionPane.showMessageDialog(jFrame1, new String[]{akA3 + " kann einmalig entweder in der S I oder der S II einberechnet werden.", "Um Fehler in der Berechnung zu vermeiden, bitte entscheide dich für eine Bewertung der Aktivität.", "Es empfiehlt sich, die höher bewertete einzubeziehen."});
                         fertig = true;
@@ -845,10 +855,10 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
             //Kein Ausnahmefall, die Schleife musste nicht angehalten werden
-            if (!akA3.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
+            if (!akA3.equals(A3STANDARDBOXTEXT)) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
                 int currentSliderValue = alleA3Slider.get(i).getValue();
-                if (i >= alleA3S1Boxen.size()) { //S2-jComboBox
-                    Aktivitaet ausgewaehltS2 = S2.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                if (i >= ALLE_A3S1_BOXEN.size()) { //S2-jComboBox
+                    Aktivitaet ausgewaehltS2 = GUELTIGE_A3S2_AKTIVITAETEN.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS2.getAnforderung(currentSliderValue - 1).equals("")) { //siehe naechste Zeile
                         JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
                         fertig = true;
@@ -856,7 +866,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     zer.getAnforderungsfeldDrei().aktivitaetErfuelltS2(ausgewaehltS2, currentSliderValue);
                 } else { //S1-jCombobox
-                    Aktivitaet ausgewaehltS1 = S1.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
+                    Aktivitaet ausgewaehltS1 = GUELTIGE_A3S1_AKTIVITAETEN.get(alleA3Boxen.get(i).getSelectedIndex() - 1); //Index -1 weil das erste Objekt in der Auswahlliste immer "Bitte waehle..." ist
                     if (ausgewaehltS1.getAnforderung(currentSliderValue - 1).equals("")) { //siehe naechste Zeile
                         JOptionPane.showMessageDialog(jFrame1, "Das ausgewählte Niveau der Aktivität " + akA3 + " ist nicht verfügbar.");
                         fertig = true;
@@ -874,11 +884,11 @@ public class GUI extends javax.swing.JFrame {
             //Die Schleife musste wegen einer Fehlermeldung abgebrochen werden, mache nichts mehr
         } else {
             //Jetzt noch die Anforderungsfelder I & II
-            if (!jComboBox1.getSelectedItem().toString().equals("Bitte wähle eine Aktivität des Anforderungsfeldes I")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
+            if (jComboBox1.getSelectedIndex() != 0) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
                 zer.getAnforderungsfeldEins().aktivitaetErfuellt(zer.getAnforderungsfeldEins().getErfuellbareAktivitaeten().get(jComboBox1.getSelectedIndex() - 1), jSlider1.getValue());
             }
 
-            if (!jComboBox2.getSelectedItem().toString().equals("Bitte wähle eine Aktivität des Anforderungsfeldes II")) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
+            if (jComboBox2.getSelectedIndex() != 0) { //Der Benutzer hat eine Aktivitaet ausgewaehlt
                 zer.getAnforderungsfeldZwei().aktivitaetErfuellt(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().get(jComboBox2.getSelectedIndex() - 1), jSlider2.getValue());
             }
             zer.aktualisiereAlle();
@@ -926,61 +936,75 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    /**
+     * Fuegt eine markierte Aktvitaet aus der Tabelle einer S1 bzw. S2 Box je
+     * nach Parameter hinzu. Ggf. wird ein S1/S2 Set hinzugefuegt, sofern alle
+     * vorherigen Boxen bereits eine Aktivitaet haben. Wenn die ausgewaehlte
+     * Aktivitaet fuer die jeweilige Sekunderstufe nicht verfuegbar ist, wird
+     * eine Fehlermeldung ausgegeben.
+     *
+     * @param s1 true fuer das Hinzufuegen der Aktivitaet zu einer S1 Box; false
+     * fuer S2
+     */
+    private void aktivitaetAusTabelleHinzufuegen(boolean s1) {
         //Welche Aktivitaet wurde markiert?
         int reihenIndex = jTable1.getSelectedRow();
         String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
 
-        if (keineS1Aktivitaeten.contains(aktivitaet)) { //ungueltige Aktivitaet; siehe naechste Zeile
-            JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SI absolvieren.");
-        } else { //gueltige Aktivitaet
-            //Gehe die Comboboxen der SI durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
+        //Initialisiere je nach gebrauchten Variablen
+        int sekundarstufe = 0;
+        if (!s1) {
+            sekundarstufe = 1;
+        }
+
+        //Muessen wir uns den Elementen der S1 oder S2 bedienen?
+        ArrayList<JComboBox> ausgewaehlteBoxenliste = ALLE_A3_BOXEN.get(sekundarstufe);
+        ArrayList<JSlider> ausgewaehlteSliderliste = ALLE_A3_SLIDER.get(sekundarstufe);
+
+        if (UNGUELTIGE_A3_AKTIVITAETEN.get(sekundarstufe).contains(aktivitaet)) { //ungueltige Aktivitaet; siehe naechste Zeile
+            JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich in der ausgewählten Sekundarstufe nicht absolvieren.");
+        } else {//gueltige Aktivitaet
+            //Gehe die Comboboxen der Sekundarstufe durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
             //Fuege wenn moeglich die Aktivitaet zu der erstgefundensten unausgewaehlten Box hinzu.
-            //Sonst fuege eine Auswahlbox mit der Aktivitaet hinzu.
-            for (int i = 0; i <= alleA3S1Boxen.size(); i++) {
-                if (alleA3S1Boxen.get(i).getSelectedItem().equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Eine Box ohne ausgewaehlte Aktivitaet
-                    alleA3S1Boxen.get(i).setSelectedItem(aktivitaet);
-                    alleA3S1Slider.get(i).requestFocusInWindow();
+            //Sonst fuege ein Auswahlset mit der Aktivitaet hinzu.
+            if (ausgewaehlteBoxenliste.isEmpty()) {
+                if (s1) {
+                    fuegeA3S1SetHinzu();
+                } else {
+                    fuegeA3S2SetHinzu();
+                }
+            }
+            
+            for (int i = 0; i <= ausgewaehlteBoxenliste.size(); i++) {
+
+                if (ausgewaehlteBoxenliste.get(i).getSelectedIndex() == 0) { //Eine Box ohne ausgewaehlte Aktivitaet
+                    ausgewaehlteBoxenliste.get(i).setSelectedItem(aktivitaet);
+                    ausgewaehlteSliderliste.get(i).requestFocusInWindow();
                     break;
                 }
-                if (i == alleA3S1Boxen.size() - 1) {
-                    fuegeA3S1SetHinzu();
-                    alleA3S1Boxen.get(i + 1).setSelectedItem(aktivitaet);
-                    alleA3S1Slider.get(i + 1).requestFocusInWindow();
-                    jScrollPane2.getVerticalScrollBar().setValue(jScrollPane2.getVerticalScrollBar().getMaximum());
+
+                if (i == ausgewaehlteBoxenliste.size() - 1) { //Es muss eine Box hinzugefuegt werden
+                    if (s1) {
+                        fuegeA3S1SetHinzu();
+                    } else {
+                        fuegeA3S2SetHinzu();
+                    }
+                    ausgewaehlteBoxenliste.get(i + 1).setSelectedItem(aktivitaet);
+                    ausgewaehlteSliderliste.get(i + 1).requestFocusInWindow();
+                    alleJScrollPanes[sekundarstufe].getVerticalScrollBar().setValue(alleJScrollPanes[sekundarstufe].getVerticalScrollBar().getMaximum());
                     break;
                 }
             }
         }
 
+    }
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        aktivitaetAusTabelleHinzufuegen(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        //Welche Aktivitaet wurde markiert?
-        int reihenIndex = jTable1.getSelectedRow();
-        String aktivitaet = jTable1.getValueAt(reihenIndex, 1).toString();
-
-        if (keineS2Aktivitaeten.contains(aktivitaet)) {
-            JOptionPane.showMessageDialog(jFrame1, "Diese Aktivität lässt sich nicht in der SII absolvieren.");
-        } else {
-            //Gehe die Comboboxen der SII durch, um zu schauen, ob fuer jede bereits jeweils eine Aktivitaet ausgewaehlt wurde.
-            //Fuege wenn moeglich die Aktivitaet zu der erstgefundensten unausgewaehlten Box hinzu.
-            //Sonst gebe eine Meldung aus, dass alle Boxen bereits eine Aktivitaet ausgewaehlt haben.
-            for (int i = 0; i < alleA3S2Boxen.size(); i++) {
-                if (alleA3S2Boxen.get(i).getSelectedItem().equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Eine Box ohne ausgewaehlte Aktivitaet
-                    alleA3S2Boxen.get(i).setSelectedItem(aktivitaet);
-                    alleA3S2Slider.get(i).requestFocusInWindow();
-                    break;
-                }
-                if (i == alleA3S2Boxen.size() - 1) {
-                    fuegeA3S2SetHinzu();
-                    alleA3S2Boxen.get(i + 1).setSelectedItem(aktivitaet);
-                    alleA3S2Slider.get(i + 1).requestFocusInWindow();
-                    jScrollPane3.getVerticalScrollBar().setValue(jScrollPane3.getVerticalScrollBar().getMaximum());
-                    break;
-                }
-            }
-        }
+        aktivitaetAusTabelleHinzufuegen(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -1152,19 +1176,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        entferneA3Set(alleA3S1Boxen);
+        entferneA3Set(ALLE_A3S1_BOXEN);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        entferneA3Set(alleA3S2Boxen);
+        entferneA3Set(ALLE_A3S2_BOXEN);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        entferneA3Set(alleA3S1Boxen);
+        entferneA3Set(ALLE_A3S1_BOXEN);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        entferneA3Set(alleA3S2Boxen);
+        entferneA3Set(ALLE_A3S2_BOXEN);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
@@ -1184,26 +1208,20 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseExited
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        JComboBox ausgewaehlteBox = null;
         //Bekomme die Position des Mauzeigers und entscheide dementsprechend, ob eine Box im SI Feld oder SII Feld ausgewaehlt werden soll
         int mouseIndex = this.getMousePosition().x;
+        int sekundarstufe = 0; //standard s1
+        
         if (mouseIndex >= 870) { //Maus befindet sich im SII-Feld
-            ausgewaehlteBox = (JComboBox) jPanel2.getComponentAt(jPopupMenu2.getInvoker().getLocation());
-            
-        } else {
-            ausgewaehlteBox = (JComboBox) jPanel1.getComponentAt(jPopupMenu2.getInvoker().getLocation());
-        }
+            sekundarstufe = 1;
+        } 
+        
+        JComboBox ausgewaehlteBox = (JComboBox) alleJPanel[sekundarstufe].getComponentAt(jPopupMenu2.getInvoker().getLocation());
         
         //Suche die Box in den Listen und setze ein Set auf den Anfangszustand
-        if (alleA3S1Boxen.contains(ausgewaehlteBox)) { //S1 Box
-            int setIndex = alleA3S1Boxen.indexOf(ausgewaehlteBox);
-            alleA3S1Boxen.get(setIndex).setSelectedIndex(0);
-            alleA3S1Slider.get(setIndex).setValue(1);
-        } else { //S2 Box
-            int setIndex = alleA3S2Boxen.indexOf(ausgewaehlteBox);
-            alleA3S2Boxen.get(setIndex).setSelectedIndex(0);
-            alleA3S2Slider.get(setIndex).setValue(1);
-        } 
+        int setIndex = ALLE_A3_BOXEN.get(sekundarstufe).indexOf(ausgewaehlteBox);
+        ALLE_A3_BOXEN.get(sekundarstufe).get(setIndex).setSelectedIndex(0);
+        ALLE_A3_SLIDER.get(sekundarstufe).get(setIndex).setValue(1);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     /**
@@ -1235,19 +1253,18 @@ public class GUI extends javax.swing.JFrame {
                 new GUI().setVisible(true);
             }
         });
+        
     }
 
     /**
      * Setze alle A3-Boxen und ihre Regler auf Anfangszustand
      */
     public void leereAlleA3Boxen() {
-        for (int i = 0; i < alleA3S1Boxen.size(); i++) {
-            alleA3S1Boxen.get(i).setSelectedItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
-            alleA3S1Slider.get(i).setValue(1);
-        }
-        for (int i = 0; i < alleA3S2Boxen.size(); i++) {
-            alleA3S2Boxen.get(i).setSelectedItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
-            alleA3S2Slider.get(i).setValue(1);
+        for (int i = 0; i < ALLE_A3_BOXEN.size(); i++) {
+            for (int j = 0; j < ALLE_A3_BOXEN.get(i).size(); j++) {
+                ALLE_A3_BOXEN.get(i).get(j).setSelectedItem(A3STANDARDBOXTEXT);
+                ALLE_A3_SLIDER.get(i).get(j).setValue(1);
+            }
         }
     }
 
@@ -1258,13 +1275,13 @@ public class GUI extends javax.swing.JFrame {
     private void reiheHervorheben(JComboBox box) {
         String ausgewaehlteAkt = box.getSelectedItem().toString();
         int ausgewaehlteBox = 0;
-        if (alleA3S1Boxen.contains(box)) {
-            ausgewaehlteBox = alleA3S1Boxen.indexOf(box);
+        if (ALLE_A3S1_BOXEN.contains(box)) {
+            ausgewaehlteBox = ALLE_A3S1_BOXEN.indexOf(box);
         } else {
-            ausgewaehlteBox = alleA3S2Boxen.indexOf(box) + alleA3S2Boxen.size();
+            ausgewaehlteBox = ALLE_A3S2_BOXEN.indexOf(box) + ALLE_A3S2_BOXEN.size();
         }
 
-        if (ausgewaehlteAkt.equals("Bitte wähle eine Aktivität des Anforderungsfeldes III")) { //Der Nutzer hat die Komponente zurueck auf den Anfangszustand gesetzt, also keine Aktivitaet
+        if (ausgewaehlteAkt.equals(A3STANDARDBOXTEXT)) { //Der Nutzer hat die Komponente zurueck auf den Anfangszustand gesetzt, also keine Aktivitaet
             //Loesche alte Auswahl
             int alteReiheIndex = reihenindexPuffer[ausgewaehlteBox + 1];
             jTable1.removeRowSelectionInterval(alteReiheIndex, alteReiheIndex);
@@ -1306,8 +1323,9 @@ public class GUI extends javax.swing.JFrame {
         zer = new Zertifikat();
         initialisiereSpeziallisten();
         initalisiereJTable();
-        initialisiereAlleCombo();
-        for (int i = 0; i < startanzahlA3Boxen; i++) {
+        initialisiereJComboBox(jComboBox1, zer.getAnforderungsfeldEins().erfuellbareAktivitaeten, 1);
+        initialisiereJComboBox(jComboBox2, zer.getAnforderungsfeldZwei().erfuellbareAktivitaeten, 2);
+        for (int i = 0; i < STARTANZAHLA3BOXEN; i++) {
             fuegeA3S1SetHinzu();
             fuegeA3S2SetHinzu();
         }
@@ -1329,95 +1347,59 @@ public class GUI extends javax.swing.JFrame {
     }
 
     /**
-     * Fasst die Initialisierung aller ComboBox'en zusammen
-     */
-    private void initialisiereAlleCombo() {
-        initialisiereA1Combo();
-        initialisiereA2Combo();
-    }
-
-    /**
-     * Fuellt die Listen keineS1Aktivitaeten und keineS2Aktivitaeten welche
-     * jeweils die Aktivitaeten beherbergen, welche nicht in der jeweiligen
-     * Stufe erfuellbar sind.
+     * Fuellt die Listen GUELTIGE_A3S1_AKTIVITAETEN und GUELTIGE_A3S2_AKTIVITAETEN
+ welche jeweils die Aktivitaeten beherbergen, welche in der jeweiligen
+ Stufe erfuellbar bzw. nicht erfuellbar sind.
      */
     private void initialisiereSpeziallisten() {
-        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            switch (erfuellbareAktivitaeten.getErfuellbarFuer()) {
+        for (Aktivitaet erfuellbareAktivitaet : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
+            switch (erfuellbareAktivitaet.getErfuellbarFuer()) {
                 case 1: //Die momentane Aktivitaet ist nur in der SI erfuellbar
-                    keineS2Aktivitaeten.add(erfuellbareAktivitaeten.getName());
+                    GUELTIGE_A3S1_AKTIVITAETEN.add(erfuellbareAktivitaet);
+                    UNGUELTIGE_A3S2_AKTIVITAETEN.add(erfuellbareAktivitaet.getName());
                     break;
                 case 2: //Die momentane Aktivitaet ist nur in der SII erfuellbar
-                    keineS1Aktivitaeten.add(erfuellbareAktivitaeten.getName());
+                    GUELTIGE_A3S2_AKTIVITAETEN.add(erfuellbareAktivitaet);
+                    UNGUELTIGE_A3S1_AKTIVITAETEN.add(erfuellbareAktivitaet.getName());
                     break;
                 default: //Die momentane Aktivitaet kann in beiden Stufen erfuellt werden
+                    GUELTIGE_A3S1_AKTIVITAETEN.add(erfuellbareAktivitaet);
+                    GUELTIGE_A3S2_AKTIVITAETEN.add(erfuellbareAktivitaet);
                     break;
             }
         }
     }
 
     /**
-     * Fuellt die ComboBox mit den Aktivitaeten des Anforderungsfeldes 1
+     * Fuellt die JComboBox mit den Namen der Aktivitaeten der uebergebenen Liste.
+     * @param box Die zu fuellende JComboBox
+     * @param erfuellbareAktivitaeten Die Liste mit den Aktivitaeten, wessen Namen
+     * @param anforderungsfeld Das Anforderungsfeld, zu dem diese Box gehoert
+     * die Box anzeigen soll.
      */
-    private void initialisiereA1Combo() {
-        jComboBox1.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes I");
-        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldEins().erfuellbareAktivitaeten) {
-            jComboBox1.addItem(erfuellbareAktivitaeten.getName());
+    private void initialisiereJComboBox(JComboBox box, ArrayList<Aktivitaet> erfuellbareAktivitaeten, int anforderungsfeld) {
+        //Der Standardtext einer Box, bei der keine Aktivitaet ausgewaehlt ist
+        String standard = "Bitte wähle eine Aktivität des Anforderungsfeldes ";
+        //Passe das Ende dem Anforderungsfeld an
+        for (int i = 0; i < anforderungsfeld; i++) {
+            standard += "I";
         }
-        adjustScrollBar(jComboBox1);
-    }
-
-    /**
-     * Fuellt die ComboBox mit den Aktivitaeten des Anforderungsfeldes 2
-     */
-    private void initialisiereA2Combo() {
-        jComboBox2.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes II");
-        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldZwei().erfuellbareAktivitaeten) {
-            jComboBox2.addItem(erfuellbareAktivitaeten.getName());
-        }
-        adjustScrollBar(jComboBox2);
-    }
-
-    /**
-     * Fuellt die ComboBox der S1 mit den Aktivitaeten des Anforderungsfeldes 3
-     */
-    private void initialisiereA3S1Combo(JComboBox box) {
-        box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
-        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if ((keineS1Aktivitaeten.contains(erfuellbareAktivitaeten.getName()))) {
-                //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S1
-            } else {
-                box.addItem(erfuellbareAktivitaeten.getName());
-                S1.add(erfuellbareAktivitaeten);
-            }
+        box.addItem(standard);
+        //Gehe jede verfuegbare Aktivitaet des dritten Anforderungsfeldes durch und fuege 
+        for (Aktivitaet erfuellbareAktivitaet : erfuellbareAktivitaeten) {
+                box.addItem(erfuellbareAktivitaet.getName());
         }
         adjustScrollBar(box);
     }
 
     /**
-     * Fuellt die ComboBox der S2 mit den Aktivitaeten des Anforderungsfeldes 3
-     */
-    private void initialisiereA3S2Combo(JComboBox box) {
-        box.addItem("Bitte wähle eine Aktivität des Anforderungsfeldes III");
-        for (Aktivitaet erfuellbareAktivitaeten : zer.getAnforderungsfeldDrei().erfuellbareAktivitaeten) {
-            if ((keineS2Aktivitaeten.contains(erfuellbareAktivitaeten.getName()))) {
-                //Die Aktivitaeten duerfen nicht in die JComboBox fuer die S2
-            } else {
-                box.addItem(erfuellbareAktivitaeten.getName());
-                S2.add(erfuellbareAktivitaeten);
-            }
-        }
-        adjustScrollBar(box);
-    }
-
-    /**
-     * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
+     * Fuegt fuer GUELTIGE_A3S1_AKTIVITAETEN eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S1SetHinzu() {
         //Initialisiere die Box
-        int yKoordBox = alleA3S1Boxen.size() * abstandZwischenA3Elementen;
-        alleA3S1Boxen.add(new javax.swing.JComboBox<>());
-        final JComboBox box = alleA3S1Boxen.get(alleA3S1Boxen.size() - 1);
+        int yKoordBox = ALLE_A3S1_BOXEN.size() * ABSTANDZWISCHENA3ELEMENTEN;
+        ALLE_A3S1_BOXEN.add(new javax.swing.JComboBox<>());
+        final JComboBox box = ALLE_A3S1_BOXEN.get(ALLE_A3S1_BOXEN.size() - 1);
         box.setBackground(new java.awt.Color(157, 69, 73));
         box.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1441,11 +1423,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         //Fuelle den Inhalt der Box
-        initialisiereA3S1Combo(box);
+        initialisiereJComboBox(box, GUELTIGE_A3S1_AKTIVITAETEN, 3);
 
         //Initialisiere Regler
-        alleA3S1Slider.add(new javax.swing.JSlider());
-        final JSlider regler = alleA3S1Slider.get(alleA3S1Slider.size() - 1);
+        ALLE_A3S1_SLIDER.add(new javax.swing.JSlider());
+        final JSlider regler = ALLE_A3S1_SLIDER.get(ALLE_A3S1_SLIDER.size() - 1);
         regler.setMaximum(3);
         regler.setMinimum(1);
         regler.setValue(1);
@@ -1453,15 +1435,15 @@ public class GUI extends javax.swing.JFrame {
         regler.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSliderStateChanged(evt, regler);
+                jSliderStateChanged(regler);
             }
         });
         regler.setUI(new CustomSliderUI(regler, 157, 69, 73));
 
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S1Label.size() * abstandZwischenA3Elementen + 20;
-        alleA3S1Label.add(new javax.swing.JLabel());
-        JLabel label = alleA3S1Label.get(alleA3S1Label.size() - 1);
+        int yKoordLabel = ALLE_A3S1_LABEL.size() * ABSTANDZWISCHENA3ELEMENTEN + 20;
+        ALLE_A3S1_LABEL.add(new javax.swing.JLabel());
+        JLabel label = ALLE_A3S1_LABEL.get(ALLE_A3S1_LABEL.size() - 1);
         label.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         label.setForeground(new java.awt.Color(157, 69, 73));
         label.setText("Niveau: 1");
@@ -1474,13 +1456,13 @@ public class GUI extends javax.swing.JFrame {
     }
 
     /**
-     * Fuegt fuer S1 eine Box samt dazugehoerigen Regler&Reglertext hinzu
+     * Fuegt fuer GUELTIGE_A3S1_AKTIVITAETEN eine Box samt dazugehoerigen Regler&Reglertext hinzu
      */
     private void fuegeA3S2SetHinzu() {
         //Initialisiere die Box
-        int yKoordBox = alleA3S2Boxen.size() * abstandZwischenA3Elementen;
-        alleA3S2Boxen.add(new javax.swing.JComboBox<>());
-        final JComboBox box = alleA3S2Boxen.get(alleA3S2Boxen.size() - 1);
+        int yKoordBox = ALLE_A3S2_BOXEN.size() * ABSTANDZWISCHENA3ELEMENTEN;
+        ALLE_A3S2_BOXEN.add(new javax.swing.JComboBox<>());
+        final JComboBox box = ALLE_A3S2_BOXEN.get(ALLE_A3S2_BOXEN.size() - 1);
         box.setBackground(new java.awt.Color(157, 107, 69));
         box.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         box.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1504,11 +1486,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         //Fuelle den Inhalt der Box
-        initialisiereA3S2Combo(box);
+        initialisiereJComboBox(box, GUELTIGE_A3S2_AKTIVITAETEN, 3);
 
         //Initialisiere Regler
-        alleA3S2Slider.add(new javax.swing.JSlider());
-        final JSlider regler = alleA3S2Slider.get(alleA3S2Slider.size() - 1);
+        ALLE_A3S2_SLIDER.add(new javax.swing.JSlider());
+        final JSlider regler = ALLE_A3S2_SLIDER.get(ALLE_A3S2_SLIDER.size() - 1);
         regler.setMaximum(3);
         regler.setMinimum(1);
         regler.setValue(1);
@@ -1516,15 +1498,15 @@ public class GUI extends javax.swing.JFrame {
         regler.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSliderStateChanged(evt, regler);
+                jSliderStateChanged(regler);
             }
         });
         regler.setUI(new CustomSliderUI(regler, 157, 107, 69));
 
         //Initialisiere dazugehoerigen Text
-        int yKoordLabel = alleA3S2Label.size() * abstandZwischenA3Elementen + 20;
-        alleA3S2Label.add(new javax.swing.JLabel());
-        JLabel label = alleA3S2Label.get(alleA3S2Label.size() - 1);
+        int yKoordLabel = ALLE_A3S2_LABEL.size() * ABSTANDZWISCHENA3ELEMENTEN + 20;
+        ALLE_A3S2_LABEL.add(new javax.swing.JLabel());
+        JLabel label = ALLE_A3S2_LABEL.get(ALLE_A3S2_LABEL.size() - 1);
         label.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 12));
         label.setForeground(new java.awt.Color(157, 107, 69));
         label.setText("Niveau: 1");
@@ -1549,26 +1531,26 @@ public class GUI extends javax.swing.JFrame {
         } else {
             int i = boxen.size() - 1;
             if (boxen.get(i).getSelectedIndex() == 0) { //Es wurde keine Aktivitaet fuer das letzte Set ausgewaehlt
-                if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
+                if (boxen == ALLE_A3S1_BOXEN) { //Es wird ein Set fuer SI entfernt
                     //Entferne die Elemente in der GUI
                     jPanel1.remove(boxen.get(i));
-                    jPanel1.remove(alleA3S1Slider.get(i));
-                    jPanel1.remove(alleA3S1Label.get(i));
+                    jPanel1.remove(ALLE_A3S1_SLIDER.get(i));
+                    jPanel1.remove(ALLE_A3S1_LABEL.get(i));
                     //Entferne die Elemente in den Listen
                     boxen.remove(i);
-                    alleA3S1Slider.remove(i);
-                    alleA3S1Label.remove(i);
+                    ALLE_A3S1_SLIDER.remove(i);
+                    ALLE_A3S1_LABEL.remove(i);
                     //Update die Ansicht des Scrollpanels
                     jScrollPane2.setViewportView(jPanel1);
                 } else { //Es wird ein Set fuer SII entfernt
                     //Entferne die Elemente in der GUI
                     jPanel2.remove(boxen.get(i));
-                    jPanel2.remove(alleA3S2Slider.get(i));
-                    jPanel2.remove(alleA3S2Label.get(i));
+                    jPanel2.remove(ALLE_A3S2_SLIDER.get(i));
+                    jPanel2.remove(ALLE_A3S2_LABEL.get(i));
                     //Entferne die Elemente in den Listen
                     boxen.remove(i);
-                    alleA3S2Slider.remove(i);
-                    alleA3S2Label.remove(i);
+                    ALLE_A3S2_SLIDER.remove(i);
+                    ALLE_A3S2_LABEL.remove(i);
                     //Update die Ansicht des Scrollpanels
                     jScrollPane3.setViewportView(jPanel2);
                 }
@@ -1576,49 +1558,50 @@ public class GUI extends javax.swing.JFrame {
                 for (int k = i; k > 0; k--) { //Suche von hinten an nach einem moeglichen leeren Element
                     if (boxen.get(k - 1).getSelectedIndex() == 0 && boxen.get(k).getSelectedIndex() != 0) { //Das vorkommende Set ist leer aber nicht das momentane
                         boxen.get(k - 1).setSelectedIndex(boxen.get(k).getSelectedIndex());
-                        if (boxen == alleA3S1Boxen) { //Es wird ein Set fuer SI entfernt
+                        if (boxen == ALLE_A3S1_BOXEN) { //Es wird ein Set fuer SI entfernt
                             //Uebertrage Daten auf vorheriges Element
-                            alleA3S1Slider.get(k - 1).setValue(alleA3S1Slider.get(k).getValue());
-                            alleA3S1Label.get(k - 1).setText(alleA3S1Label.get(k).getText());
+                            ALLE_A3S1_SLIDER.get(k - 1).setValue(ALLE_A3S1_SLIDER.get(k).getValue());
+                            ALLE_A3S1_LABEL.get(k - 1).setText(ALLE_A3S1_LABEL.get(k).getText());
                             //Entferne die Elemente in der GUI
-                            jPanel1.remove(alleA3S1Boxen.get(k));
-                            jPanel1.remove(alleA3S1Slider.get(k));
-                            jPanel1.remove(alleA3S1Label.get(k));
+                            jPanel1.remove(ALLE_A3S1_BOXEN.get(k));
+                            jPanel1.remove(ALLE_A3S1_SLIDER.get(k));
+                            jPanel1.remove(ALLE_A3S1_LABEL.get(k));
                             //Entferne die Elemente in den Listen
-                            alleA3S1Boxen.remove(k);
-                            alleA3S1Slider.remove(k);
-                            alleA3S1Label.remove(k);
+                            ALLE_A3S1_BOXEN.remove(k);
+                            ALLE_A3S1_SLIDER.remove(k);
+                            ALLE_A3S1_LABEL.remove(k);
                             //Nun muessen ggf. die nachfolgenden Elemente nachruecken
-                            for (int l = k; l < alleA3S1Boxen.size(); l++) {
-                                jPanel1.remove(alleA3S1Boxen.get(l));
-                                jPanel1.remove(alleA3S1Slider.get(l));
-                                jPanel1.remove(alleA3S1Label.get(l));
-                                jPanel1.add(alleA3S1Boxen.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, alleA3S1Boxen.get(l).getY()-abstandZwischenA3Elementen, 240, -1));
-                                jPanel1.add(alleA3S1Slider.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S1Slider.get(l).getY()-abstandZwischenA3Elementen, 115, 20));
-                                jPanel1.add(alleA3S1Label.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S1Label.get(l).getY()-abstandZwischenA3Elementen, -1, -1));
+                            for (int l = k; l < ALLE_A3S1_BOXEN.size(); l++) {
+                                jPanel1.remove(ALLE_A3S1_BOXEN.get(l));
+                                jPanel1.remove(ALLE_A3S1_SLIDER.get(l));
+                                jPanel1.remove(ALLE_A3S1_LABEL.get(l));
+                                jPanel1.add(ALLE_A3S1_BOXEN.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, ALLE_A3S1_BOXEN.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, 240, -1));
+                                jPanel1.add(ALLE_A3S1_SLIDER.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, ALLE_A3S1_SLIDER.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, 115, 20));
+                                jPanel1.add(ALLE_A3S1_LABEL.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, ALLE_A3S1_LABEL.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, -1, -1));
                             }
                             //Update die Ansicht des Scrollpanels
                             jScrollPane2.setViewportView(jPanel1);
                             break;
                         } else { //Es wird ein Set fuer SII entfernt
                             //Uebertrage Daten auf vorheriges Element
-                            alleA3S2Slider.get(k - 1).setValue(alleA3S2Slider.get(k).getValue());
-                            alleA3S2Label.get(k - 1).setText(alleA3S2Label.get(k).getText());
+                            ALLE_A3S2_SLIDER.get(k - 1).setValue(ALLE_A3S2_SLIDER.get(k).getValue());
+                            ALLE_A3S2_LABEL.get(k - 1).setText(ALLE_A3S2_LABEL.get(k).getText());
                             //Entferne die Elemente in der GUI
                             jPanel2.remove(boxen.get(k));
-                            jPanel2.remove(alleA3S2Slider.get(k));
-                            jPanel2.remove(alleA3S2Label.get(k));
+                            jPanel2.remove(ALLE_A3S2_SLIDER.get(k));
+                            jPanel2.remove(ALLE_A3S2_LABEL.get(k));
                             //Entferne die Elemente in den Listen
-                            alleA3S2Boxen.remove(k);
-                            alleA3S2Slider.remove(k);
-                            alleA3S2Label.remove(k);
-                            for (int l = k; l < alleA3S2Boxen.size(); l++) {
-                                jPanel2.remove(alleA3S2Boxen.get(l));
-                                jPanel2.remove(alleA3S2Slider.get(l));
-                                jPanel2.remove(alleA3S2Label.get(l));
-                                jPanel2.add(alleA3S2Boxen.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, alleA3S2Boxen.get(l).getY()-abstandZwischenA3Elementen, 240, -1));
-                                jPanel2.add(alleA3S2Slider.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S2Slider.get(l).getY()-abstandZwischenA3Elementen, 115, 20));
-                                jPanel2.add(alleA3S2Label.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, alleA3S2Label.get(l).getY()-abstandZwischenA3Elementen, -1, -1));
+                            ALLE_A3S2_BOXEN.remove(k);
+                            ALLE_A3S2_SLIDER.remove(k);
+                            ALLE_A3S2_LABEL.remove(k);
+                            //Nun muessen ggf. die nachfolgenden Elemente nachruecken
+                            for (int l = k; l < ALLE_A3S2_BOXEN.size(); l++) {
+                                jPanel2.remove(ALLE_A3S2_BOXEN.get(l));
+                                jPanel2.remove(ALLE_A3S2_SLIDER.get(l));
+                                jPanel2.remove(ALLE_A3S2_LABEL.get(l));
+                                jPanel2.add(ALLE_A3S2_BOXEN.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, ALLE_A3S2_BOXEN.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, 240, -1));
+                                jPanel2.add(ALLE_A3S2_SLIDER.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, ALLE_A3S2_SLIDER.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, 115, 20));
+                                jPanel2.add(ALLE_A3S2_LABEL.get(l), new org.netbeans.lib.awtextra.AbsoluteConstraints(250, ALLE_A3S2_LABEL.get(l).getY()-ABSTANDZWISCHENA3ELEMENTEN, -1, -1));
                             }
                             //Update die Ansicht des Scrollpanels
                             jScrollPane3.setViewportView(jPanel2);

@@ -5,17 +5,16 @@ import java.util.ArrayList;
  * ausschließlich das, was die Anforderungsfelder alle gemeinsam haben. 
  * Da es kein allgemeines Anforderungsfeld gibt, ist diese Klasse abstrakt. 
  * @author Joana Bergsiek
- * @version 1.3.1
+ * @version 1.3.2
  */
 public abstract class Anforderungsfeld {
     
-    //Damit die Methoden mitvererbt werden sind diese oeffentlich.
     //Die Paramater sind so initialisiert, dass ein erzeugtes Anforderungsfeld zunaechst leer ist.
     public String fokus;
     public int zertifikatsstufe = 0;
     public boolean istErfuelltEins = false;
     public boolean istErfuelltZwei = false;
-    public boolean istErfuelltDrei = false ;
+    public boolean istErfuelltDrei = false;
     //Die Aktivitaeten werde in einer Liste gespeichert, damit problemlos weitere Aktivitaeten einfach hinzugefuegt werden koennen ohne dass Fehler auftreten
     public ArrayList<Aktivitaet> erfuellbareAktivitaeten = new ArrayList<>();
     public ArrayList<Aktivitaet> erfuellteAktivitaeten = new ArrayList<>();

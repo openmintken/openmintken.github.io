@@ -2,7 +2,7 @@
 /**
  * Anforderungsfeld II des MINT-Zertifikats.
  * @author Joana Bergsiek.
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class AnforderungsfeldZwei extends Anforderungsfeld {
     /**
@@ -10,6 +10,8 @@ public class AnforderungsfeldZwei extends Anforderungsfeld {
      */
     public AnforderungsfeldZwei() {
         //Initialisierung von erfuellbareAktivitaeten mit den 2 verfuegbaren Moeglichkeiten, dieses Anforderungsfeld zu erfuellen.
+        //Alle Aktivitaeten sind mit einem EINDEUTIGEN Code von inklusive 51 - 100 zu versehen
+        //Derzeit hoechster Code: 55
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Fachwissenschaftliche Arbeit mit mind. 10 Seiten", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"051"));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Wissenschaftspropädeutisches Fach",false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"052"));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Besondere Lernleistung", false, new String[]{">= 9 Notenpunkte",">= 11 Notenpunkte",">= 13 Notenpunkte"},"053"));

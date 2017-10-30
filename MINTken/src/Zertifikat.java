@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * ueberprueft, ob die Bedingungen zum MINT-Zertifikat erfuellt worden sind; ggf.
  * in welcher Stufe; was noch erfuellt werden muss.
  * @author Joana Bergsiek
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class Zertifikat {
     private int zertifikatsstufe;
@@ -134,7 +134,7 @@ public class Zertifikat {
             
             
             
-            //A1...
+            //A2...
             String A2Zeile = "";
             if (anforderungsfeldZwei.getErfuellteAktivitaeten().isEmpty()) {
                 //Keine Aktivitaet wurde hier erfuellt, mache nichts
@@ -185,6 +185,10 @@ public class Zertifikat {
         }
     }
     
+    /**
+     * Aus einer Liste mit 5-stelligen Aktivitaetencodes werden dem Zertifikat erfuellte Aktivitaeten hinzugefuegt.
+     * @param codes Eine Liste der erfuellten Aktivitaeten in Codeform
+     */
     public void erzeugeZertfikatsdaten (ArrayList<String> codes) {
         for (int i = 0; i < codes.size(); i++) {
             if (codes.get(i).length() >= 5) {
@@ -206,31 +210,91 @@ public class Zertifikat {
     } 
     
     /**
-     * Liest eine MINTken-Auswertung durch und speichert alle gefundenen Aktivitaeten-Codes in einer ArrayList.
-     * @param pPfad Die zu lesende Datei unter pPfad 
+     * Liest eine MINTken-Auswertung durch und speichert alle gefundenen
+     * Aktivitaeten-Codes in einer ArrayList.
+     *
+     * @param pPfad Die zu lesende Datei unter pPfad
      * @return Eine ArrayList mit allen gefundenen Codes
      */
     public ArrayList<String> erhalteCodesAusDatei(String pPfad) throws Exception {
         ArrayList<String> codes = new ArrayList<>();
-        
+
         //Oeffne Datei unter pPfad
         FileReader file = new FileReader(pPfad);
         BufferedReader reader = new BufferedReader(file);
-        
+
         //Lese Datei zeilenweise durch
         String line = reader.readLine();
-        while(line !=null) {
+        while (line != null) {
             //Ueberpruefe nun, ob in dieser Zeile ein 5-stelliger Code am Anfang steht
             if (line.length() >= 5) {
                 String anfangDerZeile = line.substring(0, 5);
-                    if (anfangDerZeile.endsWith("1") || anfangDerZeile.endsWith("2") || anfangDerZeile.endsWith("4") || anfangDerZeile.endsWith("5") ) { //Das 5. Zeichen einer Zeile endet mit einer Zahl und somit haben wir einen gueltigen Code
+                //Ist der Anfang der Zeile tatsaechlich eine Zahl?
+                    if (istGueltigerCode(anfangDerZeile)) { 
                         codes.add(anfangDerZeile);
                     }
             }
-            
             line = reader.readLine();
         }
         return codes;
+    }
+    
+    /**
+     * Untersucht, ob gegebener Code ein legitimer 5-stelliger Aktivitaetencode
+     * ist.
+     *
+     * @param code Der zu untersuchende Code
+     * @return true bei einem gueltigen Code; false wenn nicht
+     */
+    public boolean istGueltigerCode(String code) {
+        //Bedingungen fuer einen gueltigen Code:
+        //1. Dieser ist 5 Zeichen lang
+        if (code.length()!= 5) {
+            return false;
+        }
+        //2. Das 5. Zeichen endet mit der Identifikation des Anforderungsfeldes 
+        //1 -> A1; 2 -> A2; 4 -> A3 S1; 5 -> A3 S2
+        if (!(code.endsWith("1")
+                || code.endsWith("2")
+                || code.endsWith("4")
+                || code.endsWith("5"))) {
+            return false;
+        }
+        
+        //3. Das 4. Zeichen praesentiert die erreichte Niveaustufe der Aktivitaet
+        char viertesZeichen = code.charAt(3);
+        if (!(viertesZeichen == '1' || viertesZeichen == '2' || viertesZeichen == '3' )) {
+            return false;
+        }
+        
+        //4. Die ersten 3 Zeichen sind eine Zahl zwischen inklusive 0 und 999
+        try {
+            Integer potenCode = Integer.valueOf(code.substring(0, 3));
+            
+            //5. Wenn die vordere Zahl zwischen 0 und 51 ist, muss die letzte Zahl im Code eine 1 sein
+            if ( potenCode < 0 ) {
+                return false;
+            }
+            if ( potenCode > 0 && potenCode < 51 && !(code.endsWith("1"))) {
+                return false;
+            }
+            
+            //6. Wenn die vordere Zahl zwischen 50 und 101 ist, muss die letzte Zahl im Code eine 2 sein
+            if ( potenCode > 50 && potenCode < 101 && !(code.endsWith("2"))) {
+                return false;
+            }
+            
+            //7. Wenn die vordere Zahl zwischen 100 und 1000 ist ODER eine 0, muss die letzte Zahl im Code eine 4 oder 5 sein
+            if ( ( (potenCode > 100 && potenCode < 1000 ) || potenCode == 0)  && !(code.endsWith("4") || code.endsWith("5") )) {
+                return false;
+            }
+            
+        } catch (Exception ex) {
+            //Die 3 ersten Zeichen sind keine gueltige Zahl
+            return false;
+        }
+        
+        return true;
     }
     
     //Sondierende Methoden

@@ -3,7 +3,7 @@
  * zum Erfuellen eines Anforderungsfelds, ferner, bei mehreren Aktivitaeten, 
  * dem MINT-Zertifikat benoetigt wird.
  * @author Joana Bergsiek
- * @version 1.3.1
+ * @version 1.3.2
  */
 public class Aktivitaet {
     
@@ -146,7 +146,8 @@ public class Aktivitaet {
     }
     
     /**
-     * @return die Anforderung am pAnforderungsnummer. Index; 0 -> Niveau 1; 1 -> Niveau 2; 2 -> Niveau 3; gibt null aus, wenn pAnforderungsnummer nicht zwischen inklusive 0-2 entspricht.
+     * @param pAnforderungsnummer 0 -> Niveau 1; 1 -> Niveau 2; 2 -> Niveau 3
+     * @return die Anforderung am pAnforderungsnummer. Index; gibt null aus, wenn pAnforderungsnummer nicht zwischen inklusive 0-2 entspricht.
      */
     public String getAnforderung(int pAnforderungsnummer) {
         if ( pAnforderungsnummer < 0 || pAnforderungsnummer > 2) {
