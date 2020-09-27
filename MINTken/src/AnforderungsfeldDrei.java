@@ -44,7 +44,7 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Jugend präsentiert", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. oder 2. Preis", ""},true,"117",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Känguru der Mathematik", true, new String[] {"3 mal ernsthafte Teilnahme oder 3. Preis", "1. Preis oder 2. Preis",""},true, "118",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathematik-Olympiade", true, new String[] {"3 mal ernsthafte Teilnahme an der Schulrunde oder Preisträger in der Schulrunde oder Qualifikation für die Regionalrunde (Stadt/Kreis)", "3 mal ernsthafte Teilnahme an der Regionalrunde oder Preisträger in der Regionalrunde oder Qualifikation für die Landesrunde", "Qualifikation für die Bundesrunde"}, true, "119",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathe / Physik im Advent", true, new String[] {">= 21 korrekte Antworten bei einer Teilnahme SI", ">= 21 korrekte Antworten bei je 2 Teilnahmen in SI", ""},true, "120",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mathe / Physik im Advent", true, new String[] {">= 21 korrekte Antworten bei einer Teilnahme SI", ">= 21 korrekte Antworten bei je 2 Teilnahmen in SI", ""},true, "120",1));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-EC SchoolSlam", true, new String[] {"ernsthafte Teilnahme", "Preisträger", ""},true,"121",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("MNU-Bundeswettbewerb Physik", true, new String[] {"ernsthafte Teilnahme", "Qualifikation für die 2. Runde", ""},true,"122",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("RoboCup", true, new String[] {"ernsthafte Teilnahme am Qualifikationsturnier", "Qualifikation für Deutsche Meisterschaft", "Preisträger Deutsche Meisterschaft"},true,"123",3));
@@ -65,7 +65,7 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         //Lehr- und Lernveranstaltungen
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Camp / Ferienakademie / Forschungsexpedition / Workshop", false, new String[] {"2 Tage", ">= 3 Tage", ">= 7 Tage"}, false, "136",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("öffentliche Vorträge halten (außerunterrichtlich)", false, new String[] {"mindestens gute Leistung für einen Vortrag", "mindestens gute Leistung für 2 Vorträge",""},false, "137",3));
-        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mentorentätigkeit", false, new String[] {"regelmäßig 1 Jahr in SII", "regelmäßig 2 Jahre in SII", "regelmäßig 3 Jahre in SII"},false, "138",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Mentorentätigkeit", false, new String[] {"regelmäßig 1 Jahr in SII", "regelmäßig 2 Jahre in SII", "regelmäßig 3 Jahre in SII"},false, "138",2));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Universität / Hochschule", false, new String[] {"Schnupperstudium (keine eintätigen Besuche) oder MOOCs (max.2)", "Probestudium (Frühstudium, ein Semester lang)", "Probestudium mit Leistungsnachweis"}, false, "139",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("freiweilliges Ferien- oder Wochenendpraktikum mit eindeutigem MINT-Bezug", false, new String[] {">= 5 Tage", ">= 10 Tage",""}, false, "140",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("verpflichtendes Berufspraktikum mit eindeutigem MINT-Bezug", false, new String[] {">= 5 Tage", "", ""}, false, "141",3));
