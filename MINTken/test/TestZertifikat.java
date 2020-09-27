@@ -103,12 +103,9 @@ public class TestZertifikat {
 
     @Test
     public void testGroesse() {
-    assertTrue(zer.getAnforderungsfeldEins().getErfuellbareAktivitaeten().size() == 2);
-    assertEquals(2,eins.getErfuellbareAktivitaeten().size());
-    assertTrue(zer.getAnforderungsfeldZwei().getErfuellbareAktivitaeten().size() == 5);
+    assertEquals(3,eins.getErfuellbareAktivitaeten().size());
     assertEquals(5,zwei.getErfuellbareAktivitaeten().size());
-    assertTrue(zer.getAnforderungsfeldDrei().getErfuellbareAktivitaeten().size() == 50);
-    assertEquals(50,drei.getErfuellbareAktivitaeten().size());
+    assertEquals(58,drei.getErfuellbareAktivitaeten().size());
     }
     
     @Test
@@ -199,14 +196,14 @@ public class TestZertifikat {
     assertEquals(true,zwei.enthaeltID("051"));
     assertEquals(false,zwei.enthaeltID("133"));
     AnforderungsfeldDrei drei = new AnforderungsfeldDrei();
-    assertEquals(true,drei.enthaeltID("133"));
+    assertEquals(true,drei.enthaeltID("132"));
     assertEquals(false,drei.enthaeltID("1332"));
     }
     
     @Test
     public void bekommeAktDurchID() {
     AnforderungsfeldEins eins = new AnforderungsfeldEins();
-    assertEquals("2 Abiturfächer als Leistungskurse", eins.erhalteAktivitaetUnterID("001").getName());
+    assertEquals("3 MINT-Fächer, davon mind. 1 Abiturfach auf erhöhtem Niveau", eins.erhalteAktivitaetUnterID("001").getName());
     AnforderungsfeldZwei zwei = new AnforderungsfeldZwei();
     assertEquals("Fachwissenschaftliche Arbeit mit mind. 10 Seiten", zwei.erhalteAktivitaetUnterID("051").getName());
     AnforderungsfeldDrei drei = new AnforderungsfeldDrei();

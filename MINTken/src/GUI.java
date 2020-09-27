@@ -197,7 +197,7 @@ public class GUI extends javax.swing.JFrame {
         jPopupMenu2.add(jMenuItem17);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MINTken Version 1.3.2");
+        setTitle("MINTken Version 1.3.3");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 780));
