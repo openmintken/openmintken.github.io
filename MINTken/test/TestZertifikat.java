@@ -105,7 +105,7 @@ public class TestZertifikat {
     public void testGroesse() {
     assertEquals(3,eins.getErfuellbareAktivitaeten().size());
     assertEquals(5,zwei.getErfuellbareAktivitaeten().size());
-    assertEquals(58,drei.getErfuellbareAktivitaeten().size());
+    assertEquals(60,drei.getErfuellbareAktivitaeten().size());
     }
     
     @Test

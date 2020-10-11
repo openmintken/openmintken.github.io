@@ -91,6 +91,9 @@ public class AnforderungsfeldDrei extends Anforderungsfeld {
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Pangea", true, new String[] {"3 mal ernsthafte Teilnahme" , "Teilnahme an der Zwischenrunde oder Finale", ""}, true, "160",3));
         this.erfuellbareAktivitaeten.add(new Aktivitaet("Chemie – die stimmt!", true, new String[] {"2 mal ernsthafte Teilnahme" , "Erreichen der 2. Runde", "mindestens Erreichen der 3. Runde"}, true, "161",3));
         
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("MINT-ECho", false, new String[] {"Veröffentlichung einer Arbeit, die bereits im Zertifikat bewertet wird (z.B. durch Facharbeit oder Dr. Hans Riegel-Stiftung)" , "", "Veröffentlichung einer Arbeit, die sonst nicht im Zertifikat bewertet wird (z.B. durch Facharbeit oder Dr. Hans Riegel-Stiftung)"}, true, "162",3));
+        this.erfuellbareAktivitaeten.add(new Aktivitaet("Durch Corona ad hoc abgebrochene oder verkürzte Veranstaltung", false, new String[] {"Veranstaltungsdauer umfasst mindestens einen Tag vor Abbruch" , "", ""}, true, "163",3));
+        
         this.fokus = "Zusätzliche MINT-Aktivitäten in der SI und in der SII";
         
         //Schulspezifische Aktivitaeten
